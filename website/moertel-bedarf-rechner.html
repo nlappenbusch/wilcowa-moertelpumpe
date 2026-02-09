@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kostenloser Online-Mörtelrechner für Baustellen. Berechnen Sie exakt den Bedarf an Fugenmörtel, Zement oder Injektionsmaterial für Mauerwerk, Zargen und Hohlräume.">
+    <meta name="keywords" content="Mörtelrechner, Fugenrechner, Materialbedarf berechnen, Fugenvolumen Rechner, Mörtelbedarf, Zargenverfüllung Menge, Betonrechner">
+    <meta name="author" content="Wilcowa AG">
+    <link rel="canonical" href="https://www.wilcowa.ch/moertel-bedarf-rechner.html">
+    <title>Mörtel-Bedarfs-Rechner Online | Fugen & Hohlräume | Wilcowa AG</title>
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.wilcowa.ch/moertel-bedarf-rechner.html">
+    <meta property="og:title" content="Kostenloser Mörtel-Rechner für Profis">
+    <meta property="og:description" content="Schnell und einfach das Fugenvolumen und den Materialbedarf berechnen. Für Zargen, Mauerwerk und Platten.">
+    <meta property="og:image" content="https://www.wilcowa.ch/assets/wilcowa-logo.png">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="assets/wilcowa-logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .calc-wrapper {
+            background: #fff;
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border-top: 5px solid var(--accent);
+        }
+        .info-box {
+            background: #f8fafc;
+            padding: 30px;
+            border-radius: var(--radius);
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="assets/wilcowa-logo.png" alt="Wilcowa AG Logo">
+                    </a>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="produkte.html">Produkt & Daten</a></li>
+                        <li><a href="anwendungen.html">Anwendungen</a></li>
+                        <li><a href="moertel-bedarf-rechner.html" class="active">Rechner</a></li>
+                        <li><a href="kontakt.html">Kontakt</a></li>
+                    </ul>
+                </nav>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Title -->
+    <section class="section" style="padding-bottom: 20px; background: #f8fafc;">
+        <div class="container text-center">
+            <h1 class="section-title">Mörtel-Bedarfs-Rechner</h1>
+            <p style="font-size: 1.2rem; max-width: 700px; margin: 0 auto; color: var(--text-light);">
+                Berechnen Sie in Sekunden das Volumen von Fugen und Hohlräumen. 
+                <br>Ideal für Baustellenplanung, Sanierung und Materialbestellung.
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content Grid -->
+    <section class="section">
+        <div class="container">
+            <div class="split-layout">
+                
+                <!-- Left: Content & SEO -->
+                <div>
+                    <h2 class="mb-20">Wofür brauche ich diesen Rechner?</h2>
+                    <p class="mb-20">
+                        Egal ob Sie <strong>Stahlzargen hinterfüllen</strong>, <strong>Mauerwerk verfugen</strong> oder <strong>Spannbetonplatten ausgießen</strong>: Eine exakte Materialplanung spart Geld und verhindert Arbeitsunterbrechungen.
+                    </p>
+                    <p class="mb-20">
+                        Unser Rechner ermittelt basierend auf Ihren Geometriedaten das exakte Hohlraumvolumen und den geschätzten Bedarf an Trockenmörtel.
+                    </p>
+                    
+                    <div class="info-box border-top-accent">
+                        <h4 style="margin-bottom: 10px; color: var(--primary);">Universell einsetzbar</h4>
+                        <p style="font-size: 0.95rem;">
+                            Dieses Tool funktioniert für <strong>jede Verarbeitungsmethode</strong> – egal ob Sie von Hand verfugen, mit einer Spritztüte arbeiten oder eine professionelle Mörtelpumpe nutzen.
+                        </p>
+                    </div>
+
+                    <h3 class="mb-20">So funktioniert's:</h3>
+                    <ul class="check-list" style="margin-bottom: 30px;">
+                        <li>Länge, Breite und Tiefe der Fuge eingeben.</li>
+                        <li>Material-Dichte wählen (Standard ca. 1.8 kg/l).</li>
+                        <li>Sicherheitszuschlag (Verschnitt) einstellen.</li>
+                        <li>Ergebnis sofort ablesen und für Bestellung nutzen.</li>
+                    </ul>
+
+                    <!-- CTA Product Hook -->
+                    <div style="background: var(--primary); color: white; padding: 30px; border-radius: 8px;">
+                        <h3 style="color: white; margin-bottom: 15px;">Große Mengen zu verarbeiten?</h3>
+                        <p style="color: rgba(255,255,255,0.9); margin-bottom: 20px;">
+                            Sparen Sie bis zu 30% Material und 50% Arbeitszeit durch den Einsatz der WPS-Mörtelpumpe.
+                        </p>
+                        <a href="produkte.html" class="btn btn-secondary" style="background: white; color: var(--primary); width: 100%; text-align: center;">Zur WPS-Mörtelpumpe</a>
+                    </div>
+                </div>
+
+                <!-- Right: Calculator Tool -->
+                <div class="calc-wrapper sticky-sidebar" style="height: fit-content; top: 120px;">
+                    <div class="calculator-card fade-in-section" style="box-shadow: none; margin-bottom: 0;">
+                        
+                        <!-- Sliders & Inputs -->
+                        <div class="calc-inputs-wrapper" style="margin-bottom: 25px;">
+                            
+                            <!-- Length -->
+                            <div class="calc-range-group" style="margin-bottom: 20px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                    <label style="font-weight: bold; color: var(--text-dark);">Fugenlänge (Meter)</label>
+                                    <input type="number" id="calc-length-input" value="10" min="0" step="0.1" style="width: 80px; padding: 5px; text-align: right; border: 1px solid #ccc; border-radius: 4px;" oninput="syncInput('length', 'input')">
+                                </div>
+                                <input type="range" id="calc-length-range" min="0" max="100" value="10" step="0.5" style="width: 100%; cursor: pointer;" oninput="syncInput('length', 'range')">
+                            </div>
+
+                            <!-- Width -->
+                            <div class="calc-range-group" style="margin-bottom: 20px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                    <label style="font-weight: bold; color: var(--text-dark);">Fugenbreite (mm)</label>
+                                    <input type="number" id="calc-width-input" value="15" min="0" step="1" style="width: 80px; padding: 5px; text-align: right; border: 1px solid #ccc; border-radius: 4px;" oninput="syncInput('width', 'input')">
+                                </div>
+                                <input type="range" id="calc-width-range" min="0" max="100" value="15" style="width: 100%; cursor: pointer;" oninput="syncInput('width', 'range')">
+                            </div>
+
+                            <!-- Depth -->
+                            <div class="calc-range-group" style="margin-bottom: 20px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                    <label style="font-weight: bold; color: var(--text-dark);">Fugentiefe (mm)</label>
+                                    <input type="number" id="calc-depth-input" value="50" min="0" step="1" style="width: 80px; padding: 5px; text-align: right; border: 1px solid #ccc; border-radius: 4px;" oninput="syncInput('depth', 'input')">
+                                </div>
+                                <input type="range" id="calc-depth-range" min="0" max="200" value="50" style="width: 100%; cursor: pointer;" oninput="syncInput('depth', 'range')">
+                            </div>
+
+                            <!-- Settings Grid -->
+                            <div class="calc-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 25px;">
+                                <div class="calc-input-group">
+                                    <label style="font-weight: bold;">Material-Dichte</label>
+                                    <select id="calc-density" onchange="calculateMortar()" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd;">
+                                        <option value="1.8" selected>Standard (1.8 kg/l)</option>
+                                        <option value="1.2">Leichtmörtel (1.2 kg/l)</option>
+                                        <option value="2.0">Beton (2.0 kg/l)</option>
+                                        <option value="2.2">Schwerbeton (2.2 kg/l)</option>
+                                    </select>
+                                </div>
+                                <div class="calc-input-group">
+                                    <label style="font-weight: bold;">Verschnitt</label>
+                                    <select id="calc-wastage" onchange="calculateMortar()" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd;">
+                                        <option value="0">0% (Ideal)</option>
+                                        <option value="5">5% (Wenig)</option>
+                                        <option value="10" selected>10% (Standard)</option>
+                                        <option value="20">20% (Viel)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Result -->
+                        <div class="calc-result" style="background: var(--primary); color: white; border-radius: 8px; padding: 20px;">
+                            <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; align-items: center;">
+                                <div class="text-center">
+                                    <span style="font-size: 0.9rem; opacity: 0.9; display: block; color: white;">Benötigtes Volumen</span>
+                                    <span class="calc-result-value" id="result-liters" style="font-size: 2.5rem; font-weight: bold; color: white;">0.00</span>
+                                    <span class="calc-result-label" style="font-size: 1rem; color: white;">Liter</span>
+                                </div>
+                                <div style="width: 1px; height: 50px; background: rgba(255,255,255,0.3);"></div>
+                                <div class="text-center">
+                                    <span style="font-size: 0.9rem; opacity: 0.9; display: block; color: white;">Trockenmaterial (ca.)</span>
+                                    <span class="calc-result-value" id="result-kg" style="font-size: 2.5rem; font-weight: bold; color: white;">0.0</span>
+                                    <span class="calc-result-label" style="font-size: 1rem; color: white;">kg</span>
+                                </div>
+                            </div>
+                            <p style="font-size: 0.8rem; margin-top: 15px; text-align: center; color: rgba(255,255,255,0.8);">
+                                *Inkl. gewählter Reserve.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SEO Text Block Bottom -->
+    <section class="section section-bg">
+        <div class="container">
+            <h2 class="section-title">Häufige Anwendungsbereiche</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>Stahlzargen hinterfüllen</h3>
+                    <p>Für den Brandschutz ist eine hohlraumfreie Hinterfüllung von Zargen Pflicht. Mit unserem Rechner ermitteln Sie das exakte Volumen pro Zarge.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Mauerwerk verfugen</h3>
+                    <p>Bei der Sanierung von Naturstein- oder Ziegelmauerwerk summieren sich tausende Meter Fugen. Planen Sie Ihren Mörtelbedarf präzise.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Hohlräume & Anker</h3>
+                    <p>Vom Verfüllen von Hohlräumen bis zum Setzen von Ankern: Wissen Sie vorher, wie viel Material Sie anmischen müssen.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>Wilcowa AG</h4>
+                    <p>Ihr Partner für professionelle Bautechnik.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Menü</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="produkte.html">Produkte</a></li>
+                        <li><a href="anwendungen.html">Anwendungen</a></li>
+                        <li><a href="kontakt.html">Kontakt</a></li>
+                        <li><a href="moertel-bedarf-rechner.html">Rechner</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="impressum.html">Impressum</a></li>
+                        <li><a href="#">Datenschutz</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Wilcowa AG. Alle Rechte vorbehalten.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Init Calc on Load
+        document.addEventListener('DOMContentLoaded', () => {
+            calculateMortar();
+        });
+    </script>
+</body>
+</html>

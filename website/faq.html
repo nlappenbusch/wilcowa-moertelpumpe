@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Häufige Fragen (FAQ) | Wilcowa AG</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="assets/wilcowa-logo.png">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="assets/wilcowa-logo.png" alt="Wilcowa AG Logo">
+                    </a>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="produkte.html">Produkte</a></li>
+                        <li><a href="anwendungen.html">Anwendungen</a></li>
+                        <li><a href="moertel-bedarf-rechner.html">Rechner</a></li>
+                        <li><a href="faq.html" class="active">FAQ</a></li>
+                        <li><a href="kontakt.html">Kontakt</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="breadcrumbs">
+        <div class="container">
+            <a href="index.html">Home</a> <span class="separator">/</span> <span class="current">FAQ</span>
+        </div>
+    </div>
+
+    <section class="section">
+        <div class="container">
+            <h1 class="section-title">Häufige Fragen & Antworten</h1>
+            <p style="text-align: center; max-width: 600px; margin: 0 auto 50px auto;">
+                Alles Wissenwerte zur WPS-Mörtelpumpe, Material und Wartung.
+            </p>
+
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        Welche Materialien kann ich verwenden?
+                    </div>
+                    <div class="accordion-content">
+                        <p>Sie können alle pumpfähigen, werksgemischten Trockenmörtel verwenden. Wichtig ist eine maximale Korngröße von 4mm. Die Mischung sollte plastisch bis leicht fließfähig eingestellt sein. Zementsuspensionen und reine Kalkmörtel sind ebenfalls möglich.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        Wie reinige ich die Pumpe?
+                    </div>
+                    <div class="accordion-content">
+                        <p>Die Reinigung ist sehr einfach, da die Pumpe "trocken" arbeitet. Lediglich der Schlauch und der Pumpenkopf kommen mit Material in Berührung. Spülen Sie den Schlauch einfach mit Wasser durch. Der Trichter kann feucht ausgewischt werden.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        Benötige ich einen Kompressor?
+                    </div>
+                    <div class="accordion-content">
+                        <p>Nein. Die WPS-Pumpe arbeitet rein elektrisch (230V) mit einer Förderschnecke. Das macht sie extrem leise und überall einsetzbar, auch in bewohnten Räumen.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        Wie hoch ist der maximale Druck?
+                    </div>
+                    <div class="accordion-content">
+                        <p>Der Arbeitsdruck liegt je nach Materialkonsistenz bei ca. 1-2 bar. Dies ist ideal, um Hohlräume vollständig zu füllen, ohne jedoch das Mauerwerk durch zu hohen Druck zu beschädigen (wichtig bei Denkmalpflege).</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        Gibt es Ersatzteile?
+                    </div>
+                    <div class="accordion-content">
+                        <p>Ja, als exklusiver Schweizer Partner halten wir alle Verschleißteile (Schläuche, Düsen, Dichtungen) in Regensdorf an Lager. Der Versand erfolgt in der Regel innert 24h.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        Ist eine Schulung notwendig?
+                    </div>
+                    <div class="accordion-content">
+                        <p>Das Gerät ist sehr intuitiv. Eine kurze Einweisung bei der Übergabe oder ein Blick in die Kurzanleitung genügt meistens. Für komplexe Projekte stehen wir jedoch gerne beratend zur Seite.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        Kann ich die Pumpe alleine bedienen? (Einmannbedienung)
+                    </div>
+                    <div class="accordion-content">
+                        <p>Ja, absolut. Durch die kompakte Bauweise und die Fernbedienung direkt an der Lanze ist eine echte Einmannbedienung möglich. Das spart Personalkosten auf der Baustelle.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- More Help Teaser -->
+            <div style="background: #f0f7ff; padding: 40px; border-radius: var(--radius); text-align: center; margin-top: 60px;">
+                <h3 style="margin-bottom: 20px;">Frage nicht gefunden?</h3>
+                <p class="mb-20">Unser Technik-Team hilft Ihnen gerne persönlich weiter.</p>
+                <a href="kontakt.html" class="btn btn-primary">Kontakt aufnehmen</a>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>Wilcowa AG</h4>
+                    <p>Ihr Partner für professionelle Bautechnik.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Menü</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="produkte.html">Produkte</a></li>
+                        <li><a href="anwendungen.html">Anwendungen</a></li>
+                        <li><a href="kontakt.html">Kontakt</a></li>
+                        <li><a href="moertel-bedarf-rechner.html">Rechner</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="impressum.html">Impressum</a></li>
+                        <li><a href="#">Datenschutz</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Wilcowa AG. Alle Rechte vorbehalten.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
