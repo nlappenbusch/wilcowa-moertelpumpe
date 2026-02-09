@@ -1,0 +1,14 @@
+# keys / secrets
+*.key
+*.pem
+*.pfx
+*.p12
+**/id_rsa
+**/id_ed25519
+**/gh_actions_deploy*
+**/.env
+**/.env.*
+
+# windows noise
+Thumbs.db
+Desktop.ini
