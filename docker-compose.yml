@@ -6,7 +6,7 @@ services:
     container_name: moertelpumpe-website
     restart: unless-stopped
     ports:
-      - "8080:80"
+      - "8081:80"
     volumes:
       # Optional: Mount the website folder for live editing during development
       # Remove this line for production URL deployment if you rely solely on the image
