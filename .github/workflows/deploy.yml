@@ -1,0 +1,12 @@
+name: Deploy
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, Linux, X64, docker-prod-01]
+    steps:
+      - name: Deploy on internal server
+        run: /opt/moertelpumpe/deploy.sh
