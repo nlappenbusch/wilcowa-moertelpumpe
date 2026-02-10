@@ -130,7 +130,7 @@ header.scrolled {
     width: auto;
 }
 
-nav ul {
+nav > ul {
     display: flex;
     list-style: none;
     gap: 32px;
@@ -161,6 +161,58 @@ nav a:hover::after, nav a.active::after {
 
 nav a:hover, nav a.active {
     color: var(--primary);
+}
+
+nav li {
+    position: relative;
+}
+
+nav .submenu {
+    display: block;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 240px;
+    background: var(--white);
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    box-shadow: var(--shadow-md);
+    padding: 10px 0;
+    list-style: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    transition: var(--transition);
+    z-index: 1001;
+}
+
+nav .submenu li {
+    padding: 0;
+}
+
+nav .submenu a {
+    display: block;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    white-space: nowrap;
+}
+
+nav .submenu a::after {
+    display: none;
+}
+
+nav .submenu a:hover {
+    background: #f8fafc;
+    color: var(--primary);
+}
+
+nav li.nav-dropdown:hover > .submenu,
+nav li.nav-dropdown:focus-within > .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
 /* Breadcrumbs */
@@ -838,9 +890,25 @@ footer {
     nav.active {
         display: block;
     }
-    nav ul {
+    nav > ul {
         flex-direction: column;
         gap: 15px;
+    }
+
+    nav .submenu {
+        position: static;
+        min-width: auto;
+        box-shadow: none;
+        border: none;
+        padding: 8px 0 0 12px;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+    }
+
+    nav .submenu a {
+        padding: 6px 0;
+        white-space: normal;
     }
 }
 
