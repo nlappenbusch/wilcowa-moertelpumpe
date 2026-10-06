@@ -534,6 +534,13 @@ textarea { resize: vertical; min-height: 140px; }
     .mega-group a { border-radius: 6px; }
     .nav-call { display: inline-flex; margin-left: auto; width: 44px; height: 44px; align-items: center; justify-content: center; border-radius: 4px; background: var(--amber); color: var(--night); }
     .site-header .container { gap: 8px; }
+    /* Handy: nur Titel, ohne Beschreibung, damit die Liste ruhig und gut tippbar bleibt */
+    .mega small, .drop small { display: none; }
+    .mega strong, .drop strong { font-size: 1rem; font-weight: 400; }
+    .mega-group a { grid-template-columns: 36px 1fr; gap: 12px; padding: 10px 0; }
+    .menu-icon { width: 36px !important; height: 24px !important; }
+    .drop a { padding: 10px 0 10px 4px; }
+    .mega-title { margin-top: 6px; }
     .nav-toggle { margin-left: 0; }
     .drop, .mega { display: none; position: static; visibility: visible; opacity: 1; transform: none; width: auto; border: 0; box-shadow: none; padding: 0 0 10px; transition: none; }
     .has-sub.open > .drop, .has-sub.open > .mega { display: block; }
