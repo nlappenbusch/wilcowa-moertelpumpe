@@ -374,24 +374,50 @@ def spec_table(groups=None, rows=None, title="Technische Daten", note="Herstelle
                     <tbody>{body}</tbody>
                 </table>'''
 
-FAQ = [
-    ("Braucht die WPS-Mörtelpumpe einen Kompressor?",
-     "Ja. Die Pumpe wird mit Druckluft betrieben und braucht rund 200 l/min bei 8 bis 9 bar. Für Untermörteln und Stahlzargen reicht ein 230-V-Kompressor mit 2.2 kW, für Fugenarbeiten wird ein Kompressor mit 3 kW (400 V) empfohlen. Wir beraten Sie gerne zum passenden Gerät."),
-    ("Welche Mörtel lassen sich pumpen?",
-     "Die WPS fördert auch Mörtel, die als nicht maschinengängig gelten, zum Beispiel normalen Zement-Mauermörtel. Viele handelsübliche Fugenmörtel sind bereits auf Pumpfähigkeit getestet, die Liste finden Sie im Anwendungsblatt Fugen. Entscheidend ist die richtige Konsistenz. Mörtel, die noch nicht getestet sind, sollten vor dem Einsatz geprüft werden."),
-    ("Wie lässt sich die Fördermenge regeln?",
-     "Über den Luftdruck im Behälter stufenlos von 0 bis 15 l/min. Mit einem Kugelhahn an der Düse wird der Mörtelfluss sofort gestoppt und wieder gestartet. Der Förderdruck ist auf 2.5 bar begrenzt."),
-    ("Wie niedrig darf eine Fuge beim Untermörteln sein?",
-     "Die Fuge sollte mindestens 11 mm hoch sein, damit die Breitschlitzdüse mit Schnabel unter die Schwelle geschoben werden kann. In den Versuchen der Berner Fachhochschule wurden Höhen von 10 bis 50 mm untersucht, gut gefüllt wurden vor allem 20 bis 40 mm."),
-    ("Kann ich bei tiefen Temperaturen arbeiten?",
-     "In den Versuchen der Berner Fachhochschule härtete der Mörtel auch bei 0 °C Aussentemperatur aus, sofern er beim Einpumpen mindestens 6 °C warm war. Massgebend sind immer die Angaben des Mörtelherstellers."),
-    ("Wie aufwendig ist die Reinigung?",
-     "Inbetriebnahme und Reinigung dauern jeweils etwa 5 bis 10 Minuten. Weil der Mörtel ohne Schnecke oder Rotor gefördert wird, gibt es kaum Verschleissteile."),
-    ("Wie schwer ist die Pumpe, und passt sie aufs Gerüst?",
-     "Die Pumpe wiegt je nach Zubehör 50 bis 55 kg und ist als Sackkarre gebaut. Sie lässt sich so auf der Baustelle und auf dem Gerüst verschieben. Die Einfüllhöhe beträgt 900 mm."),
-    ("Kann ich die Pumpe mieten?",
-     "Ja. Sie können die WPS-Mörtelpumpe bei uns mieten, zum Beispiel für ein einzelnes Projekt oder um sie vor dem Kauf mit Ihrem Mörtel zu testen. Verfügbarkeit und Konditionen erhalten Sie telefonisch oder über das Anfrageformular."),
+# Häufige Fragen, nach Themen gruppiert. Antworten dürfen Links enthalten; für schema.org wird der Text ohne HTML verwendet.
+FAQ_GROUPS = [
+    ("geraet", "Gerät und Anschluss", [
+        ("Braucht die WPS-Mörtelpumpe einen Kompressor?",
+         "Ja. Die Pumpe wird mit Druckluft betrieben und braucht rund 200 l/min bei 8 bis 9 bar. Für Untermörteln und Stahlzargen reicht ein 230-V-Kompressor mit 2.2 kW, für Fugenarbeiten wird ein Kompressor mit 3 kW (400 V) empfohlen. <a href=\"produkte.html#kompressor\">Passende Kompressoren</a>"),
+        ("Braucht die Pumpe einen Stromanschluss?",
+         "Die Pumpe selbst nicht, sie arbeitet nur mit Druckluft. Strom braucht der Kompressor, je nach Modell 230 V oder 400 V."),
+        ("Worin unterscheidet sich die WPS von einer Schnecken- oder Schlauchpumpe?",
+         "Die WPS arbeitet ohne Schnecke, Rotor oder Kolben. Ein Druckluftvibrator macht den Mörtel fliessfähig, der Luftdruck fördert ihn. So entsteht keine Reibungswärme, der Mörtel entmischt sich nicht und das Pumpsystem verschleisst praktisch nicht. Den Mörtelfluss stoppen Sie am Kugelhahn, ohne die Pumpe abzustellen."),
+        ("Wie weit kann ich den Mörtel fördern?",
+         "Bis 4 m, bei Stahlzargen bis 3.2 m. Standardmässig wird ein Füllschlauch DN 25 mit 4 m Länge verwendet."),
+        ("Wie schwer ist die Pumpe, und passt sie aufs Gerüst?",
+         "Die Pumpe wiegt je nach Zubehör 50 bis 55 kg und ist als Sackkarre gebaut. Sie lässt sich so auf der Baustelle und auf dem Gerüst verschieben. Die Einfüllhöhe beträgt 900 mm."),
+        ("Wie aufwendig ist die Reinigung?",
+         "Inbetriebnahme und Reinigung dauern jeweils etwa 5 bis 10 Minuten. Weil der Mörtel ohne Schnecke oder Rotor gefördert wird, gibt es kaum Verschleissteile."),
+    ]),
+    ("moertel", "Mörtel und Anwendung", [
+        ("Welche Mörtel lassen sich pumpen?",
+         "Die WPS fördert auch Mörtel, die als nicht maschinengängig gelten, zum Beispiel normalen Zement-Mauermörtel. Viele handelsübliche Fugenmörtel sind bereits auf Pumpfähigkeit getestet, die Liste steht im <a href=\"assets/Anwendung_Fugen.pdf\" target=\"_blank\" rel=\"noopener\">Anwendungsblatt Fugen</a>. Entscheidend ist die richtige Konsistenz. Noch nicht getestete Mörtel sollten vor dem Einsatz geprüft werden."),
+        ("Welche Düse brauche ich?",
+         "Für Fugen die Fugendüse Ø 22 mm, für Klinker auf 4.5 mm zusammengedrückt. Zum Untermörteln die Breitschlitzdüse 10 × 155 mm bis ca. 120 mm Tiefe oder die Variante mit Schnabel bis über 400 mm. Für Anker die Rohrdüse DN 34. <a href=\"produkte.html#zubehoer\">Alle Düsen</a>"),
+        ("Wie lässt sich die Fördermenge regeln?",
+         "Über den Luftdruck im Behälter stufenlos von 0 bis 15 l/min. Mit dem Kugelhahn an der Düse wird der Mörtelfluss sofort gestoppt und wieder gestartet. Der Förderdruck ist auf 2.5 bar begrenzt."),
+        ("Wie niedrig darf eine Fuge beim Untermörteln sein?",
+         "Die Fuge sollte mindestens 11 mm hoch sein, damit die Breitschlitzdüse mit Schnabel unter die Schwelle geschoben werden kann. In den Versuchen der Berner Fachhochschule wurden Höhen von 10 bis 50 mm untersucht, gut gefüllt wurden vor allem 20 bis 40 mm."),
+        ("Kann ich bei tiefen Temperaturen arbeiten?",
+         "In den Versuchen der Berner Fachhochschule härtete der Mörtel auch bei 0 °C Aussentemperatur aus, sofern er beim Einpumpen mindestens 6 °C warm war. Massgebend sind immer die Angaben des Mörtelherstellers."),
+        ("Wie viel schafft man mit der Pumpe?",
+         "Laut Hersteller beim Untermörteln bis 25 Laufmeter pro Stunde. Bei V-Fugen an Betonfertigteilen schaffen zwei Personen rund 200 m pro Tag, eine Standard-Stahlzarge ist in rund 47 Minuten gesetzt und ausgemörtelt. Für Ihr Projekt rechnet es der <a href=\"moertel-bedarf-rechner.html\">Mörtelrechner</a>."),
+    ]),
+    ("miete", "Miete und Kauf", [
+        ("Kann ich die Pumpe mieten?",
+         "Ja. Sie können die WPS-Mörtelpumpe bei uns mieten, zum Beispiel für ein einzelnes Projekt oder um sie vor dem Kauf mit Ihrem Mörtel zu testen."),
+        ("Was kostet die Miete oder der Kauf?",
+         "Das hängt von Mietdauer und Ausrüstung ab, etwa ob Kompressor und Mischer dazukommen. Eine Offerte erhalten Sie telefonisch unter " + PHONE + " oder über das <a href=\"kontakt.html\">Anfrageformular</a>."),
+        ("Bekomme ich eine Einweisung?",
+         "Ja. Die Bedienung ist einfach, eine Einweisung bei der Übergabe genügt in der Regel. Bei anspruchsvollen Projekten beraten wir Sie gerne vorab zu Mörtel, Düse und Vorgehen."),
+    ]),
 ]
+FAQ = [(q, a) for _, _, items in FAQ_GROUPS for q, a in items]
+
+def strip_tags(text):
+    return re.sub(r"<[^>]+>", "", text).strip()
+
 
 # Kundenbewertung: Durchschnitt aus den gesammelten Rückmeldungen der Wilcowa AG (Excel).
 # Strukturierte Daten (AggregateRating) erst ausgeben, wenn die Anzahl Bewertungen bekannt ist:
@@ -512,6 +538,27 @@ def page_index():
 '''
 
 # ------------------------------------------------------------------ Produkt
+# Schema der Pumpe: Kompressor -> Druckluft -> Behälter mit Vibrator -> Schlauch -> Kugelhahn/Düse
+PUMP_DIAGRAM = """<svg class="pump-diagram" viewBox="0 0 680 300" role="img" aria-labelledby="pd-t">
+  <title id="pd-t">Funktionsschema der WPS-Mörtelpumpe: Kompressor, Behälter mit Vibrator, Schlauch, Düse mit Kugelhahn</title>
+  <rect x="16" y="150" width="104" height="72" rx="8" class="pd-box"/>
+  <text x="68" y="191" class="pd-label" text-anchor="middle">Kompressor</text>
+  <path d="M120 170H170V46H262V64" class="pd-air"/>
+  <path d="M256 58l6 9 6-9" class="pd-air-head"/>
+  <rect x="200" y="64" width="124" height="176" rx="16" class="pd-tank"/>
+  <rect x="208" y="122" width="108" height="110" rx="10" class="pd-mortar"/>
+  <path d="M226 177l10-12 10 24 10-24 10 24 10-24 10 24 10-12" class="pd-vib"/>
+  <path d="M262 240v14c0 34 70 34 120 14s110-20 150-26" class="pd-hose"/>
+  <circle cx="546" cy="228" r="11" class="pd-valve"/>
+  <path d="M546 217v22" class="pd-valve-line"/>
+  <path d="M557 222h64l26 6-26 6h-64z" class="pd-nozzle"/>
+  <path d="M650 228c8 0 14 4 14 10" class="pd-out"/>
+  <g class="pd-num"><circle cx="190" cy="40" r="13"/><text x="190" y="45" text-anchor="middle">1</text></g>
+  <g class="pd-num"><circle cx="340" cy="150" r="13"/><text x="340" y="155" text-anchor="middle">2</text></g>
+  <g class="pd-num"><circle cx="420" cy="268" r="13"/><text x="420" y="273" text-anchor="middle">3</text></g>
+  <g class="pd-num"><circle cx="546" cy="196" r="13"/><text x="546" y="201" text-anchor="middle">4</text></g>
+</svg>"""
+
 def page_produkt():
     crumbs = [("Start", "index.html"), ("WPS-Mörtelpumpe", "produkte.html")]
     nozzles = [
@@ -529,17 +576,49 @@ def page_produkt():
     ]
     noz = "".join(f"<tr><th scope=\"row\">{a}</th><td>{b}</td></tr>" for a, b in nozzles)
     com = "".join(f"<tr><td>{a}</td><td>{b}</td><td>{c}</td></tr>" for a, b, c in comp)
-    return page_head(crumbs, "WPS-Mörtelpumpe", "Druckluftbetriebene Mörtelpumpe der Winiger Pump System AG, Wald ZH. Patentiert, verschleissfrei und für Standardmörtel ausgelegt.", extra=rating_badge(dark=True)) + f'''
-    <main class="section">
+    picks = "".join(f'<li><a href="{a}.html">{app_icon(a)}<span>{MENU_LABELS[a][0]}</span></a></li>'
+                    for title, slugs in MENU_GROUPS for a in slugs)
+    toc = [("funktion", "So funktioniert die Pumpe"), ("einsatz", "Einsatzbereiche"), ("eigenschaften", "Eigenschaften"),
+           ("technische-daten", "Technische Daten"), ("zubehoer", "Düsen und Zubehör"), ("kompressor", "Kompressor und Mischer"),
+           ("hersteller", "Hersteller")]
+    toc_html = "".join(f'<li><a href="#{i}">{t}</a></li>' for i, t in toc)
+    return f'''
+    <section class="page-head page-head-media page-head-product">
+        <div class="container">
+            <div class="page-head-text">
+                {breadcrumbs(crumbs)}
+                <h1>WPS-Mörtelpumpe</h1>
+                <p class="lead">Druckluftbetriebene Mörtelpumpe der Winiger Pump System AG, Wald ZH. Patentiert, verschleissfrei und für Standardmörtel ausgelegt.</p>
+                <div class="btn-row">
+                    <a class="btn btn-accent" href="kontakt.html?type=miete">Miete oder Kauf anfragen</a>
+                    <a class="btn btn-outline-light" href="#technische-daten">Technische Daten</a>
+                </div>
+                {rating_badge(dark=True)}
+            </div>
+            <img src="assets/Untermorteln_Holzbau.avif" alt="WPS-Mörtelpumpe mit Behälter, Fahrgestell und Schlauch" width="790" height="906" fetchpriority="high">
+        </div>
+    </section>
+
+    <div class="section">
         <div class="container layout">
             <article class="prose">
-                <figure class="lead-figure"><img src="assets/Untermorteln_Holzbau.avif" alt="WPS-Mörtelpumpe mit Behälter und Fahrgestell" width="790" height="906" style="object-fit:contain;background:#f4f5f6"></figure>
+                <h2 id="funktion">So funktioniert die Pumpe</h2>
+                <figure class="diagram">
+                    {PUMP_DIAGRAM}
+                    <ol class="diagram-legend">
+                        <li><strong>Druckluft</strong> vom Kompressor setzt den Behälter unter Druck, begrenzt auf max. 2.5 bar.</li>
+                        <li><strong>Vibrator</strong> im Behälter macht den Mörtel fliessfähig, ohne ihn zu entmischen.</li>
+                        <li><strong>Schlauch</strong> DN 25 fördert den Mörtel bis 4 m weit, ohne Schnecke oder Rotor.</li>
+                        <li><strong>Kugelhahn</strong> an der Düse stoppt und startet den Mörtelfluss sofort.</li>
+                    </ol>
+                </figure>
+                <p>Weil keine Schnecke und kein Rotor im Spiel sind, entsteht keine mechanische Reibungswärme. Auch Mörtel, die als nicht maschinengängig gelten, führen deshalb nicht zu Stopfern. Bei motorgetriebenen Schnecken- oder Schlauchpumpen muss zum Unterbrechen der Motor abgestellt werden, bei der WPS genügt der Kugelhahn.</p>
 
-                <h2>Funktionsprinzip</h2>
-                <p>Die WPS-Mörtelpumpe arbeitet ohne Schnecke, Rotor oder Kolben. Ein auf den Mörtel abgestimmter Druckluftvibrator macht die Masse im Behälter fliessfähig, der Luftdruck darüber fördert sie durch den Schlauch zur Düse. So entsteht keine mechanische Reibungswärme und der Mörtel entmischt sich nicht. Auch Mörtel, die als nicht maschinengängig gelten, führen deshalb nicht zu Stopfern.</p>
-                <p>Der Förderdruck ist auf 2.5 bar begrenzt. Damit lässt sich der Mörtel genau dosieren: Ein Kugelhahn an der Düse stoppt und startet den Mörtelfluss sofort. Bei motorgetriebenen Schnecken- oder Schlauchpumpen müsste dafür der Motor abgeschaltet werden.</p>
+                <h2 id="einsatz">Einsatzbereiche</h2>
+                <p>Mit der passenden Düse für Arbeiten im Hoch-, Holz- und Tiefbau:</p>
+                <ul class="picks">{picks}</ul>
 
-                <h2>Eigenschaften</h2>
+                <h2 id="eigenschaften">Eigenschaften</h2>
                 <ul class="bullets">
                     <li>pumpt auch nicht maschinengängige Mörtel, zum Beispiel Zement-Mauermörtel</li>
                     <li>Fördermenge stufenlos über den Luftdruck einstellbar</li>
@@ -556,24 +635,24 @@ def page_produkt():
                 <h2 id="zubehoer">Düsen und Zubehör</h2>
                 <div class="table-wrap"><table class="table"><thead><tr><th>Teil</th><th>Einsatz</th></tr></thead><tbody>{noz}</tbody></table></div>
 
-                <h3>Kompressor</h3>
+                <h2 id="kompressor">Kompressor und Mischer</h2>
                 <p>Für den Betrieb braucht es einen Kompressor. Welche Leistung nötig ist, hängt von der Anwendung ab:</p>
                 <div class="table-wrap"><table class="table"><thead><tr><th>Modell</th><th>Daten</th><th>Geeignet für</th></tr></thead><tbody>{com}</tbody></table></div>
-
-                <h3>Mörtelmischer</h3>
                 <p>Zum Anmachen des Mörtels eignet sich ein horizontaler Zwangsmischer wie der IPERBET, der wenig Luft in den Mörtel einträgt. Für Fugenarbeiten kommen ein Handrührwerk zum Nachmischen und eine Schlauchtrommel dazu.</p>
 
-                <h2>Hersteller</h2>
+                <h2 id="hersteller">Hersteller</h2>
                 <p>Die WPS-Mörtelpumpe wird von der Winiger Pump System AG in Wald ZH entwickelt und gebaut. Das Unternehmen wurde 2005 von Hans-Rudolf und Gerhard Winiger gegründet, die Pumpe ist seit 2006 im Einsatz. Pumpsystem und Design sind patentiert.</p>
                 <p class="source-note">Weitere Informationen und Anwendungsvideos finden Sie auf der Website des Herstellers: <a href="{WPS}/" target="_blank" rel="noopener">wps-ag.ch</a></p>
             </article>
             <aside class="sidebar">
-                <section><h2>Unterlagen</h2>{downloads("untermoerteln", "fugen", "tiefbau")}</section>
+                <nav class="toc" aria-label="Auf dieser Seite"><h2>Auf dieser Seite</h2><ul>{toc_html}</ul></nav>
                 {side_contact()}
+                <section><h2>Unterlagen</h2>{downloads("untermoerteln", "fugen", "tiefbau")}</section>
             </aside>
         </div>
-    </main>
+    </div>
 '''
+
 
 # ------------------------------------------------------------------ Detailseiten
 DETAILS = {
@@ -1001,19 +1080,38 @@ def page_rechner():
 # ------------------------------------------------------------------ FAQ
 def page_faq():
     crumbs = [("Start", "index.html"), ("Häufige Fragen", "faq.html")]
-    items = "".join(f'''
-                <details><summary>{q}</summary><div class="answer"><p>{a}</p></div></details>''' for q, a in FAQ)
-    return page_head(crumbs, "Häufige Fragen zur WPS-Mörtelpumpe", "Zu Kompressor, Mörtel, Bedienung, Untermörteln und Miete.") + f'''
-    <main class="section">
+    cats = "".join(f'<a href="#{k}">{t}<span>{len(items)}</span></a>' for k, t, items in FAQ_GROUPS)
+    groups = ""
+    first = True
+    for k, t, items in FAQ_GROUPS:
+        qs = ""
+        for q, a in items:
+            qs += f'\n                    <details{" open" if first else ""}><summary>{q}</summary><div class="answer"><p>{a}</p></div></details>'
+            first = False
+        groups += f'''
+                <section class="faq-group" id="{k}" aria-labelledby="h-{k}">
+                    <h2 id="h-{k}">{t}</h2>
+                    <div class="faq">{qs}
+                    </div>
+                </section>'''
+    return page_head(crumbs, "Häufige Fragen zur WPS-Mörtelpumpe", "Kompressor, Mörtel, Düsen, Leistung, Miete und Kauf. Ihre Frage ist nicht dabei? Rufen Sie uns an.") + f'''
+    <div class="section">
         <div class="container layout">
-            <div class="faq">{items}
+            <div>
+                <div class="faq-tools">
+                    <label class="sr-only" for="faq-search">Frage suchen</label>
+                    <input type="search" id="faq-search" placeholder="Frage suchen, zum Beispiel «Kompressor» oder «Düse»" autocomplete="off">
+                    <nav class="faq-cats" aria-label="Themen">{cats}</nav>
+                </div>
+                <p class="faq-empty" id="faq-empty" hidden>Keine passende Frage gefunden. Rufen Sie uns an unter <a href="{PHONE_HREF}">{PHONE}</a> oder senden Sie uns eine <a href="kontakt.html">Anfrage</a>.</p>
+                {groups}
             </div>
             <aside class="sidebar">
                 {side_contact()}
                 <section><h2>Unterlagen</h2>{downloads("untermoerteln", "fugen")}</section>
             </aside>
         </div>
-    </main>
+    </div>
 '''
 
 # ------------------------------------------------------------------ Kontakt
@@ -1107,7 +1205,7 @@ PAGES = [
          title="Mörtelrechner: Zeit, Kosten und Mörtel mit der WPS sparen | Wilcowa",
          desc="Mörtelrechner mit Vergleich: Arbeitszeit, Kosten und Mörtelbedarf beim Untermörteln, für V-Fugen, Fugen und Stahlzargen, von Hand und mit der WPS-Mörtelpumpe."),
     dict(file="faq.html", share=("Häufige Fragen", "Kompressor, Mörtel, Bedienung und Miete", "Mauer-Anker_verpressen"), active="faq", body=page_faq,
-         ld=[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in FAQ]}],
+         ld=[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": strip_tags(a)}} for q, a in FAQ]}],
          title="Fragen zur WPS-Mörtelpumpe: Kompressor, Mörtel, Miete | Wilcowa",
          desc="Antworten zur WPS-Mörtelpumpe: Welcher Kompressor, welche Mörtel, minimale Fugenhöhe beim Untermörteln, Arbeiten bei Kälte, Reinigung, Gewicht und Miete."),
     dict(file="kontakt.html", share=("Kontakt", "Beratung, Miete und Verkauf in Regensdorf", "Untermorteln_Stahltragerplatte"), active="kontakt", body=page_kontakt, ld=[LOCAL_BUSINESS],

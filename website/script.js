@@ -272,3 +272,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// FAQ: Suche filtert Fragen und Antworten live
+document.addEventListener('DOMContentLoaded', () => {
+    const input = document.getElementById('faq-search');
+    if (!input) return;
+    const items = [...document.querySelectorAll('.faq details')];
+    const groups = [...document.querySelectorAll('.faq-group')];
+    const empty = document.getElementById('faq-empty');
+    const norm = t => t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    input.addEventListener('input', () => {
+        const q = norm(input.value.trim());
+        let hits = 0;
+        items.forEach(d => {
+            const match = !q || norm(d.textContent).includes(q);
+            d.classList.toggle('is-hidden', !match);
+            if (q.length >= 3) d.open = match;
+            if (match) hits++;
+        });
+        groups.forEach(g => g.classList.toggle('is-hidden', !g.querySelector('details:not(.is-hidden)')));
+        empty.hidden = hits > 0;
+    });
+});
+

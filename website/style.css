@@ -410,6 +410,53 @@ img { display: block; max-width: 100%; height: auto; }
 .faq summary:hover { color: var(--navy); }
 .faq .answer { padding: 0 32px 18px 0; max-width: 72ch; }
 
+/* FAQ-Suche und Themen */
+.faq-tools { margin-bottom: 28px; }
+.faq-tools input[type=search] { padding: 14px 16px; font-size: 1.02rem; border-radius: 8px; }
+.faq-cats { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.faq-cats a { display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; border: 1px solid var(--line); border-radius: 20px; color: var(--ink); text-decoration: none; font-size: 0.92rem; }
+.faq-cats a:hover { border-color: var(--navy); color: var(--navy); }
+.faq-cats span { font-size: 0.78rem; color: var(--muted); }
+.faq-group + .faq-group { margin-top: 40px; }
+.faq-group h2 { font-size: 1.35rem; margin-bottom: 4px; }
+.faq-group.is-hidden, .faq details.is-hidden { display: none; }
+.faq-empty { padding: 16px 18px; border-radius: 8px; background: var(--navy-tint); margin-bottom: 20px; }
+.faq .answer a { font-weight: 500; }
+
+/* Produktseite */
+.page-head-product img { object-fit: contain; background: #fff; aspect-ratio: 4 / 3; padding: 12px; }
+.diagram { margin: 18px 0 8px !important; padding: 22px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+.pump-diagram { display: block; width: 100%; height: auto; font-family: var(--font); }
+.pd-box { fill: #e3e7ec; stroke: #b9c0c8; }
+.pd-label { font-size: 14px; fill: var(--ink); font-weight: 500; }
+.pd-air { fill: none; stroke: #7ea6d8; stroke-width: 5; stroke-linejoin: round; stroke-dasharray: 10 7; }
+.pd-air-head { fill: none; stroke: #7ea6d8; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.pd-tank { fill: #dfe3e8; stroke: #9aa4b0; stroke-width: 2; }
+.pd-mortar { fill: var(--amber); opacity: .85; }
+.pd-vib { fill: none; stroke: var(--night); stroke-width: 3; stroke-linejoin: round; }
+.pd-hose { fill: none; stroke: #4b5562; stroke-width: 9; stroke-linecap: round; }
+.pd-valve { fill: #c0392b; }
+.pd-valve-line { stroke: #fff; stroke-width: 3; }
+.pd-nozzle { fill: #7d8794; }
+.pd-out { fill: none; stroke: var(--amber); stroke-width: 6; stroke-linecap: round; }
+.pd-num circle { fill: var(--navy); }
+.pd-num text { fill: #fff; font-size: 14px; font-weight: 600; }
+.diagram-legend { list-style: none; counter-reset: pd; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; margin-top: 18px; padding: 0; }
+.diagram-legend li { counter-increment: pd; position: relative; padding-left: 34px; font-size: 0.94rem; max-width: none; }
+.diagram-legend li::before { content: counter(pd); position: absolute; left: 0; top: 1px; width: 24px; height: 24px; border-radius: 50%; background: var(--navy); color: #fff; font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+.picks { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 0 !important; margin: 14px 0 0 !important; }
+.picks a { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 8px 12px; border: 1px solid var(--line); border-radius: 8px; text-align: center; color: var(--ink); text-decoration: none; font-size: 0.88rem; font-weight: 500; line-height: 1.25; height: 100%; }
+.picks a:hover { border-color: var(--navy); background: var(--navy-tint); color: var(--navy); }
+.picks .menu-icon { width: 56px; height: 37px; }
+.toc { padding: 18px 20px; border: 1px solid var(--line); border-radius: 8px; }
+.toc ul { list-style: none; }
+.toc li + li { border-top: 1px solid var(--line); }
+.toc a { display: block; padding: 7px 0; font-size: 0.93rem; color: var(--ink); text-decoration: none; }
+.toc a:hover { color: var(--navy); }
+.sidebar .toc + section, .sidebar .toc + .side-contact { margin-top: 24px; }
+@media (max-width: 900px) { .toc { display: none; } .diagram-legend { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .picks { grid-template-columns: repeat(2, 1fr); } .diagram { padding: 14px; } }
+
 /* Formular */
 .contact-grid { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 64px; align-items: start; }
 .contact-list { list-style: none; }

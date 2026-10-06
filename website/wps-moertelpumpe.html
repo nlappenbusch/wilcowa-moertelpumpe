@@ -26,7 +26,7 @@
     <meta name="theme-color" content="#27446f">
     <link rel="preload" href="assets/fonts/roboto-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/barlow-semi-condensed-600-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="style.css?v=af8efbeb">
+    <link rel="stylesheet" href="style.css?v=1859198c">
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -108,25 +108,60 @@
     </header>
 
     <main id="inhalt">
-    <section class="page-head">
+    <section class="page-head page-head-media page-head-product">
         <div class="container">
-            <nav class="breadcrumbs" aria-label="Brotkrumen"><ol><li><a href="/">Start</a></li><li><span aria-current="page">WPS-Mörtelpumpe</span></li></ol></nav>
-            <h1>WPS-Mörtelpumpe</h1>
-            <p class="lead">Druckluftbetriebene Mörtelpumpe der Winiger Pump System AG, Wald ZH. Patentiert, verschleissfrei und für Standardmörtel ausgelegt.</p>
-            <a class="rating rating-dark" href="/#erfahrungen"><span class="stars" aria-hidden="true"><svg class="star" aria-hidden="true"><use href="assets/icons.svg?v=e6b1f9a0#star"/></svg><svg class="star" aria-hidden="true"><use href="assets/icons.svg?v=e6b1f9a0#star"/></svg><svg class="star" aria-hidden="true"><use href="assets/icons.svg?v=e6b1f9a0#star"/></svg><svg class="star" aria-hidden="true"><use href="assets/icons.svg?v=e6b1f9a0#star"/></svg><svg class="star" aria-hidden="true"><use href="assets/icons.svg?v=e6b1f9a0#star"/></svg></span><strong>4.8</strong><span>von 5</span><span class="rating-src">26 Kundenbewertungen</span></a>
+            <div class="page-head-text">
+                <nav class="breadcrumbs" aria-label="Brotkrumen"><ol><li><a href="/">Start</a></li><li><span aria-current="page">WPS-Mörtelpumpe</span></li></ol></nav>
+                <h1>WPS-Mörtelpumpe</h1>
+                <p class="lead">Druckluftbetriebene Mörtelpumpe der Winiger Pump System AG, Wald ZH. Patentiert, verschleissfrei und für Standardmörtel ausgelegt.</p>
+                <div class="btn-row">
+                    <a class="btn btn-accent" href="/kontakt?type=miete">Miete oder Kauf anfragen</a>
+                    <a class="btn btn-outline-light" href="#technische-daten">Technische Daten</a>
+                </div>
+                <a class="rating rating-dark" href="/#erfahrungen"><span class="stars" aria-hidden="true"><svg class="star" aria-hidden="true"><use href="assets/icons.svg?v=e6b1f9a0#star"/></svg><svg class="star" aria-hidden="true"><use href="assets/icons.svg?v=e6b1f9a0#star"/></svg><svg class="star" aria-hidden="true"><use href="assets/icons.svg?v=e6b1f9a0#star"/></svg><svg class="star" aria-hidden="true"><use href="assets/icons.svg?v=e6b1f9a0#star"/></svg><svg class="star" aria-hidden="true"><use href="assets/icons.svg?v=e6b1f9a0#star"/></svg></span><strong>4.8</strong><span>von 5</span><span class="rating-src">26 Kundenbewertungen</span></a>
+            </div>
+            <img src="assets/Untermorteln_Holzbau.avif" alt="WPS-Mörtelpumpe mit Behälter, Fahrgestell und Schlauch" width="790" height="906" fetchpriority="high">
         </div>
     </section>
 
     <div class="section">
         <div class="container layout">
             <article class="prose">
-                <figure class="lead-figure"><img src="assets/Untermorteln_Holzbau.avif" alt="WPS-Mörtelpumpe mit Behälter und Fahrgestell" width="790" height="906" style="object-fit:contain;background:#f4f5f6"></figure>
+                <h2 id="funktion">So funktioniert die Pumpe</h2>
+                <figure class="diagram">
+                    <svg class="pump-diagram" viewBox="0 0 680 300" role="img" aria-labelledby="pd-t">
+  <title id="pd-t">Funktionsschema der WPS-Mörtelpumpe: Kompressor, Behälter mit Vibrator, Schlauch, Düse mit Kugelhahn</title>
+  <rect x="16" y="150" width="104" height="72" rx="8" class="pd-box"/>
+  <text x="68" y="191" class="pd-label" text-anchor="middle">Kompressor</text>
+  <path d="M120 170H170V46H262V64" class="pd-air"/>
+  <path d="M256 58l6 9 6-9" class="pd-air-head"/>
+  <rect x="200" y="64" width="124" height="176" rx="16" class="pd-tank"/>
+  <rect x="208" y="122" width="108" height="110" rx="10" class="pd-mortar"/>
+  <path d="M226 177l10-12 10 24 10-24 10 24 10-24 10 24 10-12" class="pd-vib"/>
+  <path d="M262 240v14c0 34 70 34 120 14s110-20 150-26" class="pd-hose"/>
+  <circle cx="546" cy="228" r="11" class="pd-valve"/>
+  <path d="M546 217v22" class="pd-valve-line"/>
+  <path d="M557 222h64l26 6-26 6h-64z" class="pd-nozzle"/>
+  <path d="M650 228c8 0 14 4 14 10" class="pd-out"/>
+  <g class="pd-num"><circle cx="190" cy="40" r="13"/><text x="190" y="45" text-anchor="middle">1</text></g>
+  <g class="pd-num"><circle cx="340" cy="150" r="13"/><text x="340" y="155" text-anchor="middle">2</text></g>
+  <g class="pd-num"><circle cx="420" cy="268" r="13"/><text x="420" y="273" text-anchor="middle">3</text></g>
+  <g class="pd-num"><circle cx="546" cy="196" r="13"/><text x="546" y="201" text-anchor="middle">4</text></g>
+</svg>
+                    <ol class="diagram-legend">
+                        <li><strong>Druckluft</strong> vom Kompressor setzt den Behälter unter Druck, begrenzt auf max. 2.5 bar.</li>
+                        <li><strong>Vibrator</strong> im Behälter macht den Mörtel fliessfähig, ohne ihn zu entmischen.</li>
+                        <li><strong>Schlauch</strong> DN 25 fördert den Mörtel bis 4 m weit, ohne Schnecke oder Rotor.</li>
+                        <li><strong>Kugelhahn</strong> an der Düse stoppt und startet den Mörtelfluss sofort.</li>
+                    </ol>
+                </figure>
+                <p>Weil keine Schnecke und kein Rotor im Spiel sind, entsteht keine mechanische Reibungswärme. Auch Mörtel, die als nicht maschinengängig gelten, führen deshalb nicht zu Stopfern. Bei motorgetriebenen Schnecken- oder Schlauchpumpen muss zum Unterbrechen der Motor abgestellt werden, bei der WPS genügt der Kugelhahn.</p>
 
-                <h2>Funktionsprinzip</h2>
-                <p>Die WPS-Mörtelpumpe arbeitet ohne Schnecke, Rotor oder Kolben. Ein auf den Mörtel abgestimmter Druckluftvibrator macht die Masse im Behälter fliessfähig, der Luftdruck darüber fördert sie durch den Schlauch zur Düse. So entsteht keine mechanische Reibungswärme und der Mörtel entmischt sich nicht. Auch Mörtel, die als nicht maschinengängig gelten, führen deshalb nicht zu Stopfern.</p>
-                <p>Der Förderdruck ist auf 2.5 bar begrenzt. Damit lässt sich der Mörtel genau dosieren: Ein Kugelhahn an der Düse stoppt und startet den Mörtelfluss sofort. Bei motorgetriebenen Schnecken- oder Schlauchpumpen müsste dafür der Motor abgeschaltet werden.</p>
+                <h2 id="einsatz">Einsatzbereiche</h2>
+                <p>Mit der passenden Düse für Arbeiten im Hoch-, Holz- und Tiefbau:</p>
+                <ul class="picks"><li><a href="/untermoerteln-holzschwellen"><svg class="menu-icon" viewBox="0 0 72 48" aria-hidden="true"><rect x="18" y="8" width="36" height="22" class="s-wood"/><rect x="18" y="30" width="36" height="6" class="s-mortar"/><rect x="2" y="36" width="68" height="10" class="s-solid"/></svg><span>Untermörteln</span></a></li><li><a href="/stahlzargen-einmoerteln"><svg class="menu-icon" viewBox="0 0 72 48" aria-hidden="true"><path d="M8 46V4h56v42h-8V12H16v34z" class="s-solid"/><path d="M16 46V12h40v34h-4V16H20v30z" class="s-mortar"/><path d="M20 46V16h32v30h-3V19H23v27z" class="s-steel"/></svg><span>Stahlzargen einmörteln</span></a></li><li><a href="/daemmplatten-kleben"><svg class="menu-icon" viewBox="0 0 72 48" aria-hidden="true"><rect x="2" y="6" width="22" height="38" class="s-solid"/><rect x="34" y="6" width="22" height="38" class="s-wood"/><circle cx="29" cy="14" r="3.5" class="s-mortar"/><circle cx="29" cy="25" r="3.5" class="s-mortar"/><circle cx="29" cy="36" r="3.5" class="s-mortar"/></svg><span>Kleber auf Dämmplatten</span></a></li><li><a href="/natursteinmauer-verfugen"><svg class="menu-icon" viewBox="0 0 72 48" aria-hidden="true"><rect x="2" y="2" width="68" height="44" class="s-mortar"/><path d="M4 4h22l2 14-4 6H4zM30 4h20l-2 12H31zM53 4h15v18H51zM4 27h18l4 8-2 9H4zM28 27l4-8h16l5 10-3 15H28zM56 25h12v19H54l-2-10z" class="s-solid"/></svg><span>Natur- und Bruchstein</span></a></li><li><a href="/klinker-verfugen"><svg class="menu-icon" viewBox="0 0 72 48" aria-hidden="true"><rect x="2" y="4" width="68" height="40" class="s-mortar"/><path d="M4 6h20v10H4zM27 6h20v10H27zM50 6h18v10H50zM4 19h8v10H4zM15 19h20v10H15zM38 19h20v10H38zM61 19h7v10h-7zM4 32h20v10H4zM27 32h20v10H27zM50 32h18v10H50z" class="s-solid"/></svg><span>Klinker-Verblender</span></a></li><li><a href="/betonfugen-ausmoerteln"><svg class="menu-icon" viewBox="0 0 72 48" aria-hidden="true"><path d="M4 10h20l12 22v12H4z" class="s-solid"/><path d="M68 10H48L36 32v12h32z" class="s-solid"/><path d="M24 10h24L36 32z" class="s-mortar"/></svg><span>Betonfugen</span></a></li><li><a href="/deckenfugen-ausmoerteln"><svg class="menu-icon" viewBox="0 0 72 48" aria-hidden="true"><path d="M2 16h31v22H2zM39 16h31v22H39z" class="s-solid"/><path d="M33 16h6v22h-6z" class="s-mortar"/><circle cx="12" cy="27" r="4" class="s-hole"/><circle cx="24" cy="27" r="4" class="s-hole"/><circle cx="48" cy="27" r="4" class="s-hole"/><circle cx="60" cy="27" r="4" class="s-hole"/></svg><span>Deckenplatten-Fugen</span></a></li><li><a href="/maueranker-verpressen"><svg class="menu-icon" viewBox="0 0 72 48" aria-hidden="true"><rect x="22" y="2" width="48" height="44" class="s-solid"/><rect x="22" y="19" width="40" height="10" class="s-mortar"/><path d="M4 24h56" class="s-rod"/><path d="M8 18v12" class="s-rod"/></svg><span>Mauer- und Felsanker</span></a></li></ul>
 
-                <h2>Eigenschaften</h2>
+                <h2 id="eigenschaften">Eigenschaften</h2>
                 <ul class="bullets">
                     <li>pumpt auch nicht maschinengängige Mörtel, zum Beispiel Zement-Mauermörtel</li>
                     <li>Fördermenge stufenlos über den Luftdruck einstellbar</li>
@@ -146,19 +181,17 @@
                 <h2 id="zubehoer">Düsen und Zubehör</h2>
                 <div class="table-wrap"><table class="table"><thead><tr><th>Teil</th><th>Einsatz</th></tr></thead><tbody><tr><th scope="row">Fugendüse Ø 22 × 1 mm</th><td>Natursteinmauern, Randsteine, Betonfugen. Standardlänge 13 cm, andere Längen auf Wunsch. Für Klinkerfugen auf 4.5 mm Innenmass gedrückt.</td></tr><tr><th scope="row">Breitschlitzdüse 10 × 155 mm mit Absperrklappe</th><td>Untermörteln bis ca. 120 mm Tiefe</td></tr><tr><th scope="row">Breitschlitzdüse 8 × 155 mm mit Schnabel 110 × 9.5 mm</th><td>Untermörteln ab 120 mm bis über 400 mm Tiefe, Mindestfugenhöhe 11 mm</td></tr><tr><th scope="row">Rohrdüse DN 34</th><td>Verpressen von Mauer- und Felsankern</td></tr><tr><th scope="row">Füllschlauch DN 25, 4 m</th><td>mit drehbaren GEKA-Kupplungen</td></tr><tr><th scope="row">Stahlbügel und Edelstahlstosser</th><td>Zubehör für die Montage von U-Stahlzargen, Zubehör für Blockzargen auf Anfrage</td></tr></tbody></table></div>
 
-                <h3>Kompressor</h3>
+                <h2 id="kompressor">Kompressor und Mischer</h2>
                 <p>Für den Betrieb braucht es einen Kompressor. Welche Leistung nötig ist, hängt von der Anwendung ab:</p>
                 <div class="table-wrap"><table class="table"><thead><tr><th>Modell</th><th>Daten</th><th>Geeignet für</th></tr></thead><tbody><tr><td>Gentilin C330/03</td><td>230 V, 2.2 kW, 200 l/min bei 5 bar, 32 kg</td><td>Untermörteln, Stahlzargen</td></tr><tr><td>FIAC Pony AB 515</td><td>400 V, 3 kW, 375 l/min bei 8 bar, 72 kg</td><td>Fugenarbeiten</td></tr><tr><td>FIAC Pony AB 858</td><td>400 V, 5.5 kW, 640 l/min bei 8 bar, 135 kg</td><td>Spritzarbeiten und übrige Anwendungen</td></tr></tbody></table></div>
-
-                <h3>Mörtelmischer</h3>
                 <p>Zum Anmachen des Mörtels eignet sich ein horizontaler Zwangsmischer wie der IPERBET, der wenig Luft in den Mörtel einträgt. Für Fugenarbeiten kommen ein Handrührwerk zum Nachmischen und eine Schlauchtrommel dazu.</p>
 
-                <h2>Hersteller</h2>
+                <h2 id="hersteller">Hersteller</h2>
                 <p>Die WPS-Mörtelpumpe wird von der Winiger Pump System AG in Wald ZH entwickelt und gebaut. Das Unternehmen wurde 2005 von Hans-Rudolf und Gerhard Winiger gegründet, die Pumpe ist seit 2006 im Einsatz. Pumpsystem und Design sind patentiert.</p>
                 <p class="source-note">Weitere Informationen und Anwendungsvideos finden Sie auf der Website des Herstellers: <a href="https://www.wps-ag.ch/" target="_blank" rel="noopener">wps-ag.ch</a></p>
             </article>
             <aside class="sidebar">
-                <section><h2>Unterlagen</h2><ul class="downloads"><li><a href="assets/Flyer_Untermorteln_2019.pdf" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="assets/icons.svg?v=e6b1f9a0#file"/></svg>Flyer Untermörteln von Holzschwellen<span>PDF, 1.3 MB</span></a></li><li><a href="assets/Anwendung_Fugen.pdf" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="assets/icons.svg?v=e6b1f9a0#file"/></svg>Anwendungsblatt Fugen mit getesteten Fugenmörteln<span>PDF, 5 Seiten</span></a></li><li><a href="assets/Flyer_Strassen-Hoch-Tiefbau.pdf" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="assets/icons.svg?v=e6b1f9a0#file"/></svg>Flyer Hochbau, Strassen- und Tiefbau<span>PDF</span></a></li></ul></section>
+                <nav class="toc" aria-label="Auf dieser Seite"><h2>Auf dieser Seite</h2><ul><li><a href="#funktion">So funktioniert die Pumpe</a></li><li><a href="#einsatz">Einsatzbereiche</a></li><li><a href="#eigenschaften">Eigenschaften</a></li><li><a href="#technische-daten">Technische Daten</a></li><li><a href="#zubehoer">Düsen und Zubehör</a></li><li><a href="#kompressor">Kompressor und Mischer</a></li><li><a href="#hersteller">Hersteller</a></li></ul></nav>
                 <section class="side-contact">
                     <h2>Beratung und Miete</h2>
                     <a class="side-contact-phone" href="tel:+41433887060"><svg class="i" aria-hidden="true"><use href="assets/icons.svg?v=e6b1f9a0#phone"/></svg>+41 43 388 70 60</a>
@@ -166,6 +199,7 @@
                     <a class="btn btn-accent" href="/kontakt">Anfrage senden</a>
                     <a class="side-contact-mail" href="mailto:info@wilcowa.ch"><svg class="i" aria-hidden="true"><use href="assets/icons.svg?v=e6b1f9a0#mail"/></svg>info@wilcowa.ch</a>
                 </section>
+                <section><h2>Unterlagen</h2><ul class="downloads"><li><a href="assets/Flyer_Untermorteln_2019.pdf" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="assets/icons.svg?v=e6b1f9a0#file"/></svg>Flyer Untermörteln von Holzschwellen<span>PDF, 1.3 MB</span></a></li><li><a href="assets/Anwendung_Fugen.pdf" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="assets/icons.svg?v=e6b1f9a0#file"/></svg>Anwendungsblatt Fugen mit getesteten Fugenmörteln<span>PDF, 5 Seiten</span></a></li><li><a href="assets/Flyer_Strassen-Hoch-Tiefbau.pdf" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="assets/icons.svg?v=e6b1f9a0#file"/></svg>Flyer Hochbau, Strassen- und Tiefbau<span>PDF</span></a></li></ul></section>
             </aside>
         </div>
     </div>
@@ -224,6 +258,6 @@
         </div>
     </footer>
 
-    <script src="script.js?v=14fc4aa7"></script>
+    <script src="script.js?v=87b95323"></script>
 </body>
 </html>
