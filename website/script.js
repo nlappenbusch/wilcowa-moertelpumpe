@@ -1,21 +1,41 @@
-// Navigation (mobil)
+// Navigation
 document.addEventListener('DOMContentLoaded', () => {
     const toggle = document.querySelector('.nav-toggle');
-    if (toggle) {
-        toggle.addEventListener('click', () => {
-            const open = document.body.classList.toggle('nav-open');
-            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-        });
-    }
-    document.querySelectorAll('.sub-toggle').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const open = btn.parentElement.classList.toggle('open');
-            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    const nav = document.querySelector('.main-nav');
+    const mobile = window.matchMedia('(max-width: 900px)');
+    const setOpen = open => {
+        document.body.classList.toggle('nav-open', open);
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+    if (toggle) toggle.addEventListener('click', () => setOpen(!document.body.classList.contains('nav-open')));
+
+    // Auf dem Handy öffnet ein Tipp auf "WPS-Mörtelpumpe" oder "Anwendungen" das Untermenü,
+    // statt direkt die Seite zu laden. Es ist immer nur ein Untermenü offen.
+    const subs = [...document.querySelectorAll('.has-sub')];
+    const setSub = (li, open) => {
+        li.classList.toggle('open', open);
+        li.querySelector('.nav-top').setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+    subs.forEach(li => {
+        li.querySelector('.nav-top').addEventListener('click', e => {
+            if (!mobile.matches) return;
+            e.preventDefault();
+            const open = !li.classList.contains('open');
+            subs.forEach(o => setSub(o, o === li && open));
         });
     });
-    // Escape schliesst ein per Tastatur geöffnetes Menü
+
+    // Nach Klick auf einen Eintrag Menü schliessen (wichtig für Sprungmarken auf derselben Seite)
+    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        if (mobile.matches && !a.classList.contains('nav-top')) setOpen(false);
+    }));
+    mobile.addEventListener('change', () => { setOpen(false); subs.forEach(o => setSub(o, false)); });
+
+    // Escape schliesst Menüs
     document.addEventListener('keydown', e => {
-        if (e.key === 'Escape' && document.activeElement.closest('.has-sub')) document.activeElement.blur();
+        if (e.key !== 'Escape') return;
+        if (document.body.classList.contains('nav-open')) setOpen(false);
+        if (document.activeElement.closest('.has-sub')) document.activeElement.blur();
     });
 });
 

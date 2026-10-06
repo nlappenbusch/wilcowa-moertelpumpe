@@ -110,7 +110,6 @@ img { display: block; max-width: 100%; height: auto; }
 .has-sub > .nav-top::after { content: ''; position: absolute; left: 0; right: 0; top: 100%; height: 26px; }
 .has-sub { position: static; }
 .has-drop { position: relative; }
-.sub-toggle { display: none; }
 .drop, .mega { visibility: hidden; opacity: 0; transform: translateY(6px); transition: opacity .16s ease, transform .16s ease, visibility 0s linear .16s; }
 /* Öffnen per Maus oder Tastatur (nur sichtbarer Fokus, damit ein angeklicktes Menü nicht offen hängen bleibt) */
 .has-sub:hover > .drop, .has-sub:has(:focus-visible) > .drop,
@@ -511,7 +510,7 @@ textarea { resize: vertical; min-height: 140px; }
         display: none;
         position: absolute; top: var(--header-h); left: 0; right: 0;
         background: #fff; border-bottom: 1px solid var(--line);
-        max-height: calc(100vh - var(--header-h)); overflow-y: auto;
+        max-height: calc(100vh - var(--header-h)); max-height: calc(100dvh - var(--header-h)); overflow-y: auto; overscroll-behavior: contain;
         padding: 4px var(--gutter) 20px;
     }
     .nav-open .main-nav { display: block; }
@@ -520,11 +519,22 @@ textarea { resize: vertical; min-height: 140px; }
     .main-nav a { padding: 13px 0; }
     .main-nav a.active { text-decoration: none; }
     .main-nav > ul > li { position: relative; }
-    .main-nav .nav-top .i { display: none; }
     .has-sub > .nav-top::after { display: none; }
-    .sub-toggle { display: flex; position: absolute; right: 0; top: 4px; width: 44px; height: 44px; align-items: center; justify-content: center; background: none; border: 0; color: var(--ink); cursor: pointer; }
-    .sub-toggle .i { transition: transform .2s; }
-    .has-sub.open > .sub-toggle .i { transform: rotate(180deg); }
+    body.nav-open { overflow: hidden; }
+    /* Hover-Zustände vom Desktop gelten auf Touch nicht: sichtbar ist, was per Tipp geöffnet wurde */
+    .main-nav > ul > .has-sub > .mega, .main-nav > ul > .has-sub > .drop { visibility: visible !important; opacity: 1 !important; transform: none !important; }
+    .main-nav a { min-height: 48px; display: flex; align-items: center; font-size: 1.02rem; }
+    .main-nav .nav-top { display: flex; width: 100%; justify-content: space-between; }
+    .main-nav .nav-top .i { display: block; width: 20px; height: 20px; color: var(--ink); transition: transform .2s; }
+    .has-sub.open > .nav-top .i { transform: rotate(180deg); }
+    .has-sub.open > .nav-top { color: var(--navy); }
+    .has-sub:hover > .nav-top .i { transform: none; }
+    .has-sub.open:hover > .nav-top .i { transform: rotate(180deg); }
+    .drop a, .mega-group a { min-height: 0; }
+    .mega-group a { border-radius: 6px; }
+    .nav-call { display: inline-flex; margin-left: auto; width: 44px; height: 44px; align-items: center; justify-content: center; border-radius: 4px; background: var(--amber); color: var(--night); }
+    .site-header .container { gap: 8px; }
+    .nav-toggle { margin-left: 0; }
     .drop, .mega { display: none; position: static; visibility: visible; opacity: 1; transform: none; width: auto; border: 0; box-shadow: none; padding: 0 0 10px; transition: none; }
     .has-sub.open > .drop, .has-sub.open > .mega { display: block; }
     .site-header .mega .container { padding: 0; }
@@ -548,7 +558,7 @@ textarea { resize: vertical; min-height: 140px; }
     .section + .section { padding-top: 0; }
 }
 
-@media (min-width: 901px) { .nav-mobile-only { display: none; } }
+@media (min-width: 901px) { .nav-mobile-only, .nav-call { display: none; } }
 
 @media (max-width: 600px) {
     :root { --gutter: 16px; }

@@ -63,7 +63,10 @@ def head(p):
     <meta property="og:description" content="{h.escape(p["desc"])}">
     <meta property="og:image" content="{og_img}">
     <meta property="og:locale" content="de_CH">
-    <link rel="icon" type="image/png" href="assets/wilcowa-logo.png">
+    <link rel="icon" href="favicon.ico" sizes="32x32">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <meta name="theme-color" content="#27446f">
     <link rel="preload" href="assets/fonts/roboto-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/barlow-semi-condensed-600-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="style.css?v={ver('style.css')}">{ld}
@@ -101,7 +104,7 @@ MENU_LABELS = {
 }
 
 PRODUCT_MENU = [
-    ("produkte.html", "Funktionsprinzip", "So arbeitet die Pumpe"),
+    ("produkte.html", "Übersicht und Funktionsprinzip", "So arbeitet die Pumpe"),
     ("produkte.html#technische-daten", "Technische Daten", "Leistung, Anschluss, Gewicht"),
     ("produkte.html#zubehoer", "Düsen und Zubehör", "Düsen, Kompressor, Mischer"),
     ("faq.html", "Häufige Fragen", "Kompressor, Mörtel, Miete"),
@@ -134,13 +137,11 @@ def header(active):
             <nav class="main-nav" aria-label="Hauptnavigation">
                 <ul>
                     <li class="has-sub has-drop">
-                        <a class="nav-top{act("produkt")}" href="produkte.html">WPS-Mörtelpumpe {chev}</a>
-                        <button class="sub-toggle" type="button" aria-label="Untermenü WPS-Mörtelpumpe" aria-expanded="false">{chev}</button>
+                        <a class="nav-top{act("produkt")}" href="produkte.html" aria-haspopup="true">WPS-Mörtelpumpe {chev}</a>
                         <div class="drop"><ul>{prod}</ul></div>
                     </li>
                     <li class="has-sub has-mega">
-                        <a class="nav-top{act("anwendungen")}" href="anwendungen.html">Anwendungen {chev}</a>
-                        <button class="sub-toggle" type="button" aria-label="Untermenü Anwendungen" aria-expanded="false">{chev}</button>
+                        <a class="nav-top{act("anwendungen")}" href="anwendungen.html" aria-haspopup="true">Anwendungen {chev}</a>
                         <div class="mega">
                             <div class="container mega-inner">
                                 <div class="mega-groups">{groups}</div>
@@ -158,6 +159,7 @@ def header(active):
                 <a class="header-phone" href="{PHONE_HREF}">{PHONE}</a>
                 <a class="btn btn-accent" href="kontakt.html">Anfrage</a>
             </div>
+            <a class="nav-call" href="{PHONE_HREF}" aria-label="Anrufen: {PHONE}"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#phone"/></svg></a>
             <button class="nav-toggle" type="button" aria-label="Menü" aria-expanded="false"><svg class="i i-menu" aria-hidden="true"><use href="assets/icons.svg#menu"/></svg><svg class="i i-close" aria-hidden="true"><use href="assets/icons.svg#close"/></svg></button>
         </div>
     </header>
