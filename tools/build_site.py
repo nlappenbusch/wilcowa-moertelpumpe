@@ -385,7 +385,9 @@ def proof_cards():
 # ------------------------------------------------------------------ Startseite
 def page_index():
     tiles = "".join(f'''
-                <li><a href="{s_}.html"><img src="assets/{img}.avif" alt="{t}" loading="lazy" width="900" height="675"><h3>{app_icon(s_)}{t}</h3><p>{txt}</p></a></li>''' for s_, n, t, txt, img in APPS)
+                <li{' class="tile-featured"' if k == 0 else ''}><a href="{s_}.html"><img src="assets/{img}.avif" alt="{t}" loading="lazy" width="900" height="675"><h3>{t}</h3><p>{txt}</p></a></li>''' for k, (s_, n, t, txt, img) in enumerate(APPS))
+    tiles += '''
+                <li class="tile-calc"><a href="moertel-bedarf-rechner.html"><h3>Lohnt sich die WPS für Ihr Projekt?</h3><p>Arbeitszeit, Kosten und Mörtel im Vergleich zur Handarbeit berechnen.</p><span>Zum Mörtelrechner</span></a></li>'''
     return f'''
     <main>
     <section class="hero">
