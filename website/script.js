@@ -20,25 +20,25 @@ document.addEventListener('DOMContentLoaded', () => {
             dims: [['Länge', 'm', 50], ['Schwellenbreite', 'mm', 100], ['Fugenhöhe', 'mm', 20]],
             factor: 1, rateUnit: 'm/h',
             hand: 6, wps: 20, wpsTag: 'Hersteller', wpsHint: 'Hersteller: bis 25 m/h',
-            name: 'Untermörtelung',
+            name: 'Untermörtelung', lenRange: [1, 300], rateRange: [1, 40],
         },
         vfuge: {
             dims: [['Länge', 'm', 100], ['Breite oben', 'mm', 30], ['Tiefe', 'mm', 20]],
             factor: 0.5, rateUnit: 'm/h',
             hand: 10, wps: 25, wpsTag: 'Hersteller', wpsHint: 'Hersteller: ca. 200 m pro Tag zu zweit',
-            name: 'V-Fugen',
+            name: 'V-Fugen', lenRange: [10, 1000], rateRange: [1, 50],
         },
         fuge: {
             dims: [['Länge', 'm', 50], ['Breite', 'mm', 15], ['Tiefe', 'mm', 20]],
             factor: 1, rateUnit: 'm/h',
             hand: 4, wps: 10, wpsTag: 'Annahme', wpsHint: 'Hersteller nennt keinen Wert',
-            name: 'Fugen',
+            name: 'Fugen', lenRange: [1, 300], rateRange: [1, 30],
         },
         zarge: {
             dims: [['Anzahl Zargen', 'Stk.', 12]],
             perPiece: 22, rateUnit: 'min/Stk.',
             hand: 90, wps: 47, wpsTag: 'Hersteller', wpsHint: 'Hersteller: 47 min pro Standardzarge',
-            name: 'Stahlzargen',
+            name: 'Stahlzargen', lenRange: [1, 100], rateRange: [15, 240],
         },
     };
 
@@ -46,6 +46,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const num = id => Math.max(0, parseFloat(String($(id).value).replace(',', '.')) || 0);
     const fmt = (n, d = 0) => n.toLocaleString('de-CH', { minimumFractionDigits: d, maximumFractionDigits: d });
     const mode = () => form.querySelector('[name=mode]:checked').value;
+
+    // Schieberegler mit Zahlenfeld koppeln
+    const ranges = [...form.querySelectorAll('.range')];
+    const fill = r => r.style.setProperty('--p', `${(r.value - r.min) / (r.max - r.min) * 100}%`);
+    const syncRange = id => {
+        const r = $(`${id}-range`);
+        if (!r) return;
+        r.value = $(id).value;
+        fill(r);
+    };
+    const setRange = (id, [min, max]) => {
+        const r = $(`${id}-range`);
+        r.min = min;
+        r.max = max;
+        syncRange(id);
+    };
+    ranges.forEach(r => {
+        const id = r.id.replace(/-range$/, '');
+        r.addEventListener('input', () => {
+            $(id).value = r.value;
+            fill(r);
+        });
+        $(id).addEventListener('input', () => syncRange(id));
+        fill(r);
+    });
 
     function setMode() {
         const m = MODES[mode()];
@@ -66,6 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
         $('wps-rate-tag').textContent = m.wpsTag;
         $('wps-rate-tag').className = 'tag' + (m.wpsTag === 'Hersteller' ? ' tag-source' : '');
         $('wps-rate-hint').textContent = m.wpsHint;
+        setRange('calc-a', m.lenRange);
+        setRange('hand-rate', m.rateRange);
+        setRange('wps-rate', m.rateRange);
         calc();
     }
 

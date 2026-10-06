@@ -15,7 +15,7 @@
     <link rel="icon" type="image/png" href="assets/wilcowa-logo.png">
     <link rel="preload" href="assets/fonts/roboto-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/barlow-semi-condensed-600-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="style.css?v=224e299d">
+    <link rel="stylesheet" href="style.css?v=f8148433">
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -80,7 +80,7 @@
                     <fieldset class="calc-step">
                         <legend><span class="step-no">2</span>Masse</legend>
                         <div class="calc-grid">
-                            <div class="field" id="calc-a-field"><label for="calc-a"><span id="calc-a-label">Länge</span></label><div class="input-unit"><input type="number" id="calc-a" value="50" min="0" step="0.5" inputmode="decimal"><span id="calc-a-unit">m</span></div></div>
+                            <div class="field" id="calc-a-field"><label for="calc-a"><span id="calc-a-label">Länge</span></label><div class="input-unit"><input type="number" id="calc-a" value="50" min="0" step="0.5" inputmode="decimal"><span id="calc-a-unit">m</span></div><input type="range" class="range" id="calc-a-range" min="1" max="300" step="0.5" value="50" aria-label="Länge" tabindex="-1"></div>
                             <div class="field" id="calc-b-field"><label for="calc-b"><span id="calc-b-label">Schwellenbreite</span></label><div class="input-unit"><input type="number" id="calc-b" value="100" min="0" step="1" inputmode="decimal"><span id="calc-b-unit">mm</span></div></div>
                             <div class="field" id="calc-c-field"><label for="calc-c"><span id="calc-c-label">Fugenhöhe</span></label><div class="input-unit"><input type="number" id="calc-c" value="20" min="0" step="1" inputmode="decimal"><span id="calc-c-unit">mm</span></div></div>
                         </div>
@@ -91,18 +91,18 @@
                         <div class="compare-grid">
                             <div class="compare-col">
                                 <h3>Von Hand, heute</h3>
-                                <div class="field" id="hand-rate-field"><label for="hand-rate"><span id="hand-rate-label">Leistung</span> <em class="tag" id="hand-rate-tag">Annahme</em></label><div class="input-unit"><input type="number" id="hand-rate" value="6" min="0" step="0.5" inputmode="decimal"><span id="hand-rate-unit">m/h</span></div><small class="field-hint" id="hand-rate-hint">Bitte Ihren Erfahrungswert eintragen</small></div>
-                                <div class="field" id="hand-loss-field"><label for="hand-loss"><span id="hand-loss-label">Materialverlust</span> <em class="tag" id="hand-loss-tag">Annahme</em></label><div class="input-unit"><input type="number" id="hand-loss" value="15" min="0" step="1" inputmode="decimal"><span id="hand-loss-unit">%</span></div></div>
+                                <div class="field" id="hand-rate-field"><label for="hand-rate"><span id="hand-rate-label">Leistung</span> <em class="tag" id="hand-rate-tag">Annahme</em></label><div class="input-unit"><input type="number" id="hand-rate" value="6" min="0" step="0.5" inputmode="decimal"><span id="hand-rate-unit">m/h</span></div><input type="range" class="range" id="hand-rate-range" min="1" max="30" step="0.5" value="6" aria-label="Leistung" tabindex="-1"><small class="field-hint" id="hand-rate-hint">Bitte Ihren Erfahrungswert eintragen</small></div>
+                                <div class="field" id="hand-loss-field"><label for="hand-loss"><span id="hand-loss-label">Materialverlust</span> <em class="tag" id="hand-loss-tag">Annahme</em></label><div class="input-unit"><input type="number" id="hand-loss" value="15" min="0" step="1" inputmode="decimal"><span id="hand-loss-unit">%</span></div><input type="range" class="range" id="hand-loss-range" min="0" max="40" step="1" value="15" aria-label="Materialverlust" tabindex="-1"></div>
                             </div>
                             <div class="compare-col compare-wps">
                                 <h3>Mit der WPS</h3>
-                                <div class="field" id="wps-rate-field"><label for="wps-rate"><span id="wps-rate-label">Leistung</span> <em class="tag" id="wps-rate-tag">Hersteller</em></label><div class="input-unit"><input type="number" id="wps-rate" value="20" min="0" step="0.5" inputmode="decimal"><span id="wps-rate-unit">m/h</span></div><small class="field-hint" id="wps-rate-hint">Hersteller: bis 25 m/h</small></div>
-                                <div class="field" id="wps-loss-field"><label for="wps-loss"><span id="wps-loss-label">Materialverlust</span> <em class="tag" id="wps-loss-tag">Annahme</em></label><div class="input-unit"><input type="number" id="wps-loss" value="5" min="0" step="1" inputmode="decimal"><span id="wps-loss-unit">%</span></div></div>
+                                <div class="field" id="wps-rate-field"><label for="wps-rate"><span id="wps-rate-label">Leistung</span> <em class="tag" id="wps-rate-tag">Hersteller</em></label><div class="input-unit"><input type="number" id="wps-rate" value="20" min="0" step="0.5" inputmode="decimal"><span id="wps-rate-unit">m/h</span></div><input type="range" class="range" id="wps-rate-range" min="1" max="40" step="0.5" value="20" aria-label="Leistung" tabindex="-1"><small class="field-hint" id="wps-rate-hint">Hersteller: bis 25 m/h</small></div>
+                                <div class="field" id="wps-loss-field"><label for="wps-loss"><span id="wps-loss-label">Materialverlust</span> <em class="tag" id="wps-loss-tag">Annahme</em></label><div class="input-unit"><input type="number" id="wps-loss" value="5" min="0" step="1" inputmode="decimal"><span id="wps-loss-unit">%</span></div><input type="range" class="range" id="wps-loss-range" min="0" max="40" step="1" value="5" aria-label="Materialverlust" tabindex="-1"></div>
                             </div>
                         </div>
                         <div class="calc-grid calc-grid-sep">
                             <div class="field" id="calc-team-field"><label for="calc-team"><span id="calc-team-label">Personen</span></label><div class="input-unit"><input type="number" id="calc-team" value="2" min="0" step="1" inputmode="decimal"><span id="calc-team-unit"></span></div></div>
-                            <div class="field" id="calc-wage-field"><label for="calc-wage"><span id="calc-wage-label">Stundensatz</span> <em class="tag" id="calc-wage-tag">Annahme</em></label><div class="input-unit"><input type="number" id="calc-wage" value="95" min="0" step="1" inputmode="decimal"><span id="calc-wage-unit">CHF</span></div><small class="field-hint" id="calc-wage-hint">pro Person und Stunde</small></div>
+                            <div class="field" id="calc-wage-field"><label for="calc-wage"><span id="calc-wage-label">Stundensatz</span> <em class="tag" id="calc-wage-tag">Annahme</em></label><div class="input-unit"><input type="number" id="calc-wage" value="95" min="0" step="5" inputmode="decimal"><span id="calc-wage-unit">CHF</span></div><input type="range" class="range" id="calc-wage-range" min="50" max="160" step="5" value="95" aria-label="Stundensatz" tabindex="-1"><small class="field-hint" id="calc-wage-hint">pro Person und Stunde</small></div>
                             <div class="field" id="calc-yield-field"><label for="calc-yield"><span id="calc-yield-label">Verbrauch Mörtel</span></label><div class="input-unit"><input type="number" id="calc-yield" value="1.7" min="0" step="0.05" inputmode="decimal"><span id="calc-yield-unit">kg/l</span></div><small class="field-hint" id="calc-yield-hint">laut Datenblatt, meist um 1.7</small></div>
                         </div>
                     </fieldset>
@@ -196,6 +196,6 @@
         </div>
     </footer>
 
-    <script src="script.js?v=19b8919b"></script>
+    <script src="script.js?v=7ba60abc"></script>
 </body>
 </html>

@@ -659,12 +659,14 @@ CALC_SVG = {
 def page_rechner():
     crumbs = [("Start", "index.html"), ("Mörtelrechner", "moertel-bedarf-rechner.html")]
 
-    def field(id_, label, unit, val, step="1", tag="", hint=""):
+    def field(id_, label, unit, val, step="1", tag="", hint="", rng=None):
         t = f' <em class="tag" id="{id_}-tag">{tag}</em>' if tag else ""
         h = f'<small class="field-hint" id="{id_}-hint">{hint}</small>' if hint else ""
         return (f'<div class="field" id="{id_}-field"><label for="{id_}"><span id="{id_}-label">{label}</span>{t}</label>'
                 f'<div class="input-unit"><input type="number" id="{id_}" value="{val}" min="0" step="{step}" inputmode="decimal">'
-                f'<span id="{id_}-unit">{unit}</span></div>{h}</div>')
+                f'<span id="{id_}-unit">{unit}</span></div>'
+                + (f'<input type="range" class="range" id="{id_}-range" min="{rng[0]}" max="{rng[1]}" step="{step}" value="{val}" aria-label="{label}" tabindex="-1">' if rng else '')
+                + f'{h}</div>')
 
     modes = [("unter", "Untermörtelung", "Schwellen, Platten"),
              ("vfuge", "V-Fuge", "Betonfertigteile"),
@@ -687,7 +689,7 @@ def page_rechner():
                     <fieldset class="calc-step">
                         <legend><span class="step-no">2</span>Masse</legend>
                         <div class="calc-grid">
-                            {field("calc-a", "Länge", "m", 50, "0.5")}
+                            {field("calc-a", "Länge", "m", 50, "0.5", rng=(1, 300))}
                             {field("calc-b", "Schwellenbreite", "mm", 100)}
                             {field("calc-c", "Fugenhöhe", "mm", 20)}
                         </div>
@@ -698,18 +700,18 @@ def page_rechner():
                         <div class="compare-grid">
                             <div class="compare-col">
                                 <h3>Von Hand, heute</h3>
-                                {field("hand-rate", "Leistung", "m/h", 6, "0.5", "Annahme", "Bitte Ihren Erfahrungswert eintragen")}
-                                {field("hand-loss", "Materialverlust", "%", 15, "1", "Annahme")}
+                                {field("hand-rate", "Leistung", "m/h", 6, "0.5", "Annahme", "Bitte Ihren Erfahrungswert eintragen", rng=(1, 30))}
+                                {field("hand-loss", "Materialverlust", "%", 15, "1", "Annahme", rng=(0, 40))}
                             </div>
                             <div class="compare-col compare-wps">
                                 <h3>Mit der WPS</h3>
-                                {field("wps-rate", "Leistung", "m/h", 20, "0.5", "Hersteller", "Hersteller: bis 25 m/h")}
-                                {field("wps-loss", "Materialverlust", "%", 5, "1", "Annahme")}
+                                {field("wps-rate", "Leistung", "m/h", 20, "0.5", "Hersteller", "Hersteller: bis 25 m/h", rng=(1, 40))}
+                                {field("wps-loss", "Materialverlust", "%", 5, "1", "Annahme", rng=(0, 40))}
                             </div>
                         </div>
                         <div class="calc-grid calc-grid-sep">
                             {field("calc-team", "Personen", "", 2)}
-                            {field("calc-wage", "Stundensatz", "CHF", 95, "1", "Annahme", "pro Person und Stunde")}
+                            {field("calc-wage", "Stundensatz", "CHF", 95, "5", "Annahme", "pro Person und Stunde", rng=(50, 160))}
                             {field("calc-yield", "Verbrauch Mörtel", "kg/l", 1.7, "0.05", "", "laut Datenblatt, meist um 1.7")}
                         </div>
                     </fieldset>
