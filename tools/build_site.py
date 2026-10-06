@@ -671,26 +671,75 @@ DETAILS = {
                 </ul>"""),
 }
 
+# Kennzahlen im Seitenkopf der Anwendungsseiten (Quelle: Herstellerunterlagen, BFH-Testberichte)
+FACTS = {
+    "anwendung-untermoerteln": ("unter", [("ab 11 mm", "Fugenhöhe"), ("bis 400 mm", "Tiefe unter der Schwelle"), ("bis 25 m/h", "Unterfütterung"), ("≥ 10 N/mm²", "Zement-Mauermörtel")]),
+    "anwendung-stahlzargen": ("zarge", [("1–2 cm", "Spalt zur Leibung"), ("ca. 47 min", "pro Standardzarge"), ("ca. 22 l", "Mörtel pro Zarge"), ("3.2 m", "Förderweite")]),
+    "anwendung-naturstein": ("fuge", [("13 cm", "Fugendüse, anpassbar"), ("über 15", "getestete Fugenmörtel"), ("3 kW", "Kompressor"), ("Kugelhahn", "Mörtelfluss sofort stoppen")]),
+    "anwendung-klinker": ("fuge", [("5–10 mm", "Fugenbreite"), ("10–20 mm", "Fugentiefe"), ("4.5 mm", "Düse zusammengedrückt"), ("1 : 1", "Zuckerlösung als Primer")]),
+    "anwendung-betonfugen": ("vfuge", [("1–4 cm", "V-Fugen"), ("2–4 cm", "Stossfugen"), ("0–1 mm", "Kalk-Zementmörtel"), ("ca. 200 m", "pro Tag zu zweit")]),
+    "anwendung-spannbeton": (None, [("Spannbeton", "Fugen und Verankerungen"), ("Porenbeton", "Ytong-Deckenplatten"), ("im Stehen", "ohne Eimerschleppen"), ("max. 2.5 bar", "Förderdruck")]),
+    "anwendung-maueranker": (None, [("DN 34", "Rohrdüse"), ("Mauer, Fels", "und Wandanker"), ("Erdanker", "Zementschlämme"), ("max. 2.5 bar", "Förderdruck")]),
+    "anwendung-daemmplatten": (None, [("Raupe", "Kleber dosiert auftragen"), ("Dämmplatten", "und Brandschutzplatten"), ("ca. 1 cm", "Spritzen von Spezialmörtel"), ("Kugelhahn", "Mörtelfluss sofort stoppen")]),
+}
+
+def related(slug, n=3):
+    group = next(sl for t, sl in MENU_GROUPS if slug in sl)
+    others = [x for x in group if x != slug] + [s_ for s_, *_ in APPS if s_ != slug and s_ not in group]
+    return others[:n]
+
 def page_detail(slug):
     d = DETAILS[slug]
-    t = next(t for s, n, t, *_ in APPS if s == slug)
+    t = next(t for s_, n, t, *_ in APPS if s_ == slug)
     crumbs = [("Start", "index.html"), ("Anwendungen", "anwendungen.html"), (t, f"{slug}.html")]
     img, alt, w, hh = d["img"]
-    return page_head(crumbs, t, d["lead"]) + f'''
+    mode, fx = FACTS[slug]
+    facts_html = "".join(f'<li><strong>{v}</strong><span>{l}</span></li>' for v, l in fx)
+    calc_href = f"moertel-bedarf-rechner.html?mode={mode}" if mode else "moertel-bedarf-rechner.html"
+    calc_box = f'''<a class="calc-teaser" href="{calc_href}">
+                    <span><strong>Was spart die WPS bei Ihrem Projekt?</strong>Masse und Ihre heutige Leistung eingeben, der Rechner vergleicht Zeit, Kosten und Mörtel.</span>
+                    <em>Zum Mörtelrechner</em>
+                </a>'''
+    info = {s_: (tt, txt, im) for s_, n, tt, txt, im in APPS}
+    rel = "".join(f'''<li><a href="{r}.html"><img src="assets/{info[r][2]}.avif" alt="{info[r][0]}" loading="lazy" width="900" height="675"><h3>{info[r][0]}</h3><p>{info[r][1]}</p></a></li>''' for r in related(slug))
+    return f'''
+    <section class="page-head page-head-media">
+        <div class="container">
+            <div class="page-head-text">
+                {breadcrumbs(crumbs)}
+                <h1>{t}</h1>
+                <p class="lead">{d["lead"]}</p>
+                <div class="btn-row">
+                    <a class="btn btn-accent" href="kontakt.html?type=miete">Pumpe für diese Arbeit anfragen</a>
+                    <a class="btn btn-outline-light" href="{calc_href}">Ersparnis berechnen</a>
+                </div>
+            </div>
+            <img src="assets/{img}.avif" alt="{alt}" width="{w}" height="{hh}" fetchpriority="high">
+        </div>
+    </section>
+    <div class="facts-bar"><div class="container"><ul class="facts">{facts_html}</ul></div></div>
+
     <main class="section">
         <div class="container layout">
             <article class="prose">
-                <figure class="lead-figure"><img src="assets/{img}.avif" alt="{alt}" width="{w}" height="{hh}"></figure>
                 {d["body"]}
+                {calc_box}
                 <p class="source-note">Technische Angaben nach Unterlagen des Herstellers Winiger Pump System AG. Videos zu dieser Anwendung: <a href="{WPS}/{d["wps"]}" target="_blank" rel="noopener">wps-ag.ch</a></p>
             </article>
             <aside class="sidebar">
                 {side_contact()}
                 <section><h2>Unterlagen</h2>{downloads(*d["pdfs"])}</section>
-                {side_apps(slug)}
             </aside>
         </div>
     </main>
+
+    <section class="section bg-alt">
+        <div class="container">
+            <div class="section-title"><h2>Weitere Anwendungen</h2></div>
+            <ul class="tiles tiles-3">{rel}</ul>
+            <p style="margin-top:24px"><a href="anwendungen.html">Alle Anwendungen ansehen</a></p>
+        </div>
+    </section>
 '''
 
 # ------------------------------------------------------------------ Anwendungen

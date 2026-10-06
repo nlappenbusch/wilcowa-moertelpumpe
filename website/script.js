@@ -158,6 +158,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     form.querySelectorAll('[name=mode]').forEach(r => r.addEventListener('change', setMode));
     form.addEventListener('input', calc);
+    // Vorauswahl über ?mode=unter|vfuge|fuge|zarge (Links von den Anwendungsseiten)
+    const preset = new URLSearchParams(location.search).get('mode');
+    const presetInput = preset && form.querySelector(`[name=mode][value="${preset}"]`);
+    if (presetInput) presetInput.checked = true;
     setMode();
 });
 
