@@ -343,31 +343,41 @@ RATING = {"value": "4.8", "best": "5", "count": None}
 
 def rating_badge(dark=False):
     stars = "".join('<svg class="star" aria-hidden="true"><use href="assets/icons.svg#star"/></svg>' for _ in range(5))
-    count = f" aus {RATING['count']} Bewertungen" if RATING["count"] else ""
+    count = f"{RATING['count']} Kundenbewertungen" if RATING["count"] else "Kundenbewertungen"
     cls = "rating rating-dark" if dark else "rating"
-    return (f'<p class="{cls}"><span class="stars" aria-hidden="true">{stars}</span>'
-            f'<strong>{RATING["value"]}</strong> von {RATING["best"]}<span class="rating-src">Durchschnitt{count} der Kundenrückmeldungen</span></p>')
+    return (f'<a class="{cls}" href="index.html#erfahrungen"><span class="stars" aria-hidden="true">{stars}</span>'
+            f'<strong>{RATING["value"]}</strong><span>von {RATING["best"]}</span><span class="rating-src">{count}</span></a>')
 
 # Belegte Aussagen, wörtlich zitiert. Keine erfundenen Kundenstimmen.
 PROOF = [
-    ("100 %", "Schnabeldüse gewährleistet volle Unterstopfung ab 10 mm Unterstopfhöhe",
-     "Berner Fachhochschule", "Testbericht 2, Untermörteln von Schwellen, 2009", BFH2),
-    ("200 m", "In der Regel verfugen 2 Betonkosmetiker pro Tag um die 200 m Beton-V-Fugen.",
-     "Winiger Pump System AG", "Hersteller, Anwendung Betonfugen", WPS + "/betonfugen"),
-    ("ab 0 °C", "Die Verarbeitung funktioniert ab 0 °C Aussentemperatur (Mörteltemperatur mind. 6 °C)",
-     "Berner Fachhochschule", "Testbericht 2, Fazit, 2009", BFH2),
-    ("günstiger", "Das WPS-Mörtelbett ist günstiger als das herkömmliche Mörtelbett",
-     "Berner Fachhochschule", "Testbericht 2, Fazit, 2009", BFH2),
+    ("100 %", "Füllgrad ab 10 mm Fugenhöhe", "Schnabeldüse gewährleistet volle Unterstopfung ab 10 mm Unterstopfhöhe",
+     "Berner Fachhochschule", "Testbericht 2, 2009", BFH2),
+    ("200 m", "V-Fugen pro Tag zu zweit", "In der Regel verfugen 2 Betonkosmetiker pro Tag um die 200 m Beton-V-Fugen.",
+     "Winiger Pump System AG", "Anwendung Betonfugen", WPS + "/betonfugen"),
+    ("0 °C", "Aussentemperatur", "Die Verarbeitung funktioniert ab 0 °C Aussentemperatur (Mörteltemperatur mind. 6 °C)",
+     "Berner Fachhochschule", "Testbericht 2, 2009", BFH2),
+    ("günstiger", "als das herkömmliche Mörtelbett", "Das WPS-Mörtelbett ist günstiger als das herkömmliche Mörtelbett",
+     "Berner Fachhochschule", "Testbericht 2, 2009", BFH2),
 ]
 
 def proof_cards():
+    stars = "".join('<svg class="star" aria-hidden="true"><use href="assets/icons.svg#star"/></svg>' for _ in range(5))
+    count = f"{RATING['count']} Rückmeldungen" if RATING["count"] else "Rückmeldungen"
+    rating = f'''
+                <div class="proof-rating">
+                    <p class="proof-rating-value">{RATING["value"]}<small>von {RATING["best"]}</small></p>
+                    <p class="stars">{stars}</p>
+                    <p>Durchschnitt der {count} von Kundinnen und Kunden der Wilcowa AG</p>
+                    <a href="mailto:{MAIL}?subject=Erfahrung%20mit%20der%20WPS-M%C3%B6rtelpumpe">Sie arbeiten mit der WPS? Erzählen Sie uns von Ihrem Projekt.</a>
+                </div>'''
     cards = "".join(f'''
-                <figure class="proof">
-                    <p class="proof-figure">{fig}</p>
-                    <blockquote><p>«{quote}»</p></blockquote>
-                    <figcaption><strong>{who}</strong><a href="{url}" target="_blank" rel="noopener">{src}</a></figcaption>
-                </figure>''' for fig, quote, who, src, url in PROOF)
-    return f'<div class="proofs">{cards}\n            </div>'
+                    <figure class="proof">
+                        <p class="proof-figure">{fig}</p>
+                        <p class="proof-label">{label}</p>
+                        <blockquote><p>«{quote}»</p></blockquote>
+                        <figcaption><strong>{who}</strong><a href="{url}" target="_blank" rel="noopener">{src}</a></figcaption>
+                    </figure>''' for fig, label, quote, who, src, url in PROOF)
+    return f'<div class="proof-wrap">{rating}\n                <div class="proofs">{cards}\n                </div>\n            </div>'
 
 # ------------------------------------------------------------------ Startseite
 def page_index():
@@ -387,6 +397,16 @@ def page_index():
                 {rating_badge(dark=True)}
             </div>
             <img src="assets/Untermorteln_Stahltragerplatte.avif" alt="Untermörteln einer Stahlplatte mit der WPS-Mörtelpumpe" width="914" height="682" fetchpriority="high">
+        </div>
+    </section>
+
+    <section class="section" id="erfahrungen">
+        <div class="container">
+            <div class="section-title">
+                <h2>Erfahrungen aus Prüfung und Praxis</h2>
+                <p>Bewertung unserer Kunden sowie Aussagen der Berner Fachhochschule und des Herstellers, im Wortlaut zitiert.</p>
+            </div>
+            {proof_cards()}
         </div>
     </section>
 
@@ -417,16 +437,6 @@ def page_index():
     </section>
 
     <section class="section bg-alt">
-        <div class="container">
-            <div class="section-title">
-                <h2>Erfahrungen aus Prüfung und Praxis</h2>
-                <p>Aussagen aus den Testberichten der Berner Fachhochschule und aus den Unterlagen des Herstellers, im Wortlaut zitiert.</p>
-            </div>
-            {proof_cards()}
-        </div>
-    </section>
-
-    <section class="section">
         <div class="container two-col">
             <div>
                 <h2>Kauf und Miete</h2>
