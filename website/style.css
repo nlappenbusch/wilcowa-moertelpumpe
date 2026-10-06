@@ -423,8 +423,20 @@ img { display: block; max-width: 100%; height: auto; }
 .faq-empty { padding: 16px 18px; border-radius: 8px; background: var(--navy-tint); margin-bottom: 20px; }
 .faq .answer a { font-weight: 500; }
 
+/* Produktseite: beschriftetes Produktfoto */
+.anno { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; align-items: center; margin: 18px 0 8px !important; }
+.anno-img { position: relative; border-radius: 8px; overflow: hidden; background: #efefef; }
+.anno-img img { width: 100%; height: auto; }
+.anno-pin { position: absolute; transform: translate(-50%, -50%); width: 26px; height: 26px; border-radius: 50%; background: var(--navy); color: #fff; font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 3px rgba(255,255,255,.85); }
+.anno-legend { list-style: none; counter-reset: an; padding: 0 !important; margin: 0 !important; }
+.anno-legend li { counter-increment: an; position: relative; padding: 0 0 14px 38px; margin-bottom: 14px; border-bottom: 1px solid var(--line); font-size: 0.94rem; max-width: none; }
+.anno-legend li:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
+.anno-legend li::before { content: counter(an); position: absolute; left: 0; top: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--navy); color: #fff; font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+.anno-legend strong { display: block; color: var(--ink); font-weight: 600; margin-bottom: 2px; }
+@media (max-width: 700px) { .anno { grid-template-columns: 1fr; } }
+
 /* Produktseite */
-.page-head-product img { object-fit: contain; background: #fff; aspect-ratio: 4 / 3; padding: 12px; }
+.page-head-product img { object-position: center 40%; }
 .diagram { margin: 18px 0 8px !important; padding: 22px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
 .pump-diagram { display: block; width: 100%; height: auto; font-family: var(--font); }
 .pd-box { fill: #e3e7ec; stroke: #b9c0c8; }

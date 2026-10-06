@@ -595,7 +595,7 @@ def page_produkt():
                 </div>
                 {rating_badge(dark=True)}
             </div>
-            <img src="assets/Untermorteln_Holzbau.avif" alt="WPS-Mörtelpumpe mit Behälter, Fahrgestell und Schlauch" width="790" height="906" fetchpriority="high">
+            <img src="assets/Mauer-Anker_verpressen.avif" alt="WPS-Mörtelpumpe im Einsatz auf der Baustelle" width="888" height="660" fetchpriority="high">
         </div>
     </section>
 
@@ -603,14 +603,12 @@ def page_produkt():
         <div class="container layout">
             <article class="prose">
                 <h2 id="funktion">So funktioniert die Pumpe</h2>
-                <figure class="diagram">
-                    {PUMP_DIAGRAM}
-                    <ol class="diagram-legend">
-                        <li><strong>Druckluft</strong> vom Kompressor setzt den Behälter unter Druck, begrenzt auf max. 2.5 bar.</li>
-                        <li><strong>Vibrator</strong> im Behälter macht den Mörtel fliessfähig, ohne ihn zu entmischen.</li>
-                        <li><strong>Schlauch</strong> DN 25 fördert den Mörtel bis 4 m weit, ohne Schnecke oder Rotor.</li>
-                        <li><strong>Kugelhahn</strong> an der Düse stoppt und startet den Mörtelfluss sofort.</li>
-                    </ol>
+                <figure class="anno">
+                    <div class="anno-img">
+                        <img src="assets/Untermorteln_Holzbau.avif" alt="WPS-Mörtelpumpe mit nummerierten Bauteilen" width="790" height="906" loading="lazy">
+                        <span class="anno-pin" style="left:38%;top:21%" aria-hidden="true">1</span><span class="anno-pin" style="left:41%;top:52%" aria-hidden="true">2</span><span class="anno-pin" style="left:33%;top:84%" aria-hidden="true">3</span><span class="anno-pin" style="left:61%;top:78%" aria-hidden="true">4</span><span class="anno-pin" style="left:13%;top:74%" aria-hidden="true">5</span>
+                    </div>
+                    <ol class="anno-legend"><li><strong>Deckel mit Druckluftanschluss und Manometer</strong>Über den Luftdruck stellen Sie die Fördermenge stufenlos ein, 0 bis 15 l/min bei max. 2.5 bar.</li><li><strong>Behälter</strong>60 l, davon 50 l nutzbar. Ein Druckluftvibrator macht den Mörtel fliessfähig, ohne ihn zu entmischen.</li><li><strong>Auslauf mit Schlauchanschluss</strong>Drehbare GEKA-Kupplung für den Füllschlauch DN 25, Förderweite bis 4 m.</li><li><strong>Düse mit Absperrklappe</strong>Stoppt und startet den Mörtelfluss sofort. Hier die Breitschlitzdüse zum Untermörteln.</li><li><strong>Fahrgestell</strong>Sackkarren-Bauweise mit Griffen, 50 bis 55 kg, gerüsttauglich.</li></ol>
                 </figure>
                 <p>Weil keine Schnecke und kein Rotor im Spiel sind, entsteht keine mechanische Reibungswärme. Auch Mörtel, die als nicht maschinengängig gelten, führen deshalb nicht zu Stopfern. Bei motorgetriebenen Schnecken- oder Schlauchpumpen muss zum Unterbrechen der Motor abgestellt werden, bei der WPS genügt der Kugelhahn.</p>
 
