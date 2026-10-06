@@ -107,6 +107,9 @@ PRODUCT_MENU = [
     ("faq.html", "Häufige Fragen", "Kompressor, Mörtel, Miete"),
 ]
 
+HOME_CALC = ('<a class="app-calc" href="moertel-bedarf-rechner.html"><strong>Lohnt sich die WPS für Ihr Projekt?</strong>'
+             '<span>Arbeitszeit, Kosten und Mörtel im Vergleich zur Handarbeit berechnen.</span><em>Zum Mörtelrechner</em></a>')
+
 def app_icon(slug):
     return f'<svg class="menu-icon" viewBox="0 0 72 48" aria-hidden="true">{APP_ICONS[slug]}</svg>'
 
@@ -381,8 +384,11 @@ def proof_cards():
 
 # ------------------------------------------------------------------ Startseite
 def page_index():
-    tiles = "".join(f'''
-                <li><a href="{s}.html"><img src="assets/{img}.avif" alt="{t}" loading="lazy" width="900" height="675"><h3>{t}</h3><p>{txt}</p></a></li>''' for s, n, t, txt, img in APPS)
+    info = {s_: txt for s_, n, t, txt, img in APPS}
+    tiles = "".join(
+        f'<div class="app-group"><h3>{title}</h3><ul>'
+        + "".join(f'<li><a href="{a}.html">{app_icon(a)}<span><strong>{MENU_LABELS[a][0]}</strong><small>{info[a]}</small></span></a></li>' for a in slugs)
+        + '</ul>' + (HOME_CALC if title == MENU_GROUPS[-1][0] else '') + '</div>' for title, slugs in MENU_GROUPS)
     return f'''
     <main>
     <section class="hero">
@@ -431,8 +437,7 @@ def page_index():
                 <h2>Anwendungen</h2>
                 <p>Mit der passenden Düse eignet sich die WPS für eine ganze Reihe von Arbeiten im Hoch-, Holz- und Tiefbau. <a href="anwendungen.html">Alle Anwendungen</a></p>
             </div>
-            <ul class="tiles">{tiles}
-            </ul>
+            <div class="app-groups">{tiles}</div>
         </div>
     </section>
 
@@ -673,14 +678,14 @@ DETAILS = {
 
 # Kennzahlen im Seitenkopf der Anwendungsseiten (Quelle: Herstellerunterlagen, BFH-Testberichte)
 FACTS = {
-    "anwendung-untermoerteln": ("unter", [("ab 11 mm", "Fugenhöhe"), ("bis 400 mm", "Tiefe unter der Schwelle"), ("bis 25 m/h", "Unterfütterung"), ("≥ 10 N/mm²", "Zement-Mauermörtel")]),
-    "anwendung-stahlzargen": ("zarge", [("1–2 cm", "Spalt zur Leibung"), ("ca. 47 min", "pro Standardzarge"), ("ca. 22 l", "Mörtel pro Zarge"), ("3.2 m", "Förderweite")]),
-    "anwendung-naturstein": ("fuge", [("13 cm", "Fugendüse, anpassbar"), ("über 15", "getestete Fugenmörtel"), ("3 kW", "Kompressor"), ("Kugelhahn", "Mörtelfluss sofort stoppen")]),
-    "anwendung-klinker": ("fuge", [("5–10 mm", "Fugenbreite"), ("10–20 mm", "Fugentiefe"), ("4.5 mm", "Düse zusammengedrückt"), ("1 : 1", "Zuckerlösung als Primer")]),
-    "anwendung-betonfugen": ("vfuge", [("1–4 cm", "V-Fugen"), ("2–4 cm", "Stossfugen"), ("0–1 mm", "Kalk-Zementmörtel"), ("ca. 200 m", "pro Tag zu zweit")]),
-    "anwendung-spannbeton": (None, [("Spannbeton", "Fugen und Verankerungen"), ("Porenbeton", "Ytong-Deckenplatten"), ("im Stehen", "ohne Eimerschleppen"), ("max. 2.5 bar", "Förderdruck")]),
-    "anwendung-maueranker": (None, [("DN 34", "Rohrdüse"), ("Mauer, Fels", "und Wandanker"), ("Erdanker", "Zementschlämme"), ("max. 2.5 bar", "Förderdruck")]),
-    "anwendung-daemmplatten": (None, [("Raupe", "Kleber dosiert auftragen"), ("Dämmplatten", "und Brandschutzplatten"), ("ca. 1 cm", "Spritzen von Spezialmörtel"), ("Kugelhahn", "Mörtelfluss sofort stoppen")]),
+    "anwendung-untermoerteln": ("unter", [("Fugenhöhe", "ab 11 mm"), ("Tiefe", "bis über 400 mm"), ("Düse", "Breitschlitzdüse, ab 120 mm mit Schnabel"), ("Mörtel", "Zement-Mauermörtel ab 10 N/mm²"), ("Leistung", "bis 25 m/h (Hersteller)")]),
+    "anwendung-stahlzargen": ("zarge", [("Spalt", "1–2 cm zur Leibung"), ("Zeit", "ca. 47 min pro Standardzarge"), ("Mörtel", "ca. 22 l pro Zarge"), ("Förderweite", "bis 3.2 m"), ("Kompressor", "2.2 kW, 230 V")]),
+    "anwendung-naturstein": ("fuge", [("Düse", "Fugendüse 13 cm, anpassbar"), ("Mörtel", "über 15 getestete Fugenmörtel"), ("Kompressor", "3 kW, 400 V"), ("Dosierung", "Kugelhahn an der Düse")]),
+    "anwendung-klinker": ("fuge", [("Fugenbreite", "5–10 mm"), ("Fugentiefe", "10–20 mm"), ("Düse", "auf 4.5 mm zusammengedrückt"), ("Schutz", "Antihaft-Primer, z. B. Zuckerlösung 1:1")]),
+    "anwendung-betonfugen": ("vfuge", [("V-Fugen", "1–4 cm breit"), ("Stossfugen", "2–4 cm breit"), ("Mörtel", "Kalk-Zementmörtel 0–1 mm"), ("Düse", "Fugendüse Ø 22 × 1 mm"), ("Leistung", "ca. 200 m pro Tag zu zweit")]),
+    "anwendung-spannbeton": (None, [("Einsatz", "Fugen zwischen Deckenelementen"), ("Auch für", "Verankerungen, Porenbetonplatten"), ("Arbeitsweise", "im Stehen, ohne Eimer"), ("Förderdruck", "max. 2.5 bar")]),
+    "anwendung-maueranker": (None, [("Düse", "Rohrdüse DN 34"), ("Anker", "Mauer-, Fels- und Wandanker"), ("Erdanker", "mit Zementschlämme"), ("Förderdruck", "max. 2.5 bar")]),
+    "anwendung-daemmplatten": (None, [("Auftrag", "Kleberaupe auf Platte oder Wand"), ("Platten", "Dämm- und Brandschutzplatten"), ("Spritzen", "Spezialmörtel bis ca. 1 cm"), ("Dosierung", "Kugelhahn an der Düse")]),
 }
 
 def related(slug, n=3):
@@ -694,7 +699,7 @@ def page_detail(slug):
     crumbs = [("Start", "index.html"), ("Anwendungen", "anwendungen.html"), (t, f"{slug}.html")]
     img, alt, w, hh = d["img"]
     mode, fx = FACTS[slug]
-    facts_html = "".join(f'<li><strong>{v}</strong><span>{l}</span></li>' for v, l in fx)
+    facts_html = spec_table(rows=fx, title="Auf einen Blick", note="")
     calc_href = f"moertel-bedarf-rechner.html?mode={mode}" if mode else "moertel-bedarf-rechner.html"
     calc_box = f'''<a class="calc-teaser" href="{calc_href}">
                     <span><strong>Was spart die WPS bei Ihrem Projekt?</strong>Masse und Ihre heutige Leistung eingeben, der Rechner vergleicht Zeit, Kosten und Mörtel.</span>
@@ -717,7 +722,6 @@ def page_detail(slug):
             <img src="assets/{img}.avif" alt="{alt}" width="{w}" height="{hh}" fetchpriority="high">
         </div>
     </section>
-    <div class="facts-bar"><div class="container"><ul class="facts">{facts_html}</ul></div></div>
 
     <main class="section">
         <div class="container layout">
@@ -727,6 +731,7 @@ def page_detail(slug):
                 <p class="source-note">Technische Angaben nach Unterlagen des Herstellers Winiger Pump System AG. Videos zu dieser Anwendung: <a href="{WPS}/{d["wps"]}" target="_blank" rel="noopener">wps-ag.ch</a></p>
             </article>
             <aside class="sidebar">
+                <section>{facts_html}</section>
                 {side_contact()}
                 <section><h2>Unterlagen</h2>{downloads(*d["pdfs"])}</section>
             </aside>
