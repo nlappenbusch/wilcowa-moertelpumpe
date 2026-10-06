@@ -3,10 +3,14 @@
 # Technische Angaben stammen aus den Unterlagen des Herstellers Winiger Pump System AG
 # (www.wps-ag.ch, Flyer WPS-U-2.2019d und WPS-HT-4.2018d) sowie den Testberichten der
 # Berner Fachhochschule (KTI-Projekt 8971.1, 2009). Texte bitte nicht wörtlich vom Hersteller übernehmen.
-import json, pathlib, html as h
+import json, pathlib, hashlib, html as h
 
 OUT = pathlib.Path(__file__).resolve().parent.parent / "website"
 BASE = "https://moertelpumpe.ch"
+
+# Cache-Busting: nginx liefert CSS/JS mit 30 Tagen Cache aus
+def ver(name):
+    return hashlib.md5((OUT / name).read_bytes()).hexdigest()[:8]
 PHONE, PHONE_HREF = "+41 43 388 70 60", "tel:+41433887060"
 MAIL = "info@wilcowa.ch"
 WPS = "https://www.wps-ag.ch"
@@ -62,7 +66,7 @@ def head(p):
     <link rel="icon" type="image/png" href="assets/wilcowa-logo.png">
     <link rel="preload" href="assets/fonts/roboto-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/barlow-semi-condensed-600-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="style.css">{ld}
+    <link rel="stylesheet" href="style.css?v={ver('style.css')}">{ld}
 </head>
 <body>
 '''
@@ -152,7 +156,7 @@ def footer():
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js?v={ver('script.js')}"></script>
 </body>
 </html>
 '''
@@ -644,50 +648,104 @@ def page_anwendungen():
 '''
 
 # ------------------------------------------------------------------ Rechner
+CALC_SVG = {
+    # Querschnitte: Stein/Element grau, Mörtel orange
+    "unter": """<svg viewBox="0 0 72 48" aria-hidden="true"><rect x="18" y="8" width="36" height="22" class="s-wood"/><rect x="18" y="30" width="36" height="6" class="s-mortar"/><rect x="2" y="36" width="68" height="10" class="s-solid"/></svg>""",
+    "vfuge": """<svg viewBox="0 0 72 48" aria-hidden="true"><path d="M4 10h20l12 22v12H4z" class="s-solid"/><path d="M68 10H48L36 32v12h32z" class="s-solid"/><path d="M24 10h24L36 32z" class="s-mortar"/></svg>""",
+    "fuge": """<svg viewBox="0 0 72 48" aria-hidden="true"><rect x="4" y="10" width="26" height="34" class="s-solid"/><rect x="42" y="10" width="26" height="34" class="s-solid"/><rect x="30" y="10" width="12" height="20" class="s-mortar"/></svg>""",
+    "zarge": """<svg viewBox="0 0 72 48" aria-hidden="true"><path d="M8 46V4h56v42h-8V12H16v34z" class="s-solid"/><path d="M16 46V12h40v34h-4V16H20v30z" class="s-mortar"/><path d="M20 46V16h32v30h-3V19H23v27z" class="s-steel"/></svg>""",
+}
+
 def page_rechner():
     crumbs = [("Start", "index.html"), ("Mörtelrechner", "moertel-bedarf-rechner.html")]
-    def num(id_, label, unit, val, step="1"):
-        return f'''<div class="field"><label for="{id_}" id="{id_}-label">{label}</label><div class="calc-num"><input type="number" id="{id_}" value="{val}" min="0" step="{step}" inputmode="decimal"><span id="{id_}-unit">{unit}</span></div></div>'''
-    return page_head(crumbs, "Mörtelrechner: Wie viele Säcke brauche ich?", "Mörtelbedarf für Fugen, V-Fugen und Untermörtelungen berechnen, mit Anzahl Säcke und Behälterfüllungen der WPS-Mörtelpumpe.") + f'''
+
+    def field(id_, label, unit, val, step="1", tag="", hint=""):
+        t = f' <em class="tag" id="{id_}-tag">{tag}</em>' if tag else ""
+        h = f'<small class="field-hint" id="{id_}-hint">{hint}</small>' if hint else ""
+        return (f'<div class="field" id="{id_}-field"><label for="{id_}"><span id="{id_}-label">{label}</span>{t}</label>'
+                f'<div class="input-unit"><input type="number" id="{id_}" value="{val}" min="0" step="{step}" inputmode="decimal">'
+                f'<span id="{id_}-unit">{unit}</span></div>{h}</div>')
+
+    modes = [("unter", "Untermörtelung", "Schwellen, Platten"),
+             ("vfuge", "V-Fuge", "Betonfertigteile"),
+             ("fuge", "Fuge", "Naturstein, Klinker"),
+             ("zarge", "Stahlzarge", "pro Stück")]
+    mode_html = "".join(
+        f'<label class="mode"><input type="radio" name="mode" value="{k}"{" checked" if k == "unter" else ""}>'
+        f'{CALC_SVG[k]}<strong>{t}</strong><span>{sub}</span></label>' for k, t, sub in modes)
+
+    return page_head(crumbs, "Mörtelrechner: Was spart die WPS gegenüber Handarbeit?",
+                     "Geben Sie die Masse und Ihre heutige Leistung von Hand ein. Der Rechner vergleicht Arbeitszeit, Kosten und Mörtelbedarf mit der WPS-Mörtelpumpe.") + f'''
     <main class="section">
-        <div class="container two-col">
-            <form class="calc" id="calc" onsubmit="return false">
-                <div class="calc-body">
-                    <fieldset class="calc-modes">
-                        <legend>Was wird gemörtelt?</legend>
-                        <label><input type="radio" name="mode" value="fuge" checked> Fuge</label>
-                        <label><input type="radio" name="mode" value="vfuge"> V-Fuge</label>
-                        <label><input type="radio" name="mode" value="unter"> Untermörtelung</label>
+        <div class="container">
+            <form class="calc" id="calc" onsubmit="return false" novalidate>
+                <div class="calc-main">
+                    <fieldset class="calc-step">
+                        <legend><span class="step-no">1</span>Anwendung</legend>
+                        <div class="modes">{mode_html}</div>
                     </fieldset>
-                    <p class="calc-hint" id="calc-hint"></p>
-                    <div class="calc-grid">
-                        {num("calc-a", "Länge", "m", 10, "0.1")}
-                        {num("calc-b", "Breite", "mm", 15)}
-                        {num("calc-c", "Tiefe", "mm", 20)}
-                    </div>
-                    <div class="calc-grid calc-grid-sep">
-                        {num("calc-yield", "Verbrauch", "kg/l", 1.7, "0.05")}
-                        <div class="field"><label for="calc-sack">Sackgrösse</label><select id="calc-sack"><option value="25">25 kg</option><option value="30" selected>30 kg</option><option value="40">40 kg</option></select></div>
-                        <div class="field"><label for="calc-extra">Zuschlag</label><select id="calc-extra"><option value="0">0 %</option><option value="5">5 %</option><option value="10" selected>10 %</option><option value="15">15 %</option><option value="20">20 %</option></select></div>
-                    </div>
+                    <fieldset class="calc-step">
+                        <legend><span class="step-no">2</span>Masse</legend>
+                        <div class="calc-grid">
+                            {field("calc-a", "Länge", "m", 50, "0.5")}
+                            {field("calc-b", "Schwellenbreite", "mm", 100)}
+                            {field("calc-c", "Fugenhöhe", "mm", 20)}
+                        </div>
+                        <p class="calc-warn" id="calc-warn" hidden></p>
+                    </fieldset>
+                    <fieldset class="calc-step">
+                        <legend><span class="step-no">3</span>Leistung von Hand und mit der WPS</legend>
+                        <div class="compare-grid">
+                            <div class="compare-col">
+                                <h3>Von Hand, heute</h3>
+                                {field("hand-rate", "Leistung", "m/h", 6, "0.5", "Annahme", "Bitte Ihren Erfahrungswert eintragen")}
+                                {field("hand-loss", "Materialverlust", "%", 15, "1", "Annahme")}
+                            </div>
+                            <div class="compare-col compare-wps">
+                                <h3>Mit der WPS</h3>
+                                {field("wps-rate", "Leistung", "m/h", 20, "0.5", "Hersteller", "Hersteller: bis 25 m/h")}
+                                {field("wps-loss", "Materialverlust", "%", 5, "1", "Annahme")}
+                            </div>
+                        </div>
+                        <div class="calc-grid calc-grid-sep">
+                            {field("calc-team", "Personen", "", 2)}
+                            {field("calc-wage", "Stundensatz", "CHF", 95, "1", "Annahme", "pro Person und Stunde")}
+                            {field("calc-yield", "Verbrauch Mörtel", "kg/l", 1.7, "0.05", "", "laut Datenblatt, meist um 1.7")}
+                        </div>
+                    </fieldset>
                 </div>
-                <div class="calc-result" aria-live="polite">
-                    <div><span>Volumen</span><output id="out-liters">–</output><small>Liter</small></div>
-                    <div><span>Trockenmörtel</span><output id="out-kg">–</output><small>kg</small></div>
-                    <div class="calc-result-main"><span>Bestellen</span><output id="out-sacks">–</output><small id="out-sacks-unit">Säcke</small></div>
-                    <div><span>WPS-Füllungen</span><output id="out-fills">–</output><small>à 50 l</small></div>
-                </div>
-                <p class="calc-foot">Verbrauch = kg Trockenmörtel pro Liter Fuge, siehe Datenblatt des Mörtels. Alle Werte sind Richtwerte inklusive Zuschlag.</p>
+
+                <aside class="calc-out" aria-live="polite">
+                    <p class="out-label">Mit der WPS sparen Sie</p>
+                    <p class="out-main"><output id="out-save-chf">–</output></p>
+                    <p class="out-sub"><output id="out-save-h">–</output> Arbeitsstunden und <output id="out-save-kg">–</output> kg Mörtel</p>
+                    <div class="bars">
+                        <p class="bars-title">Arbeitszeit</p>
+                        <div class="bar"><span>Von Hand</span><div class="bar-track"><i id="bar-hand-h"></i></div><b id="out-hand-h">–</b></div>
+                        <div class="bar bar-wps"><span>WPS</span><div class="bar-track"><i id="bar-wps-h"></i></div><b id="out-wps-h">–</b></div>
+                        <p class="bars-title">Trockenmörtel</p>
+                        <div class="bar"><span>Von Hand</span><div class="bar-track"><i id="bar-hand-kg"></i></div><b id="out-hand-kg">–</b></div>
+                        <div class="bar bar-wps"><span>WPS</span><div class="bar-track"><i id="bar-wps-kg"></i></div><b id="out-wps-kg">–</b></div>
+                    </div>
+                    <p class="out-order">Bestellmenge mit der WPS: <strong id="out-sacks">–</strong></p>
+                    <a class="btn btn-accent" id="calc-cta" href="kontakt.html?type=miete">WPS für dieses Projekt anfragen</a>
+                    <p class="out-note">Richtwerte. Felder mit «Annahme» bitte durch eigene Werte ersetzen.</p>
+                </aside>
             </form>
-            <div class="prose">
-                <h2>So rechnet der Rechner</h2>
-                <p><strong>Fuge:</strong> Länge × Breite × Tiefe, zum Beispiel bei Natursteinmauern, Klinker oder Stossfugen.</p>
-                <p><strong>V-Fuge:</strong> Die Fuge läuft in der Tiefe gegen null aus, typisch bei Betonfertigteilen. Gerechnet wird mit dem halben Rechteck.</p>
-                <p><strong>Untermörtelung:</strong> Länge × Schwellenbreite × Fugenhöhe. Die Fugenhöhe sollte für die WPS mindestens 11 mm betragen.</p>
-                <h3>Trockenmörtel pro Liter</h3>
-                <p>Aus einem Sack Trockenmörtel entsteht je nach Produkt und Wassermenge eine bestimmte Menge Frischmörtel. Bei Mauer- und Fugenmörteln braucht es meist um 1.7 kg Trockenmörtel pro Liter. Den genauen Wert finden Sie im Datenblatt.</p>
-                <h3>Beispiel</h3>
-                <p>10 m Holzschwelle, 100 mm breit, 20 mm Fugenhöhe: 20 Liter, mit 10 % Zuschlag 22 Liter. Das sind rund 38 kg Trockenmörtel, also 2 Säcke zu 30 kg und eine Füllung der WPS.</p>
+
+            <div class="calc-help">
+                <div>
+                    <h2>Woher die WPS-Werte stammen</h2>
+                    <p>Untermörteln: bis 25 Laufmeter pro Stunde laut Flyer des Herstellers, vorbelegt sind vorsichtigere 20 m/h. V-Fugen: Zwei Betonkosmetiker schaffen mit der WPS rund 200 m pro Tag. Stahlzargen: 47 Minuten und rund 22 Liter Mörtel pro Standardzarge (2000 × 875 × 100 mm) nach der Kalkulation des Herstellers.</p>
+                </div>
+                <div>
+                    <h2>Was Sie selbst eintragen</h2>
+                    <p>Ihre heutige Leistung von Hand, Ihren Stundensatz und den Materialverlust kennen nur Sie. Die vorbelegten Werte sind Annahmen, damit der Rechner sofort ein Ergebnis zeigt.</p>
+                </div>
+                <div>
+                    <h2>So wird gerechnet</h2>
+                    <p>Volumen = Länge × Breite × Tiefe, bei V-Fugen die Hälfte. Arbeitszeit = Menge ÷ Leistung. Kosten = Stunden × Personen × Stundensatz. Mörtel = Volumen × Verbrauch plus Materialverlust.</p>
+                </div>
             </div>
         </div>
     </main>
@@ -798,8 +856,8 @@ PAGES = [
          title="Anwendungen der Mörtelpumpe: Untermörteln, Fugen, Stahlzargen | WPS",
          desc="Einsatzgebiete der WPS-Mörtelpumpe: Holzschwellen untermörteln, Stahlzargen einmörteln, Naturstein und Klinker verfugen, Betonfugen, Deckenfugen und Anker verpressen."),
     dict(file="moertel-bedarf-rechner.html", active="rechner", body=page_rechner,
-         title="Mörtelrechner: Mörtelbedarf und Anzahl Säcke berechnen | Wilcowa",
-         desc="Mörtelrechner: Volumen, Trockenmörtel und Anzahl Säcke für Fugen, V-Fugen und Untermörtelungen berechnen, inklusive Zuschlag und Füllungen der WPS-Mörtelpumpe."),
+         title="Mörtelrechner: Zeit, Kosten und Mörtel mit der WPS sparen | Wilcowa",
+         desc="Mörtelrechner mit Vergleich: Arbeitszeit, Kosten und Mörtelbedarf beim Untermörteln, für V-Fugen, Fugen und Stahlzargen, von Hand und mit der WPS-Mörtelpumpe."),
     dict(file="faq.html", active="faq", body=page_faq,
          ld=[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in FAQ]}],
          title="Fragen zur WPS-Mörtelpumpe: Kompressor, Mörtel, Miete | Wilcowa",
