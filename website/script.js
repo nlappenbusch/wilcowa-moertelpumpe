@@ -9,36 +9,50 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Mörtel-Bedarfsrechner
-function syncInput(type, source) {
-    const input = document.getElementById(`calc-${type}-input`);
-    const range = document.getElementById(`calc-${type}-range`);
-    if (source === 'range') {
-        input.value = range.value;
-    } else {
-        range.value = input.value;
-    }
-    calculateMortar();
-}
-
-function calculateMortar() {
-    const length = parseFloat(document.getElementById('calc-length-input').value) || 0;
-    const width = parseFloat(document.getElementById('calc-width-input').value) || 0;
-    const depth = parseFloat(document.getElementById('calc-depth-input').value) || 0;
-    const density = parseFloat(document.getElementById('calc-density').value) || 1.8;
-    const wastage = parseFloat(document.getElementById('calc-wastage').value) || 0;
-
-    // L (m) × B (mm) × T (mm) / 1000 = Liter
-    const liters = (length * width * depth) / 1000 * (1 + wastage / 100);
-    const kg = liters * density;
-
-    const fmt = (n, d) => n.toLocaleString('de-CH', { minimumFractionDigits: d, maximumFractionDigits: d });
-    document.getElementById('result-liters').textContent = fmt(liters, 1);
-    document.getElementById('result-kg').textContent = fmt(kg, 1);
-}
-
+// Mörtelrechner
 document.addEventListener('DOMContentLoaded', () => {
-    if (document.getElementById('result-liters')) calculateMortar();
+    const form = document.getElementById('calc');
+    if (!form) return;
+
+    const MODES = {
+        fuge:  { b: 'Breite', c: 'Tiefe', factor: 1, defaults: [15, 20],
+                 hint: 'Rechteckige Fuge, z. B. Natursteinmauer, Klinker oder Stossfuge.' },
+        vfuge: { b: 'Breite oben', c: 'Tiefe', factor: 0.5, defaults: [30, 20],
+                 hint: 'V-Fuge an Betonfertigteilen, die in der Tiefe gegen null ausläuft.' },
+        unter: { b: 'Schwellenbreite', c: 'Fugenhöhe', factor: 1, defaults: [100, 20],
+                 hint: 'Untermörtelung von Schwelle, Element oder Platte. Für die WPS mindestens 11 mm Fugenhöhe.' },
+    };
+    const $ = id => document.getElementById(id);
+    const val = id => Math.max(0, parseFloat(String($(id).value).replace(',', '.')) || 0);
+    const fmt = (n, d = 0) => n.toLocaleString('de-CH', { minimumFractionDigits: d, maximumFractionDigits: d });
+    const mode = () => form.querySelector('[name=mode]:checked').value;
+
+    function calc() {
+        const m = MODES[mode()];
+        const liters = val('calc-a') * val('calc-b') * val('calc-c') / 1000 * m.factor * (1 + val('calc-extra') / 100);
+        const kg = Math.ceil(liters * val('calc-yield'));
+        const sack = val('calc-sack');
+        const sacks = sack ? Math.ceil(kg / sack) : 0;
+        $('out-liters').textContent = fmt(liters, 1);
+        $('out-kg').textContent = fmt(kg);
+        $('out-sacks').textContent = fmt(sacks);
+        $('out-sacks-unit').textContent = `${sacks === 1 ? 'Sack' : 'Säcke'} à ${sack} kg`;
+        $('out-fills').textContent = fmt(Math.ceil(liters / 50));
+    }
+
+    function setMode() {
+        const m = MODES[mode()];
+        $('calc-b-label').textContent = m.b;
+        $('calc-c-label').textContent = m.c;
+        $('calc-b').value = m.defaults[0];
+        $('calc-c').value = m.defaults[1];
+        $('calc-hint').textContent = m.hint;
+        calc();
+    }
+
+    form.querySelectorAll('[name=mode]').forEach(r => r.addEventListener('change', setMode));
+    form.addEventListener('input', calc);
+    setMode();
 });
 
 // Bildergalerie

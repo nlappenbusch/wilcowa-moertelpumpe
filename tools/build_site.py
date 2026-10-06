@@ -644,59 +644,50 @@ def page_anwendungen():
 '''
 
 # ------------------------------------------------------------------ Rechner
-def calc_row(key, label, unit, val, mx, step):
-    return f'''<div class="calc-row">
-                        <div class="calc-row-head">
-                            <label for="calc-{key}-input">{label}</label>
-                            <div class="calc-num"><input type="number" id="calc-{key}-input" value="{val}" min="0" step="{step}" inputmode="decimal" oninput="syncInput('{key}', 'input')"><span>{unit}</span></div>
-                        </div>
-                        <input type="range" id="calc-{key}-range" min="0" max="{mx}" value="{val}" step="{step}" aria-label="{label}" oninput="syncInput('{key}', 'range')">
-                    </div>'''
-
 def page_rechner():
     crumbs = [("Start", "index.html"), ("Mörtelrechner", "moertel-bedarf-rechner.html")]
-    return page_head(crumbs, "Mörtelbedarf für Fugen und Hohlräume berechnen", "Volumen und Trockenmaterial aus Länge, Breite und Tiefe der Fuge, inklusive Zuschlag für Verschnitt.") + f'''
+    def num(id_, label, unit, val, step="1"):
+        return f'''<div class="field"><label for="{id_}" id="{id_}-label">{label}</label><div class="calc-num"><input type="number" id="{id_}" value="{val}" min="0" step="{step}" inputmode="decimal"><span id="{id_}-unit">{unit}</span></div></div>'''
+    return page_head(crumbs, "Mörtelrechner: Wie viele Säcke brauche ich?", "Mörtelbedarf für Fugen, V-Fugen und Untermörtelungen berechnen, mit Anzahl Säcke und Behälterfüllungen der WPS-Mörtelpumpe.") + f'''
     <main class="section">
         <div class="container two-col">
-            <div class="calc">
+            <form class="calc" id="calc" onsubmit="return false">
                 <div class="calc-body">
-                    {calc_row("length", "Länge", "m", 10, 100, 0.5)}
-                    {calc_row("width", "Breite", "mm", 15, 100, 1)}
-                    {calc_row("depth", "Tiefe", "mm", 50, 200, 1)}
-                    <div class="calc-selects">
-                        <div class="field">
-                            <label for="calc-density">Frischmörtel-Rohdichte</label>
-                            <select id="calc-density" onchange="calculateMortar()">
-                                <option value="1.8" selected>1.8 kg/l (Normalmörtel)</option>
-                                <option value="1.2">1.2 kg/l (Leichtmörtel)</option>
-                                <option value="2.0">2.0 kg/l</option>
-                                <option value="2.2">2.2 kg/l</option>
-                            </select>
-                        </div>
-                        <div class="field">
-                            <label for="calc-wastage">Zuschlag</label>
-                            <select id="calc-wastage" onchange="calculateMortar()">
-                                <option value="0">0 %</option>
-                                <option value="5">5 %</option>
-                                <option value="10" selected>10 %</option>
-                                <option value="20">20 %</option>
-                            </select>
-                        </div>
+                    <fieldset class="calc-modes">
+                        <legend>Was wird gemörtelt?</legend>
+                        <label><input type="radio" name="mode" value="fuge" checked> Fuge</label>
+                        <label><input type="radio" name="mode" value="vfuge"> V-Fuge</label>
+                        <label><input type="radio" name="mode" value="unter"> Untermörtelung</label>
+                    </fieldset>
+                    <p class="calc-hint" id="calc-hint"></p>
+                    <div class="calc-grid">
+                        {num("calc-a", "Länge", "m", 10, "0.1")}
+                        {num("calc-b", "Breite", "mm", 15)}
+                        {num("calc-c", "Tiefe", "mm", 20)}
+                    </div>
+                    <div class="calc-grid calc-grid-sep">
+                        {num("calc-yield", "Verbrauch", "kg/l", 1.7, "0.05")}
+                        <div class="field"><label for="calc-sack">Sackgrösse</label><select id="calc-sack"><option value="25">25 kg</option><option value="30" selected>30 kg</option><option value="40">40 kg</option></select></div>
+                        <div class="field"><label for="calc-extra">Zuschlag</label><select id="calc-extra"><option value="0">0 %</option><option value="5">5 %</option><option value="10" selected>10 %</option><option value="15">15 %</option><option value="20">20 %</option></select></div>
                     </div>
                 </div>
                 <div class="calc-result" aria-live="polite">
-                    <div><span>Volumen</span><output id="result-liters">0.0</output><small>Liter</small></div>
-                    <div><span>Mörtel ca.</span><output id="result-kg">0.0</output><small>kg</small></div>
+                    <div><span>Volumen</span><output id="out-liters">–</output><small>Liter</small></div>
+                    <div><span>Trockenmörtel</span><output id="out-kg">–</output><small>kg</small></div>
+                    <div class="calc-result-main"><span>Bestellen</span><output id="out-sacks">–</output><small id="out-sacks-unit">Säcke</small></div>
+                    <div><span>WPS-Füllungen</span><output id="out-fills">–</output><small>à 50 l</small></div>
                 </div>
-                <p class="calc-foot">Richtwert. Den genauen Bedarf pro Liter Fuge entnehmen Sie dem Datenblatt des Mörtels.</p>
-            </div>
+                <p class="calc-foot">Verbrauch = kg Trockenmörtel pro Liter Fuge, siehe Datenblatt des Mörtels. Alle Werte sind Richtwerte inklusive Zuschlag.</p>
+            </form>
             <div class="prose">
-                <h2>Hinweise zur Berechnung</h2>
-                <p>Das Volumen ergibt sich aus Länge × Breite × Tiefe. Bei V-Fugen, die in der Tiefe auslaufen, rechnen Sie mit der halben Tiefe. Beim Untermörteln entspricht die Breite der Schwellenbreite und die Tiefe der Fugenhöhe.</p>
-                <p>Die Mörtelmenge wird über die Rohdichte des Frischmörtels geschätzt. Wie viel Trockenmörtel Sie pro Liter Frischmörtel brauchen, steht als Ergiebigkeit im Datenblatt des Mörtelherstellers.</p>
+                <h2>So rechnet der Rechner</h2>
+                <p><strong>Fuge:</strong> Länge × Breite × Tiefe, zum Beispiel bei Natursteinmauern, Klinker oder Stossfugen.</p>
+                <p><strong>V-Fuge:</strong> Die Fuge läuft in der Tiefe gegen null aus, typisch bei Betonfertigteilen. Gerechnet wird mit dem halben Rechteck.</p>
+                <p><strong>Untermörtelung:</strong> Länge × Schwellenbreite × Fugenhöhe. Die Fugenhöhe sollte für die WPS mindestens 11 mm betragen.</p>
+                <h3>Trockenmörtel pro Liter</h3>
+                <p>Aus einem Sack Trockenmörtel entsteht je nach Produkt und Wassermenge eine bestimmte Menge Frischmörtel. Bei Mauer- und Fugenmörteln braucht es meist um 1.7 kg Trockenmörtel pro Liter. Den genauen Wert finden Sie im Datenblatt.</p>
                 <h3>Beispiel</h3>
-                <p>Eine Schwelle von 10 m Länge und 100 mm Breite wird mit 20 mm Fugenhöhe untermörtelt: 10 × 100 × 20 / 1000 = 20 Liter, mit 10 % Zuschlag 22 Liter.</p>
-                <p>Für grössere Mengen lohnt sich die <a href="produkte.html">WPS-Mörtelpumpe</a>, die bis zu 50 Liter Mörtel pro Füllung aufnimmt.</p>
+                <p>10 m Holzschwelle, 100 mm breit, 20 mm Fugenhöhe: 20 Liter, mit 10 % Zuschlag 22 Liter. Das sind rund 38 kg Trockenmörtel, also 2 Säcke zu 30 kg und eine Füllung der WPS.</p>
             </div>
         </div>
     </main>
@@ -807,8 +798,8 @@ PAGES = [
          title="Anwendungen der Mörtelpumpe: Untermörteln, Fugen, Stahlzargen | WPS",
          desc="Einsatzgebiete der WPS-Mörtelpumpe: Holzschwellen untermörteln, Stahlzargen einmörteln, Naturstein und Klinker verfugen, Betonfugen, Deckenfugen und Anker verpressen."),
     dict(file="moertel-bedarf-rechner.html", active="rechner", body=page_rechner,
-         title="Mörtelrechner: Mörtelbedarf für Fugen berechnen | Wilcowa",
-         desc="Mörtelbedarf online berechnen: Volumen und Mörtelmenge für Fugen, Untermörtelungen und Hohlräume aus Länge, Breite und Tiefe, inklusive Zuschlag."),
+         title="Mörtelrechner: Mörtelbedarf und Anzahl Säcke berechnen | Wilcowa",
+         desc="Mörtelrechner: Volumen, Trockenmörtel und Anzahl Säcke für Fugen, V-Fugen und Untermörtelungen berechnen, inklusive Zuschlag und Füllungen der WPS-Mörtelpumpe."),
     dict(file="faq.html", active="faq", body=page_faq,
          ld=[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in FAQ]}],
          title="Fragen zur WPS-Mörtelpumpe: Kompressor, Mörtel, Miete | Wilcowa",
