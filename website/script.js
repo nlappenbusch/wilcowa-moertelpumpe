@@ -1,32 +1,18 @@
-// Navigation & Header Logic
+// Navigation (mobil)
 document.addEventListener('DOMContentLoaded', () => {
-    const header = document.querySelector('header');
-
-    // Sticky Header Effect
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
-
-    // Mobile Menu Toggle
-    const hamburger = document.querySelector('.hamburger');
-    const nav = document.querySelector('nav');
-
-    if (hamburger) {
-        hamburger.addEventListener('click', () => {
-            nav.classList.toggle('active');
+    const toggle = document.querySelector('.nav-toggle');
+    if (toggle) {
+        toggle.addEventListener('click', () => {
+            const open = document.body.classList.toggle('nav-open');
+            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
         });
     }
 });
 
-// Calculator Logic
+// Mörtel-Bedarfsrechner
 function syncInput(type, source) {
     const input = document.getElementById(`calc-${type}-input`);
     const range = document.getElementById(`calc-${type}-range`);
-
     if (source === 'range') {
         input.value = range.value;
     } else {
@@ -36,108 +22,68 @@ function syncInput(type, source) {
 }
 
 function calculateMortar() {
-    // Get values from inputs (they are synced now, source of truth)
     const length = parseFloat(document.getElementById('calc-length-input').value) || 0;
     const width = parseFloat(document.getElementById('calc-width-input').value) || 0;
     const depth = parseFloat(document.getElementById('calc-depth-input').value) || 0;
-    
-    // New fields
     const density = parseFloat(document.getElementById('calc-density').value) || 1.8;
     const wastage = parseFloat(document.getElementById('calc-wastage').value) || 0;
 
-    // Calculation: L(m) * W(mm) * D(mm) 
-    // Simplified: (L * W * D) / 1000 = Liters
-    let liters = (length * width * depth) / 1000;
-    
-    // Apply wastage
-    liters = liters * (1 + (wastage / 100));
+    // L (m) × B (mm) × T (mm) / 1000 = Liter
+    const liters = (length * width * depth) / 1000 * (1 + wastage / 100);
+    const kg = liters * density;
 
-    // Calculate weight based on density (kg = l * kg/l)
-    const kg = liters * density; 
-
-    // Animate numbers slightly for effect? No, just update.
-    document.getElementById('result-liters').innerText = liters.toFixed(2);
-    document.getElementById('result-kg').innerText = kg.toFixed(1);
+    const fmt = (n, d) => n.toLocaleString('de-CH', { minimumFractionDigits: d, maximumFractionDigits: d });
+    document.getElementById('result-liters').textContent = fmt(liters, 1);
+    document.getElementById('result-kg').textContent = fmt(kg, 1);
 }
 
-// Lightbox Logic
 document.addEventListener('DOMContentLoaded', () => {
-    const galleryItems = document.querySelectorAll('.gallery-item img');
-    const lightbox = document.createElement('div');
-    lightbox.id = 'lightbox';
-    lightbox.className = 'lightbox hidden';
-    lightbox.innerHTML = `
-        <div class="lightbox-content">
-            <span class="lightbox-close">&times;</span>
-            <img src="" alt="Zoomed Image">
-        </div>
-    `;
-    document.body.appendChild(lightbox);
-
-    const lightboxImg = lightbox.querySelector('img');
-    const closeBtn = lightbox.querySelector('.lightbox-close');
-
-    galleryItems.forEach(img => {
-        img.addEventListener('click', () => {
-            lightboxImg.src = img.src;
-            lightbox.classList.remove('hidden');
-            document.body.style.overflow = 'hidden'; // Prevent scrolling
-        });
-    });
-
-    const closeLightbox = () => {
-        lightbox.classList.add('hidden');
-        document.body.style.overflow = '';
-    };
-
-    closeBtn.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) closeLightbox();
-    });
-
-    // Escape key to close
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !lightbox.classList.contains('hidden')) {
-            closeLightbox();
-        }
-    });
+    if (document.getElementById('result-liters')) calculateMortar();
 });
 
-/* --- Scroll Animation Logic --- */
+// Bildergalerie
 document.addEventListener('DOMContentLoaded', () => {
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
+    const images = document.querySelectorAll('.gallery img');
+    if (!images.length) return;
 
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-            }
-        });
-    }, observerOptions);
+    const box = document.createElement('div');
+    box.className = 'lightbox';
+    box.hidden = true;
+    box.innerHTML = '<button type="button" aria-label="Schliessen"><svg class="i"><use href="assets/icons.svg#close"/></svg></button><img alt="">';
+    document.body.appendChild(box);
+    const big = box.querySelector('img');
 
-    // Target generic sections for animation
-    // Only animate elements that explicitly have the class 'fade-in-section' to prevent visibility issues on mobile
-    const elementsToAnimate = document.querySelectorAll('.fade-in-section');
-    
-    elementsToAnimate.forEach(section => {
-        observer.observe(section);
-    });
+    const close = () => { box.hidden = true; document.body.style.overflow = ''; };
+    images.forEach(img => img.addEventListener('click', () => {
+        big.src = img.src;
+        big.alt = img.alt;
+        box.hidden = false;
+        document.body.style.overflow = 'hidden';
+    }));
+    box.addEventListener('click', e => { if (e.target !== big) close(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && !box.hidden) close(); });
 });
 
-/* --- Accordion Logic --- */
-function toggleAccordion(header) {
-    const item = header.parentElement;
-    item.classList.toggle('active');
-    
-    const content = item.querySelector('.accordion-content');
-    if (item.classList.contains('active')) {
-        content.style.maxHeight = content.scrollHeight + 'px';
-    } else {
-        content.style.maxHeight = 0;
-    }
-}
+// Kontaktformular: öffnet das Mailprogramm mit vorausgefüllter Nachricht
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
 
+    const topic = new URLSearchParams(location.search).get('type');
+    const select = form.querySelector('[name=betreff]');
+    if (topic === 'miete') select.value = 'Mietanfrage WPS-Mörtelpumpe';
+    if (topic === 'kauf') select.value = 'Offerte Kauf WPS-Mörtelpumpe';
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        const d = new FormData(form);
+        const sender = [
+            `${d.get('vorname')} ${d.get('nachname')}`,
+            d.get('firma'),
+            d.get('telefon'),
+            d.get('email'),
+        ].filter(Boolean).join('\n');
+        const body = `${d.get('nachricht')}\n\n---\n${sender}`;
+        location.href = `mailto:info@wilcowa.ch?subject=${encodeURIComponent(d.get('betreff'))}&body=${encodeURIComponent(body)}`;
+    });
+});
