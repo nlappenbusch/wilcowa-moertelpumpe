@@ -368,7 +368,7 @@ FAQ = [
 # Kundenbewertung: Durchschnitt aus den gesammelten Rückmeldungen der Wilcowa AG (Excel).
 # Strukturierte Daten (AggregateRating) erst ausgeben, wenn die Anzahl Bewertungen bekannt ist:
 # Google verlangt ratingCount, und die Werte müssen zur sichtbaren Angabe passen.
-RATING = {"value": "4.8", "best": "5", "count": None}
+RATING = {"value": "4.8", "best": "5", "count": 26}
 
 def rating_badge(dark=False):
     stars = "".join('<svg class="star" aria-hidden="true"><use href="assets/icons.svg#star"/></svg>' for _ in range(5))
