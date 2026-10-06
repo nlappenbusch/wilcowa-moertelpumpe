@@ -384,11 +384,8 @@ def proof_cards():
 
 # ------------------------------------------------------------------ Startseite
 def page_index():
-    info = {s_: txt for s_, n, t, txt, img in APPS}
-    tiles = "".join(
-        f'<div class="app-group"><h3>{title}</h3><ul>'
-        + "".join(f'<li><a href="{a}.html">{app_icon(a)}<span><strong>{MENU_LABELS[a][0]}</strong><small>{info[a]}</small></span></a></li>' for a in slugs)
-        + '</ul>' + (HOME_CALC if title == MENU_GROUPS[-1][0] else '') + '</div>' for title, slugs in MENU_GROUPS)
+    tiles = "".join(f'''
+                <li><a href="{s_}.html"><img src="assets/{img}.avif" alt="{t}" loading="lazy" width="900" height="675"><h3>{app_icon(s_)}{t}</h3><p>{txt}</p></a></li>''' for s_, n, t, txt, img in APPS)
     return f'''
     <main>
     <section class="hero">
@@ -437,7 +434,8 @@ def page_index():
                 <h2>Anwendungen</h2>
                 <p>Mit der passenden Düse eignet sich die WPS für eine ganze Reihe von Arbeiten im Hoch-, Holz- und Tiefbau. <a href="anwendungen.html">Alle Anwendungen</a></p>
             </div>
-            <div class="app-groups">{tiles}</div>
+            <ul class="tiles">{tiles}
+            </ul>
         </div>
     </section>
 
