@@ -7,6 +7,16 @@ document.addEventListener('DOMContentLoaded', () => {
             toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
         });
     }
+    document.querySelectorAll('.sub-toggle').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const open = btn.parentElement.classList.toggle('open');
+            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+    });
+    // Escape schliesst ein per Tastatur geöffnetes Menü
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && document.activeElement.closest('.has-sub')) document.activeElement.blur();
+    });
 });
 
 // Mörtelrechner: Vergleich Handarbeit / WPS

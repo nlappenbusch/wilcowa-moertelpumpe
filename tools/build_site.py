@@ -71,19 +71,79 @@ def head(p):
 <body>
 '''
 
+# Querschnitt-Icons fürs Menü (grau = Bauteil, orange = Mörtel)
+APP_ICONS = {
+    "anwendung-untermoerteln": '<rect x="18" y="8" width="36" height="22" class="s-wood"/><rect x="18" y="30" width="36" height="6" class="s-mortar"/><rect x="2" y="36" width="68" height="10" class="s-solid"/>',
+    "anwendung-stahlzargen": '<path d="M8 46V4h56v42h-8V12H16v34z" class="s-solid"/><path d="M16 46V12h40v34h-4V16H20v30z" class="s-mortar"/><path d="M20 46V16h32v30h-3V19H23v27z" class="s-steel"/>',
+    "anwendung-naturstein": '<rect x="2" y="2" width="68" height="44" class="s-mortar"/><path d="M4 4h22l2 14-4 6H4zM30 4h20l-2 12H31zM53 4h15v18H51zM4 27h18l4 8-2 9H4zM28 27l4-8h16l5 10-3 15H28zM56 25h12v19H54l-2-10z" class="s-solid"/>',
+    "anwendung-klinker": '<rect x="2" y="4" width="68" height="40" class="s-mortar"/><path d="M4 6h20v10H4zM27 6h20v10H27zM50 6h18v10H50zM4 19h8v10H4zM15 19h20v10H15zM38 19h20v10H38zM61 19h7v10h-7zM4 32h20v10H4zM27 32h20v10H27zM50 32h18v10H50z" class="s-solid"/>',
+    "anwendung-betonfugen": '<path d="M4 10h20l12 22v12H4z" class="s-solid"/><path d="M68 10H48L36 32v12h32z" class="s-solid"/><path d="M24 10h24L36 32z" class="s-mortar"/>',
+    "anwendung-spannbeton": '<path d="M2 16h31v22H2zM39 16h31v22H39z" class="s-solid"/><path d="M33 16h6v22h-6z" class="s-mortar"/><circle cx="12" cy="27" r="4" class="s-hole"/><circle cx="24" cy="27" r="4" class="s-hole"/><circle cx="48" cy="27" r="4" class="s-hole"/><circle cx="60" cy="27" r="4" class="s-hole"/>',
+    "anwendung-maueranker": '<rect x="22" y="2" width="48" height="44" class="s-solid"/><rect x="22" y="19" width="40" height="10" class="s-mortar"/><path d="M4 24h56" class="s-rod"/><path d="M8 18v12" class="s-rod"/>',
+    "anwendung-daemmplatten": '<rect x="2" y="6" width="22" height="38" class="s-solid"/><rect x="34" y="6" width="22" height="38" class="s-wood"/><circle cx="29" cy="14" r="3.5" class="s-mortar"/><circle cx="29" cy="25" r="3.5" class="s-mortar"/><circle cx="29" cy="36" r="3.5" class="s-mortar"/>',
+}
+
+MENU_GROUPS = [
+    ("Holz- und Hochbau", ["anwendung-untermoerteln", "anwendung-stahlzargen", "anwendung-daemmplatten"]),
+    ("Fugen", ["anwendung-naturstein", "anwendung-klinker", "anwendung-betonfugen", "anwendung-spannbeton"]),
+    ("Verankerung", ["anwendung-maueranker"]),
+]
+
+MENU_LABELS = {
+    "anwendung-untermoerteln": ("Untermörteln", "Holzschwellen, Elemente, Stahlplatten"),
+    "anwendung-stahlzargen": ("Stahlzargen einmörteln", "auch Sichtbauweise, 1–2 cm Spalt"),
+    "anwendung-daemmplatten": ("Kleber auf Dämmplatten", "Dämm- und Brandschutzplatten"),
+    "anwendung-naturstein": ("Natur- und Bruchstein", "Mauern, Gewölbe, Randsteine"),
+    "anwendung-klinker": ("Klinker-Verblender", "Fassadenfugen 5–10 mm"),
+    "anwendung-betonfugen": ("Betonfugen", "V-Fugen und Stossfugen"),
+    "anwendung-spannbeton": ("Deckenplatten-Fugen", "Spannbeton, Porenbeton"),
+    "anwendung-maueranker": ("Mauer- und Felsanker", "Verpressen mit der Rohrdüse"),
+}
+
+PRODUCT_MENU = [
+    ("produkte.html", "Funktionsprinzip", "So arbeitet die Pumpe"),
+    ("produkte.html#technische-daten", "Technische Daten", "Leistung, Anschluss, Gewicht"),
+    ("produkte.html#zubehoer", "Düsen und Zubehör", "Düsen, Kompressor, Mischer"),
+    ("faq.html", "Häufige Fragen", "Kompressor, Mörtel, Miete"),
+]
+
+def app_icon(slug):
+    return f'<svg class="menu-icon" viewBox="0 0 72 48" aria-hidden="true">{APP_ICONS[slug]}</svg>'
+
 def header(active):
+    info = {s: (t, txt) for s, n, t, txt, img in APPS}
     def item(href, label, key):
         cls = ' class="active"' if key == active else ""
         return f'<li><a href="{href}"{cls}>{label}</a></li>'
-    sub = "".join(f'<li><a href="{s}.html">{t}</a></li>' for s, n, t, *_ in APPS)
+    feature = ('<a class="mega-feature" href="moertel-bedarf-rechner.html"><strong>Was spart die WPS?</strong>'
+               '<span>Arbeitszeit, Kosten und Mörtel im Vergleich zur Handarbeit.</span><em>Zum Mörtelrechner</em></a>')
+    groups = ""
+    for n, (title, slugs) in enumerate(MENU_GROUPS):
+        links = "".join(f'<li><a href="{s}.html">{app_icon(s)}<span><strong>{MENU_LABELS[s][0]}</strong><small>{MENU_LABELS[s][1]}</small></span></a></li>' for s in slugs)
+        extra = feature if n == len(MENU_GROUPS) - 1 else ""
+        groups += f'<div class="mega-group"><p class="mega-title">{title}</p><ul>{links}</ul>{extra}</div>'
+    prod = "".join(f'<li><a href="{u}"><strong>{t}</strong><small>{d}</small></a></li>' for u, t, d in PRODUCT_MENU)
+    chev = '<svg class="i" aria-hidden="true"><use href="assets/icons.svg#chevron"/></svg>'
+    act = lambda k: ' active' if k == active else ''
     return f'''    <header class="site-header">
         <div class="container">
             <a class="logo" href="index.html"><img src="assets/wilcowa-logo.png" alt="Wilcowa AG" width="1600" height="400"></a>
             <nav class="main-nav" aria-label="Hauptnavigation">
                 <ul>
-                    {item("produkte.html", "WPS-Mörtelpumpe", "produkt")}
-                    <li class="has-sub"><a href="anwendungen.html"{' class="active"' if active == "anwendungen" else ""}>Anwendungen</a>
-                        <ul class="submenu"><li><a href="anwendungen.html">Übersicht</a></li>{sub}</ul>
+                    <li class="has-sub has-drop">
+                        <a class="nav-top{act("produkt")}" href="produkte.html">WPS-Mörtelpumpe {chev}</a>
+                        <button class="sub-toggle" type="button" aria-label="Untermenü WPS-Mörtelpumpe" aria-expanded="false">{chev}</button>
+                        <div class="drop"><ul>{prod}</ul></div>
+                    </li>
+                    <li class="has-sub has-mega">
+                        <a class="nav-top{act("anwendungen")}" href="anwendungen.html">Anwendungen {chev}</a>
+                        <button class="sub-toggle" type="button" aria-label="Untermenü Anwendungen" aria-expanded="false">{chev}</button>
+                        <div class="mega">
+                            <div class="container mega-inner">
+                                <div class="mega-groups">{groups}</div>
+                            </div>
+                            <div class="container mega-foot"><a href="anwendungen.html">Alle Anwendungen und Bilder ansehen</a></div>
+                        </div>
                     </li>
                     {item("moertel-bedarf-rechner.html", "Mörtelrechner", "rechner")}
                     {item("faq.html", "Fragen", "faq")}
@@ -170,13 +230,14 @@ def breadcrumb_ld(items):
         {"@type": "ListItem", "position": i + 1, "name": l.replace("&amp;", "&"), "item": BASE + "/" + ("" if u == "index.html" else u)}
         for i, (l, u) in enumerate(items)]}
 
-def page_head(crumbs, title, lead):
+def page_head(crumbs, title, lead, extra=""):
     return f'''
     <section class="page-head">
         <div class="container">
             {breadcrumbs(crumbs)}
             <h1>{title}</h1>
             <p class="lead">{lead}</p>
+            {extra}
         </div>
     </section>
 '''
@@ -275,6 +336,18 @@ FAQ = [
      "Ja. Sie können die WPS-Mörtelpumpe bei uns mieten, zum Beispiel für ein einzelnes Projekt oder um sie vor dem Kauf mit Ihrem Mörtel zu testen. Verfügbarkeit und Konditionen erhalten Sie telefonisch oder über das Anfrageformular."),
 ]
 
+# Kundenbewertung: Durchschnitt aus den gesammelten Rückmeldungen der Wilcowa AG (Excel).
+# Strukturierte Daten (AggregateRating) erst ausgeben, wenn die Anzahl Bewertungen bekannt ist:
+# Google verlangt ratingCount, und die Werte müssen zur sichtbaren Angabe passen.
+RATING = {"value": "4.8", "best": "5", "count": None}
+
+def rating_badge(dark=False):
+    stars = "".join('<svg class="star" aria-hidden="true"><use href="assets/icons.svg#star"/></svg>' for _ in range(5))
+    count = f" aus {RATING['count']} Bewertungen" if RATING["count"] else ""
+    cls = "rating rating-dark" if dark else "rating"
+    return (f'<p class="{cls}"><span class="stars" aria-hidden="true">{stars}</span>'
+            f'<strong>{RATING["value"]}</strong> von {RATING["best"]}<span class="rating-src">Durchschnitt{count} der Kundenrückmeldungen</span></p>')
+
 # Belegte Aussagen, wörtlich zitiert. Keine erfundenen Kundenstimmen.
 PROOF = [
     ("100 %", "Schnabeldüse gewährleistet volle Unterstopfung ab 10 mm Unterstopfhöhe",
@@ -311,6 +384,7 @@ def page_index():
                     <a class="btn btn-accent" href="kontakt.html">Anfrage senden</a>
                     <a class="btn btn-outline-light" href="produkte.html">Technische Daten</a>
                 </div>
+                {rating_badge(dark=True)}
             </div>
             <img src="assets/Untermorteln_Stahltragerplatte.avif" alt="Untermörteln einer Stahlplatte mit der WPS-Mörtelpumpe" width="914" height="682" fetchpriority="high">
         </div>
@@ -386,7 +460,7 @@ def page_produkt():
     ]
     noz = "".join(f"<tr><th scope=\"row\">{a}</th><td>{b}</td></tr>" for a, b in nozzles)
     com = "".join(f"<tr><td>{a}</td><td>{b}</td><td>{c}</td></tr>" for a, b, c in comp)
-    return page_head(crumbs, "WPS-Mörtelpumpe", "Druckluftbetriebene Mörtelpumpe der Winiger Pump System AG, Wald ZH. Patentiert, verschleissfrei und für Standardmörtel ausgelegt.") + f'''
+    return page_head(crumbs, "WPS-Mörtelpumpe", "Druckluftbetriebene Mörtelpumpe der Winiger Pump System AG, Wald ZH. Patentiert, verschleissfrei und für Standardmörtel ausgelegt.", extra=rating_badge(dark=True)) + f'''
     <main class="section">
         <div class="container layout">
             <article class="prose">
@@ -869,6 +943,9 @@ PRODUCT_LD = {"@context": "https://schema.org", "@type": "Product", "name": "WPS
               "manufacturer": {"@type": "Organization", "name": "Winiger Pump System AG", "url": WPS + "/"},
               "offers": {"@type": "Offer", "url": BASE + "/kontakt.html", "priceCurrency": "CHF", "availability": "https://schema.org/InStock",
                          "seller": {"@type": "Organization", "name": "Wilcowa AG Baumaschinen"}}}
+
+if RATING["count"]:
+    PRODUCT_LD["aggregateRating"] = {"@type": "AggregateRating", "ratingValue": RATING["value"], "bestRating": RATING["best"], "ratingCount": str(RATING["count"])}
 
 PAGES = [
     dict(file="index.html", active="", body=page_index, ld=[LOCAL_BUSINESS],

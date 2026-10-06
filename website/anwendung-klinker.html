@@ -15,7 +15,7 @@
     <link rel="icon" type="image/png" href="assets/wilcowa-logo.png">
     <link rel="preload" href="assets/fonts/roboto-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/barlow-semi-condensed-600-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="style.css?v=c3392cfc">
+    <link rel="stylesheet" href="style.css?v=cccc1943">
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -49,9 +49,20 @@
             <a class="logo" href="index.html"><img src="assets/wilcowa-logo.png" alt="Wilcowa AG" width="1600" height="400"></a>
             <nav class="main-nav" aria-label="Hauptnavigation">
                 <ul>
-                    <li><a href="produkte.html">WPS-Mörtelpumpe</a></li>
-                    <li class="has-sub"><a href="anwendungen.html" class="active">Anwendungen</a>
-                        <ul class="submenu"><li><a href="anwendungen.html">Übersicht</a></li><li><a href="anwendung-untermoerteln.html">Untermörteln von Schwellen und Elementen</a></li><li><a href="anwendung-stahlzargen.html">Stahlzargen einmörteln</a></li><li><a href="anwendung-naturstein.html">Natur- und Bruchsteinmauern verfugen</a></li><li><a href="anwendung-klinker.html">Klinker-Verblender verfugen</a></li><li><a href="anwendung-betonfugen.html">Fugen von Betonelementen</a></li><li><a href="anwendung-spannbeton.html">Deckenplatten-Fugen ausmörteln</a></li><li><a href="anwendung-maueranker.html">Mauer- und Felsanker verpressen</a></li><li><a href="anwendung-daemmplatten.html">Mörtelkleber auf Dämmplatten</a></li></ul>
+                    <li class="has-sub has-drop">
+                        <a class="nav-top" href="produkte.html">WPS-Mörtelpumpe <svg class="i" aria-hidden="true"><use href="assets/icons.svg#chevron"/></svg></a>
+                        <button class="sub-toggle" type="button" aria-label="Untermenü WPS-Mörtelpumpe" aria-expanded="false"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#chevron"/></svg></button>
+                        <div class="drop"><ul><li><a href="produkte.html"><strong>Funktionsprinzip</strong><small>So arbeitet die Pumpe</small></a></li><li><a href="produkte.html#technische-daten"><strong>Technische Daten</strong><small>Leistung, Anschluss, Gewicht</small></a></li><li><a href="produkte.html#zubehoer"><strong>Düsen und Zubehör</strong><small>Düsen, Kompressor, Mischer</small></a></li><li><a href="faq.html"><strong>Häufige Fragen</strong><small>Kompressor, Mörtel, Miete</small></a></li></ul></div>
+                    </li>
+                    <li class="has-sub has-mega">
+                        <a class="nav-top active" href="anwendungen.html">Anwendungen <svg class="i" aria-hidden="true"><use href="assets/icons.svg#chevron"/></svg></a>
+                        <button class="sub-toggle" type="button" aria-label="Untermenü Anwendungen" aria-expanded="false"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#chevron"/></svg></button>
+                        <div class="mega">
+                            <div class="container mega-inner">
+                                <div class="mega-groups"><div class="mega-group"><p class="mega-title">Holz- und Hochbau</p><ul><li><a href="anwendung-untermoerteln.html"><svg class="menu-icon" viewBox="0 0 72 48" aria-hidden="true"><rect x="18" y="8" width="36" height="22" class="s-wood"/><rect x="18" y="30" width="36" height="6" class="s-mortar"/><rect x="2" y="36" width="68" height="10" class="s-solid"/></svg><span><strong>Untermörteln</strong><small>Holzschwellen, Elemente, Stahlplatten</small></span></a></li><li><a href="anwendung-stahlzargen.html"><svg class="menu-icon" viewBox="0 0 72 48" aria-hidden="true"><path d="M8 46V4h56v42h-8V12H16v34z" class="s-solid"/><path d="M16 46V12h40v34h-4V16H20v30z" class="s-mortar"/><path d="M20 46V16h32v30h-3V19H23v27z" class="s-steel"/></svg><span><strong>Stahlzargen einmörteln</strong><small>auch Sichtbauweise, 1–2 cm Spalt</small></span></a></li><li><a href="anwendung-daemmplatten.html"><svg class="menu-icon" viewBox="0 0 72 48" aria-hidden="true"><rect x="2" y="6" width="22" height="38" class="s-solid"/><rect x="34" y="6" width="22" height="38" class="s-wood"/><circle cx="29" cy="14" r="3.5" class="s-mortar"/><circle cx="29" cy="25" r="3.5" class="s-mortar"/><circle cx="29" cy="36" r="3.5" class="s-mortar"/></svg><span><strong>Kleber auf Dämmplatten</strong><small>Dämm- und Brandschutzplatten</small></span></a></li></ul></div><div class="mega-group"><p class="mega-title">Fugen</p><ul><li><a href="anwendung-naturstein.html"><svg class="menu-icon" viewBox="0 0 72 48" aria-hidden="true"><rect x="2" y="2" width="68" height="44" class="s-mortar"/><path d="M4 4h22l2 14-4 6H4zM30 4h20l-2 12H31zM53 4h15v18H51zM4 27h18l4 8-2 9H4zM28 27l4-8h16l5 10-3 15H28zM56 25h12v19H54l-2-10z" class="s-solid"/></svg><span><strong>Natur- und Bruchstein</strong><small>Mauern, Gewölbe, Randsteine</small></span></a></li><li><a href="anwendung-klinker.html"><svg class="menu-icon" viewBox="0 0 72 48" aria-hidden="true"><rect x="2" y="4" width="68" height="40" class="s-mortar"/><path d="M4 6h20v10H4zM27 6h20v10H27zM50 6h18v10H50zM4 19h8v10H4zM15 19h20v10H15zM38 19h20v10H38zM61 19h7v10h-7zM4 32h20v10H4zM27 32h20v10H27zM50 32h18v10H50z" class="s-solid"/></svg><span><strong>Klinker-Verblender</strong><small>Fassadenfugen 5–10 mm</small></span></a></li><li><a href="anwendung-betonfugen.html"><svg class="menu-icon" viewBox="0 0 72 48" aria-hidden="true"><path d="M4 10h20l12 22v12H4z" class="s-solid"/><path d="M68 10H48L36 32v12h32z" class="s-solid"/><path d="M24 10h24L36 32z" class="s-mortar"/></svg><span><strong>Betonfugen</strong><small>V-Fugen und Stossfugen</small></span></a></li><li><a href="anwendung-spannbeton.html"><svg class="menu-icon" viewBox="0 0 72 48" aria-hidden="true"><path d="M2 16h31v22H2zM39 16h31v22H39z" class="s-solid"/><path d="M33 16h6v22h-6z" class="s-mortar"/><circle cx="12" cy="27" r="4" class="s-hole"/><circle cx="24" cy="27" r="4" class="s-hole"/><circle cx="48" cy="27" r="4" class="s-hole"/><circle cx="60" cy="27" r="4" class="s-hole"/></svg><span><strong>Deckenplatten-Fugen</strong><small>Spannbeton, Porenbeton</small></span></a></li></ul></div><div class="mega-group"><p class="mega-title">Verankerung</p><ul><li><a href="anwendung-maueranker.html"><svg class="menu-icon" viewBox="0 0 72 48" aria-hidden="true"><rect x="22" y="2" width="48" height="44" class="s-solid"/><rect x="22" y="19" width="40" height="10" class="s-mortar"/><path d="M4 24h56" class="s-rod"/><path d="M8 18v12" class="s-rod"/></svg><span><strong>Mauer- und Felsanker</strong><small>Verpressen mit der Rohrdüse</small></span></a></li></ul><a class="mega-feature" href="moertel-bedarf-rechner.html"><strong>Was spart die WPS?</strong><span>Arbeitszeit, Kosten und Mörtel im Vergleich zur Handarbeit.</span><em>Zum Mörtelrechner</em></a></div></div>
+                            </div>
+                            <div class="container mega-foot"><a href="anwendungen.html">Alle Anwendungen und Bilder ansehen</a></div>
+                        </div>
                     </li>
                     <li><a href="moertel-bedarf-rechner.html">Mörtelrechner</a></li>
                     <li><a href="faq.html">Fragen</a></li>
@@ -72,6 +83,7 @@
             <nav class="breadcrumbs" aria-label="Brotkrumen"><ol><li><a href="index.html">Start</a></li><li><a href="anwendungen.html">Anwendungen</a></li><li><span aria-current="page">Klinker-Verblender verfugen</span></li></ol></nav>
             <h1>Klinker-Verblender verfugen</h1>
             <p class="lead">Schmale Fassadenfugen von 5 bis 10 mm an Klinker-Verblendern und Natursteinplatten.</p>
+            
         </div>
     </section>
 
@@ -157,6 +169,6 @@
         </div>
     </footer>
 
-    <script src="script.js?v=7ba60abc"></script>
+    <script src="script.js?v=bf363646"></script>
 </body>
 </html>
