@@ -202,21 +202,54 @@ LOCAL_BUSINESS = {
     "description": "Verkauf und Vermietung der WPS-Mörtelpumpe mit Zubehör in der Schweiz.",
 }
 
-SPECS = [
-    ("Förderprinzip", "Druckluft mit Vibrator, ohne Schnecke oder Rotor"),
-    ("Fördermenge", "0 bis 15 l/min, stufenlos regelbar"),
-    ("Förderdruck", "max. 2.5 bar"),
-    ("Förderweite", "bis 4 m (bei Stahlzargen 3.2 m)"),
-    ("Luftbedarf", "200 l/min bei 8 bis 9 bar"),
-    ("Behälter", "60 l, davon 50 l nutzbar"),
-    ("Einfüllhöhe", "900 mm"),
-    ("Abmessungen (L × B × H)", "600 × 520 × 1140 mm"),
-    ("Gewicht", "50 bis 55 kg, je nach Zubehör"),
+# Datenblatt nach Herstellerangaben (wps-ag.ch, Flyer WPS-U-2.2019d, WPS-HT-4.2018d)
+SPEC_GROUPS = [
+    ("Leistung", [
+        ("Fördermenge", "0–15 l/min, stufenlos über den Luftdruck"),
+        ("Förderdruck", "max. 2.5 bar"),
+        ("Förderweite", "bis 4 m, bei Stahlzargen 3.2 m"),
+        ("Dosierung", "Kugelhahn an der Düse, sofort stopp- und startbar"),
+    ]),
+    ("Mörtel", [
+        ("Geeignet für", "Zement-Mauermörtel, Fugen-, Kleber- und Vergussmörtel, auch nicht maschinengängige"),
+        ("Untermörteln", "ab 11 mm Fugenhöhe, bis über 400 mm Tiefe"),
+    ]),
+    ("Anschluss", [
+        ("Antrieb", "Druckluft, kein Stromanschluss an der Pumpe"),
+        ("Luftbedarf", "200 l/min bei 8–9 bar"),
+        ("Kompressor", "ab 2.2 kW (230 V), für Fugenarbeiten 3 kW (400 V)"),
+    ]),
+    ("Gerät", [
+        ("Behälter", "60 l, davon 50 l nutzbar"),
+        ("Einfüllhöhe", "900 mm"),
+        ("Abmessungen L × B × H", "600 × 520 × 1140 mm"),
+        ("Gewicht", "50–55 kg, je nach Zubehör"),
+        ("Bauweise", "Sackkarre, gerüsttauglich"),
+        ("Rüsten / Reinigen", "je ca. 5–10 Minuten"),
+    ]),
 ]
 
-def spec_table(rows):
-    trs = "".join(f"<tr><th scope=\"row\">{a}</th><td>{b}</td></tr>" for a, b in rows)
-    return f'<table class="table"><tbody>{trs}</tbody></table>'
+SPECS_SHORT = [
+    ("Fördermenge", "0–15 l/min"),
+    ("Förderdruck", "max. 2.5 bar"),
+    ("Förderweite", "bis 4 m"),
+    ("Nutzinhalt", "50 l"),
+    ("Antrieb", "Druckluft, 200 l/min bei 8–9 bar"),
+    ("Gewicht", "50–55 kg"),
+]
+
+def spec_table(groups=None, rows=None, title="Technische Daten", note="Herstellerangaben"):
+    body = ""
+    if groups:
+        for g, items in groups:
+            body += f'<tr class="spec-group"><th colspan="2" scope="rowgroup">{g}</th></tr>'
+            body += "".join(f'<tr><th scope="row">{a}</th><td>{b}</td></tr>' for a, b in items)
+    else:
+        body = "".join(f'<tr><th scope="row">{a}</th><td>{b}</td></tr>' for a, b in rows)
+    return f'''<table class="spec">
+                    <thead><tr class="spec-head"><th colspan="2" scope="col"><span class="spec-note">{note}</span>{title}</th></tr></thead>
+                    <tbody>{body}</tbody>
+                </table>'''
 
 FAQ = [
     ("Braucht die WPS-Mörtelpumpe einen Kompressor?",
@@ -266,9 +299,8 @@ def page_index():
                 <p><a href="produkte.html">Mehr zur WPS-Mörtelpumpe</a></p>
             </div>
             <div>
-                <h3 style="margin-bottom:10px">Technische Daten</h3>
-                {spec_table(SPECS[:7])}
-                <p class="table-note">Herstellerangaben. Leistungsdaten hängen von Mörtel und Anwendung ab.</p>
+                {spec_table(rows=SPECS_SHORT, title="WPS-Mörtelpumpe")}
+                <p class="table-note">Leistungsdaten hängen von Mörtel und Anwendung ab. <a href="produkte.html#technische-daten">Vollständiges Datenblatt</a></p>
             </div>
         </div>
     </section>
@@ -348,8 +380,8 @@ def page_produkt():
                 </ul>
 
                 <h2 id="technische-daten">Technische Daten</h2>
-                {spec_table(SPECS)}
-                <p class="table-note">Angaben des Herstellers. Leistungsdaten sind Erfahrungswerte und hängen von Anwendung und Mörtelkonsistenz ab.</p>
+                {spec_table(groups=SPEC_GROUPS, title="WPS-Mörtelpumpe")}
+                <p class="table-note">Leistungsdaten sind Erfahrungswerte des Herstellers und hängen von Anwendung und Mörtelkonsistenz ab.</p>
 
                 <h2 id="zubehoer">Düsen und Zubehör</h2>
                 <div class="table-wrap"><table class="table"><thead><tr><th>Teil</th><th>Einsatz</th></tr></thead><tbody>{noz}</tbody></table></div>
