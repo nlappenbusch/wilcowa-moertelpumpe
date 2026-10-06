@@ -1052,6 +1052,8 @@ for p in PAGES:
     if p["file"] in CRUMBS:
         p["ld"] = p.get("ld", []) + [breadcrumb_ld(CRUMBS[p["file"]])]
     out = head(p) + header(p["active"]) + p["body"]() + footer()
+    # Icon-Sprite ebenfalls versionieren, sonst zeigen Browser mit alter Kopie neue Symbole nicht an
+    out = out.replace("assets/icons.svg#", f"assets/icons.svg?v={ver('assets/icons.svg')}#")
     (OUT / p["file"]).write_text(out.replace("ß", "ss"), encoding="utf-8", newline="\n")
     print("ok", p["file"])
 
