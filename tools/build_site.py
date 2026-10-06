@@ -19,7 +19,7 @@ def icon(name):
 # slug, Menütitel, Titel, Kurztext, Bild
 APPS = [
     ("anwendung-untermoerteln", "Untermörteln", "Untermörteln von Schwellen und Elementen", "Holzschwellen, Betonelemente, Stahlplatten und Pfetten vollflächig unterfüttern.", "Beton_Stahl_Konstruktion"),
-    ("anwendung-stahlzargen", "Stahlzargen", "Stahlzargen einmörteln", "Zargen auch in Sichtbauweise und bei 1 bis 2 cm Spalt sauber hinterfüllen.", "Ausmorteln_Stahltrager"),
+    ("anwendung-stahlzargen", "Stahlzargen", "Stahlzargen einmörteln", "Zargen auch in Sichtbauweise und bei 1 bis 2 cm Spalt sauber hinterfüllen.", "Stahlschalung_Saeule"),
     ("anwendung-naturstein", "Naturstein und Randsteine", "Natur- und Bruchsteinmauern verfugen", "Mauerwerk, Gewölbe und Randsteine maschinell ausfugen.", "Natursteinwand_Fugen"),
     ("anwendung-klinker", "Klinker", "Klinker-Verblender verfugen", "Schmale Fassadenfugen von 5 bis 10 mm mit angepasster Fugendüse.", "Klinker-Verblender_gefugt"),
     ("anwendung-betonfugen", "Betonfugen", "Fugen von Betonelementen", "V-Fugen und Stossfugen an Betonfertigteilen ausmörteln.", "Fugen_Deckenelemente"),
@@ -90,7 +90,7 @@ def header(active):
             </nav>
             <div class="header-contact">
                 <a class="header-phone" href="{PHONE_HREF}">{PHONE}</a>
-                <a class="btn btn-primary" href="kontakt.html">Anfrage</a>
+                <a class="btn btn-accent" href="kontakt.html">Anfrage</a>
             </div>
             <button class="nav-toggle" type="button" aria-label="Menü" aria-expanded="false"><svg class="i i-menu" aria-hidden="true"><use href="assets/icons.svg#menu"/></svg><svg class="i i-close" aria-hidden="true"><use href="assets/icons.svg#close"/></svg></button>
         </div>
@@ -106,8 +106,8 @@ def contact_strip():
                 <p>Wilcowa AG Baumaschinen, Riedthofstrasse 172, 8105 Regensdorf</p>
             </div>
             <div class="btn-row">
-                <a class="btn btn-primary" href="{PHONE_HREF}">{PHONE}</a>
-                <a class="btn btn-secondary" href="kontakt.html">Anfrage senden</a>
+                <a class="btn btn-accent" href="{PHONE_HREF}">{PHONE}</a>
+                <a class="btn btn-outline-light" href="kontakt.html">Anfrage senden</a>
             </div>
         </div>
     </section>
@@ -282,8 +282,8 @@ def page_index():
                 <h1>WPS-Mörtelpumpe zum Untermörteln, Fugen und Einmörteln von Stahlzargen</h1>
                 <p class="lead">Die druckluftbetriebene WPS-Mörtelpumpe fördert auch Mörtel, die sich mit herkömmlichen Maschinen nicht pumpen lassen. Der Mörtelfluss lässt sich jederzeit stoppen und wieder starten. Die Wilcowa AG in Regensdorf verkauft und vermietet die Pumpe mit Zubehör.</p>
                 <div class="btn-row">
-                    <a class="btn btn-primary" href="kontakt.html">Anfrage senden</a>
-                    <a class="btn btn-secondary" href="produkte.html">Technische Daten</a>
+                    <a class="btn btn-accent" href="kontakt.html">Anfrage senden</a>
+                    <a class="btn btn-outline-light" href="produkte.html">Technische Daten</a>
                 </div>
             </div>
             <img src="assets/Untermorteln_Stahltragerplatte.avif" alt="Untermörteln einer Stahlplatte mit der WPS-Mörtelpumpe" width="914" height="682" fetchpriority="high">
@@ -445,7 +445,7 @@ DETAILS = {
     title="Stahlzargen einmörteln mit der Mörtelpumpe | WPS – Wilcowa",
     desc="Stahlzargen in Sichtbauweise und rauchdichter Ausführung einmörteln: Mit der WPS-Mörtelpumpe den Spalt von 1–2 cm zur Leibung sauber und hohlraumfrei verfüllen.",
     lead="Auch in Sichtbauweise und bei rauchdichter Ausführung: Der Spalt zwischen Leibung und Zarge wird sauber und vollständig verfüllt.",
-    img=("Ausmorteln_Stahltrager", "Einmörteln mit der WPS-Mörtelpumpe", 874, 1166),
+    img=("Stahlschalung_Saeule", "Ausmörteln einer Stahlschalung mit der WPS-Mörtelpumpe", 874, 1164),
     pdfs=("tiefbau",), wps="einmoerteln-von-stahlzargen",
     body="""<h2>Das Problem auf der Baustelle</h2>
                 <p>Zwischen Leibung und Zargenspiegel bleibt oft nur ein Spalt von 1 bis 2 cm. Wird eine Montage in Sichtbauweise oder in rauchdichter Ausführung verlangt, ist es von Hand kaum möglich, den Mörtel dort sauber einzubringen. Auch ohne diese Anforderungen ist das Einwerfen des Mörtels anstrengend und zeitraubend.</p>
@@ -754,7 +754,7 @@ def page_kontakt():
                         </select>
                     </div>
                     <div class="field field-full"><label for="f-msg">Nachricht *</label><textarea id="f-msg" name="nachricht" rows="6" required placeholder="Anwendung, Mörtel, Zeitraum"></textarea></div>
-                    <div class="field-full form-actions"><button class="btn btn-primary" type="submit">E-Mail erstellen</button><span class="muted small">* Pflichtfelder</span></div>
+                    <div class="field-full form-actions"><button class="btn btn-accent" type="submit">E-Mail erstellen</button><span class="muted small">* Pflichtfelder</span></div>
                 </form>
             </div>
         </div>
