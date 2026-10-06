@@ -8,6 +8,34 @@ import json, pathlib, hashlib, re, shutil, subprocess, urllib.parse, html as h
 OUT = pathlib.Path(__file__).resolve().parent.parent / "website"
 BASE = "https://moertelpumpe.ch"
 
+# Öffentliche Adressen (ohne .html). Interne Schlüssel = alte Dateinamen; nginx leitet alte URLs per 301 um.
+URLS = {
+    "index": "",
+    "produkte": "wps-moertelpumpe",
+    "anwendungen": "anwendungen",
+    "anwendung-untermoerteln": "untermoerteln-holzschwellen",
+    "anwendung-stahlzargen": "stahlzargen-einmoerteln",
+    "anwendung-naturstein": "natursteinmauer-verfugen",
+    "anwendung-klinker": "klinker-verfugen",
+    "anwendung-betonfugen": "betonfugen-ausmoerteln",
+    "anwendung-spannbeton": "deckenfugen-ausmoerteln",
+    "anwendung-maueranker": "maueranker-verpressen",
+    "anwendung-daemmplatten": "daemmplatten-kleben",
+    "moertel-bedarf-rechner": "moertelrechner",
+    "faq": "faq",
+    "kontakt": "kontakt",
+    "impressum": "impressum",
+}
+OLD_EXTRA = {"anwendung-fugen": "natursteinmauer-verfugen"}  # 2026 entfernte Seite
+
+def relink(text):
+    """Alle internen Verweise auf die neuen Adressen umschreiben (Links, Canonicals, JSON-LD, Sitemap, llms.txt)."""
+    for old in sorted(URLS, key=len, reverse=True):
+        new = URLS[old]
+        text = re.sub(rf'(https://moertelpumpe\.ch/){re.escape(old)}\.html', rf'\g<1>{new}', text)
+        text = re.sub(rf'((?:href|action)="){re.escape(old)}\.html', rf'\g<1>/{new}', text)
+    return text
+
 # Cache-Busting: nginx liefert CSS/JS mit 30 Tagen Cache aus
 def ver(name):
     return hashlib.md5((OUT / name).read_bytes()).hexdigest()[:8]
@@ -796,10 +824,8 @@ def page_anwendungen():
     info = {s_: (t, txt, img) for s_, n, t, txt, img in APPS}
 
     # Schnellnavigation im Seitenkopf: Piktogramme wie im Menü, springen zur Anwendung auf dieser Seite
-    jump = "".join(
-        f'<div class="jump-group"><p>{title}</p><ul>'
-        + "".join(f'<li><a href="#{a}">{app_icon(a)}<span>{MENU_LABELS[a][0]}</span></a></li>' for a in slugs)
-        + '</ul></div>' for title, slugs in MENU_GROUPS)
+    jump = "<ul>" + "".join(f'<li><a href="#{a}">{app_icon(a)}<span>{MENU_LABELS[a][0]}</span></a></li>'
+                            for title, slugs in MENU_GROUPS for a in slugs) + "</ul>"
 
     def row(a):
         t, txt, img = info[a]
@@ -1113,11 +1139,13 @@ for p in PAGES:
     out = head(p) + SKIP + header(p["active"]) + '\n    <main id="inhalt">' + body + '    </main>\n' + footer()
     # Icon-Sprite ebenfalls versionieren, sonst zeigen Browser mit alter Kopie neue Symbole nicht an
     out = out.replace("assets/icons.svg#", f"assets/icons.svg?v={ver('assets/icons.svg')}#")
-    (OUT / p["file"]).write_text(out.replace("ß", "ss"), encoding="utf-8", newline="\n")
+    out = relink(out)
+    target = "index.html" if p["file"] == "index.html" else URLS[p["file"][:-5]] + ".html"
+    (OUT / target).write_text(out.replace("ß", "ss"), encoding="utf-8", newline="\n")
     print("ok", p["file"])
 
 # nicht mehr verwendete Seiten entfernen
-for old in ["anwendung-fugen.html"]:
+for old in ["anwendung-fugen.html"] + [f"{k}.html" for k, v in URLS.items() if k != "index" and k != v]:
     f = OUT / old
     if f.exists():
         f.unlink()
@@ -1128,7 +1156,7 @@ sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitem
 for p in PAGES:
     if p.get("noindex"):
         continue
-    loc = BASE + "/" + ("" if p["file"] == "index.html" else p["file"])
+    loc = BASE + "/" + URLS[p["file"][:-5]]
     sm.append(f"  <url><loc>{loc}</loc><lastmod>2026-10-06</lastmod><priority>{prio.get(p['file'], '0.7')}</priority></url>")
 sm.append("</urlset>")
 (OUT / "sitemap.xml").write_text("\n".join(sm) + "\n", encoding="utf-8", newline="\n")
@@ -1189,5 +1217,12 @@ Kontakt: Wilcowa AG Baumaschinen, Riedthofstrasse 172, 8105 Regensdorf, Telefon 
 - [Kontakt und Anfrage]({BASE}/kontakt.html)
 - [Impressum]({BASE}/impressum.html)
 """
-(OUT / "llms.txt").write_text(llms, encoding="utf-8", newline="\n")
+(OUT / "llms.txt").write_text(relink(llms), encoding="utf-8", newline="\n")
 print("ok llms.txt")
+
+# nginx: saubere Adressen und 301 von alten .html-URLs
+redirects = "\n".join(f"    location = /{old}.html {{ return 301 /{new}$is_args$args; }}"
+                       for old, new in {**URLS, **OLD_EXTRA}.items() if old != "index" and old != new)
+(OUT.parent / "nginx-redirects.conf").write_text(
+    "# Automatisch erzeugt von tools/build_site.py\n" + redirects + "\n", encoding="utf-8", newline="\n")
+print("ok nginx-redirects.conf")

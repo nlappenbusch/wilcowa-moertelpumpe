@@ -9,6 +9,7 @@ COPY website/ /usr/share/nginx/html/
 
 # Copy our custom Nginx configuration
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx-redirects.conf /etc/nginx/conf.d/redirects.inc
 
 # Expose port 80
 EXPOSE 80

@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const size = m.perPiece ? `${fmt(qty)} Stahlzargen` : `${fmt(qty, 1)} m ${m.name}, ${fmt(num('calc-b'))} × ${fmt(num('calc-c'))} mm`;
         const msg = `Anfrage aus dem Mörtelrechner: ${size}, ca. ${fmt(liters, 1)} l Mörtel. Ich interessiere mich für die WPS-Mörtelpumpe.`;
-        $('calc-cta').href = `kontakt.html?type=miete&msg=${encodeURIComponent(msg)}`;
+        $('calc-cta').href = `/kontakt?type=miete&msg=${encodeURIComponent(msg)}`;
     }
 
     form.querySelectorAll('[name=mode]').forEach(r => r.addEventListener('change', setMode));

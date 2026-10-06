@@ -6,9 +6,9 @@ Kontakt: Wilcowa AG Baumaschinen, Riedthofstrasse 172, 8105 Regensdorf, Telefon 
 
 ## Produkt
 
-- [WPS-Mörtelpumpe: Funktionsprinzip, technische Daten, Düsen, Kompressor](https://moertelpumpe.ch/produkte.html)
-- [Häufige Fragen](https://moertelpumpe.ch/faq.html)
-- [Mörtelrechner: Zeit, Kosten und Mörtel im Vergleich zur Handarbeit](https://moertelpumpe.ch/moertel-bedarf-rechner.html)
+- [WPS-Mörtelpumpe: Funktionsprinzip, technische Daten, Düsen, Kompressor](https://moertelpumpe.ch/wps-moertelpumpe)
+- [Häufige Fragen](https://moertelpumpe.ch/faq)
+- [Mörtelrechner: Zeit, Kosten und Mörtel im Vergleich zur Handarbeit](https://moertelpumpe.ch/moertelrechner)
 
 ## Technische Daten (Herstellerangaben)
 
@@ -30,14 +30,14 @@ Kontakt: Wilcowa AG Baumaschinen, Riedthofstrasse 172, 8105 Regensdorf, Telefon 
 
 ## Anwendungen
 
-- [Untermörteln von Schwellen und Elementen](https://moertelpumpe.ch/anwendung-untermoerteln.html): Holzschwellen, Betonelemente, Stahlplatten und Pfetten vollflächig unterfüttern.
-- [Stahlzargen einmörteln](https://moertelpumpe.ch/anwendung-stahlzargen.html): Zargen auch in Sichtbauweise und bei 1 bis 2 cm Spalt sauber hinterfüllen.
-- [Natur- und Bruchsteinmauern verfugen](https://moertelpumpe.ch/anwendung-naturstein.html): Mauerwerk, Gewölbe und Randsteine maschinell ausfugen.
-- [Klinker-Verblender verfugen](https://moertelpumpe.ch/anwendung-klinker.html): Schmale Fassadenfugen von 5 bis 10 mm mit angepasster Fugendüse.
-- [Fugen von Betonelementen](https://moertelpumpe.ch/anwendung-betonfugen.html): V-Fugen und Stossfugen an Betonfertigteilen ausmörteln.
-- [Deckenplatten-Fugen ausmörteln](https://moertelpumpe.ch/anwendung-spannbeton.html): Fugen und Verankerungen bei Spannbeton- und Porenbetondecken.
-- [Mauer- und Felsanker verpressen](https://moertelpumpe.ch/anwendung-maueranker.html): Bohrlöcher mit der Rohrdüse von hinten nach vorne füllen.
-- [Mörtelkleber auf Dämmplatten](https://moertelpumpe.ch/anwendung-daemmplatten.html): Kleber dosiert auf Dämm- und Brandschutzplatten auftragen.
+- [Untermörteln von Schwellen und Elementen](https://moertelpumpe.ch/untermoerteln-holzschwellen): Holzschwellen, Betonelemente, Stahlplatten und Pfetten vollflächig unterfüttern.
+- [Stahlzargen einmörteln](https://moertelpumpe.ch/stahlzargen-einmoerteln): Zargen auch in Sichtbauweise und bei 1 bis 2 cm Spalt sauber hinterfüllen.
+- [Natur- und Bruchsteinmauern verfugen](https://moertelpumpe.ch/natursteinmauer-verfugen): Mauerwerk, Gewölbe und Randsteine maschinell ausfugen.
+- [Klinker-Verblender verfugen](https://moertelpumpe.ch/klinker-verfugen): Schmale Fassadenfugen von 5 bis 10 mm mit angepasster Fugendüse.
+- [Fugen von Betonelementen](https://moertelpumpe.ch/betonfugen-ausmoerteln): V-Fugen und Stossfugen an Betonfertigteilen ausmörteln.
+- [Deckenplatten-Fugen ausmörteln](https://moertelpumpe.ch/deckenfugen-ausmoerteln): Fugen und Verankerungen bei Spannbeton- und Porenbetondecken.
+- [Mauer- und Felsanker verpressen](https://moertelpumpe.ch/maueranker-verpressen): Bohrlöcher mit der Rohrdüse von hinten nach vorne füllen.
+- [Mörtelkleber auf Dämmplatten](https://moertelpumpe.ch/daemmplatten-kleben): Kleber dosiert auf Dämm- und Brandschutzplatten auftragen.
 
 ## Quellen
 
@@ -47,5 +47,5 @@ Kontakt: Wilcowa AG Baumaschinen, Riedthofstrasse 172, 8105 Regensdorf, Telefon 
 
 ## Optional
 
-- [Kontakt und Anfrage](https://moertelpumpe.ch/kontakt.html)
-- [Impressum](https://moertelpumpe.ch/impressum.html)
+- [Kontakt und Anfrage](https://moertelpumpe.ch/kontakt)
+- [Impressum](https://moertelpumpe.ch/impressum)
