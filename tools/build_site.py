@@ -275,6 +275,27 @@ FAQ = [
      "Ja. Sie können die WPS-Mörtelpumpe bei uns mieten, zum Beispiel für ein einzelnes Projekt oder um sie vor dem Kauf mit Ihrem Mörtel zu testen. Verfügbarkeit und Konditionen erhalten Sie telefonisch oder über das Anfrageformular."),
 ]
 
+# Belegte Aussagen, wörtlich zitiert. Keine erfundenen Kundenstimmen.
+PROOF = [
+    ("100 %", "Schnabeldüse gewährleistet volle Unterstopfung ab 10 mm Unterstopfhöhe",
+     "Berner Fachhochschule", "Testbericht 2, Untermörteln von Schwellen, 2009", BFH2),
+    ("200 m", "In der Regel verfugen 2 Betonkosmetiker pro Tag um die 200 m Beton-V-Fugen.",
+     "Winiger Pump System AG", "Hersteller, Anwendung Betonfugen", WPS + "/betonfugen"),
+    ("ab 0 °C", "Die Verarbeitung funktioniert ab 0 °C Aussentemperatur (Mörteltemperatur mind. 6 °C)",
+     "Berner Fachhochschule", "Testbericht 2, Fazit, 2009", BFH2),
+    ("günstiger", "Das WPS-Mörtelbett ist günstiger als das herkömmliche Mörtelbett",
+     "Berner Fachhochschule", "Testbericht 2, Fazit, 2009", BFH2),
+]
+
+def proof_cards():
+    cards = "".join(f'''
+                <figure class="proof">
+                    <p class="proof-figure">{fig}</p>
+                    <blockquote><p>«{quote}»</p></blockquote>
+                    <figcaption><strong>{who}</strong><a href="{url}" target="_blank" rel="noopener">{src}</a></figcaption>
+                </figure>''' for fig, quote, who, src, url in PROOF)
+    return f'<div class="proofs">{cards}\n            </div>'
+
 # ------------------------------------------------------------------ Startseite
 def page_index():
     tiles = "".join(f'''
@@ -322,22 +343,24 @@ def page_index():
     </section>
 
     <section class="section bg-alt">
-        <div class="container two-col">
-            <div>
-                <h2>Geprüft an der Berner Fachhochschule</h2>
-                <p>Im Rahmen eines KTI-Forschungsprojekts zu Fugensystemen im Holzbau hat die Berner Fachhochschule (Architektur, Holz und Bau, Biel) 2009 das Untermörteln von Holzschwellen mit der WPS-Mörtelpumpe untersucht.</p>
-                <ul class="bullets" style="margin-top:14px">
-                    <li>Schwellen von 100 mm Breite wurden bei 20 bis 40 mm Fugenhöhe vollständig unterfüttert.</li>
-                    <li>Mit der Schnabeldüse gelang die volle Unterstopfung ab 10 mm Höhe.</li>
-                    <li>Bei 0 °C Aussentemperatur härtete der Mörtel aus, wenn er beim Einpumpen mindestens 6 °C hatte.</li>
-                    <li>Das Mörtelbett mit der WPS war günstiger als ein herkömmliches Mörtelbett.</li>
-                </ul>
+        <div class="container">
+            <div class="section-title">
+                <h2>Erfahrungen aus Prüfung und Praxis</h2>
+                <p>Aussagen aus den Testberichten der Berner Fachhochschule und aus den Unterlagen des Herstellers, im Wortlaut zitiert.</p>
             </div>
+            {proof_cards()}
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container two-col">
             <div>
                 <h2>Kauf und Miete</h2>
                 <p>Sie können die WPS-Mörtelpumpe bei uns kaufen oder mieten. Die Miete eignet sich für einzelne Projekte oder um die Pumpe vor dem Kauf mit Ihrem eigenen Mörtel auszuprobieren.</p>
                 <p>Wir beraten Sie zur Ausrüstung für Ihre Anwendung, also zu Düsen, Kompressor und Mörtelmischer, und liefern das Zubehör.</p>
-                <h3 style="margin-top:28px;margin-bottom:8px">Unterlagen</h3>
+            </div>
+            <div>
+                <h3 style="margin-bottom:8px">Unterlagen</h3>
                 {downloads("untermoerteln", "fugen", "bfh1", "bfh2")}
             </div>
         </div>
