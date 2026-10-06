@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.wilcowa.ch/sitemap.xml
+Sitemap: https://moertelpumpe.ch/sitemap.xml
