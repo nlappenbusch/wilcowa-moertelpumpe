@@ -96,30 +96,31 @@ def header(active):
     </header>
 '''
 
-def contact_strip():
-    return f'''
-    <section class="contact-strip">
-        <div class="container">
-            <div>
-                <h2>Beratung, Miete und Verkauf</h2>
-                <p>Wilcowa AG Baumaschinen, Riedthofstrasse 172, 8105 Regensdorf</p>
-            </div>
-            <div class="btn-row">
-                <a class="btn btn-accent" href="{PHONE_HREF}">{PHONE}</a>
-                <a class="btn btn-outline-light" href="kontakt.html">Anfrage senden</a>
-            </div>
-        </div>
-    </section>
-'''
-
 def footer():
     apps = "".join(f'<li><a href="{s}.html">{t}</a></li>' for s, n, t, *_ in APPS[:6])
     return f'''
+    <section class="cta">
+        <div class="container">
+            <div>
+                <h2>Beratung, Miete und Verkauf</h2>
+                <p>Wir beraten Sie zu Düsen, Kompressor und Mörtel für Ihre Anwendung. Die WPS-Mörtelpumpe können Sie kaufen oder für Ihr Projekt mieten.</p>
+            </div>
+            <div class="cta-contact">
+                <a class="cta-phone" href="{PHONE_HREF}">{icon("phone")}{PHONE}</a>
+                <p class="cta-hours">Mo–Do 07:00–12:00 und 13:00–17:00, Fr bis 16:00</p>
+                <div class="btn-row">
+                    <a class="btn btn-accent" href="kontakt.html">Anfrage senden</a>
+                    <a class="btn btn-outline-light" href="mailto:{MAIL}">{MAIL}</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer class="site-footer">
         <div class="container footer-grid">
-            <div>
-                <h2>Wilcowa AG Baumaschinen</h2>
-                <address>Riedthofstrasse 172<br>8105 Regensdorf<br><a href="{PHONE_HREF}">{PHONE}</a><br><a href="mailto:{MAIL}">{MAIL}</a></address>
+            <div class="footer-brand">
+                <a href="index.html"><img src="assets/wilcowa-logo.png" alt="Wilcowa AG" width="1600" height="400" loading="lazy"></a>
+                <address>Wilcowa AG Baumaschinen<br>Riedthofstrasse 172<br>8105 Regensdorf<br><a href="{PHONE_HREF}">{PHONE}</a><br><a href="mailto:{MAIL}">{MAIL}</a></address>
             </div>
             <div>
                 <h2>WPS-Mörtelpumpe</h2>
@@ -337,7 +338,6 @@ def page_index():
             </div>
         </div>
     </section>
-{contact_strip()}
     </main>
 '''
 
@@ -640,7 +640,6 @@ def page_anwendungen():
                 <div class="gallery">{gal}</div>
             </div>
         </section>
-{contact_strip()}
     </main>
 '''
 
@@ -701,7 +700,6 @@ def page_rechner():
             </div>
         </div>
     </main>
-{contact_strip()}
 '''
 
 # ------------------------------------------------------------------ FAQ
