@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const topic = new URLSearchParams(location.search).get('type');
     const select = form.querySelector('[name=betreff]');
     if (topic === 'miete') select.value = 'Mietanfrage WPS-Mörtelpumpe';
-    if (topic === 'kauf') select.value = 'Offerte Kauf WPS-Mörtelpumpe';
+    if (topic === 'kauf') select.value = 'Offerte WPS-Mörtelpumpe';
 
     form.addEventListener('submit', e => {
         e.preventDefault();
