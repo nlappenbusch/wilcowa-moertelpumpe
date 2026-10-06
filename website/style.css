@@ -74,6 +74,25 @@ img { display: block; max-width: 100%; height: auto; }
 .bullets li { margin: 6px 0; padding-left: 4px; }
 .bullets li::marker { color: var(--amber); }
 
+/* Sprunglink für Tastatur und Screenreader */
+.skip-link { position: absolute; left: 12px; top: -60px; z-index: 200; padding: 10px 16px; border-radius: 4px; background: var(--amber); color: var(--night); font-weight: 500; text-decoration: none; }
+.skip-link:focus { top: 12px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Öffnungszeiten */
+.hours-table { border-collapse: collapse; font-size: 0.92rem; }
+.hours-table th { font-weight: 500; text-align: left; padding: 2px 16px 2px 0; white-space: nowrap; color: var(--ink); }
+.hours-table td { padding: 2px 12px 2px 0; white-space: nowrap; color: var(--text); }
+.hours-table tr.today th, .hours-table tr.today td { font-weight: 600; color: var(--ink); }
+.open-status { display: inline-flex; align-items: center; gap: 8px; font-size: 0.9rem; font-weight: 500; margin-bottom: 8px; }
+.open-status::before { content: ''; width: 9px; height: 9px; border-radius: 50%; background: #9aa3ad; }
+.open-status.is-open::before { background: #2f9e5b; box-shadow: 0 0 0 3px rgba(47, 158, 91, .2); }
+.hours-dark .hours-table th, .hours-dark .hours-table td { color: #c9d5e5; }
+.hours-dark .hours-table tr.today th, .hours-dark .hours-table tr.today td { color: #fff; }
+.hours-dark .open-status { color: #fff; }
+.cta .hours { margin: 12px 0 22px; }
+.compare-title { font-family: var(--font-head); font-size: 1.08rem; font-weight: 600; color: var(--ink); }
+
 /* Buttons */
 .btn {
     display: inline-block;

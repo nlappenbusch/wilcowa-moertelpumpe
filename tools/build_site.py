@@ -3,7 +3,7 @@
 # Technische Angaben stammen aus den Unterlagen des Herstellers Winiger Pump System AG
 # (www.wps-ag.ch, Flyer WPS-U-2.2019d und WPS-HT-4.2018d) sowie den Testberichten der
 # Berner Fachhochschule (KTI-Projekt 8971.1, 2009). Texte bitte nicht wörtlich vom Hersteller übernehmen.
-import json, pathlib, hashlib, html as h
+import json, pathlib, hashlib, re, shutil, subprocess, urllib.parse, html as h
 
 OUT = pathlib.Path(__file__).resolve().parent.parent / "website"
 BASE = "https://moertelpumpe.ch"
@@ -40,13 +40,24 @@ PDFS = {
     "bfh2": (BFH2, "Testbericht 2, Berner Fachhochschule (2009)", "PDF, extern"),
 }
 
+# Öffnungszeiten: einmal definiert, überall gleich dargestellt. Live-Status per script.js (Zeitzone Zürich).
+HOURS = [("Mo–Do", "07:00–12:00", "13:00–17:00"), ("Fr", "07:00–12:00", "13:00–16:00"), ("Sa–So", "geschlossen", "")]
+HOURS_DATA = "1-4:07:00-12:00,13:00-17:00;5:07:00-12:00,13:00-16:00"
+
+def hours_html(cls=""):
+    rows = "".join(f'<tr><th scope="row">{d}</th><td>{a}</td><td>{b}</td></tr>' for d, a, b in HOURS)
+    return (f'<div class="hours {cls}"><p class="open-status" data-hours="{HOURS_DATA}" hidden></p>'
+            f'<table class="hours-table"><caption class="sr-only">Öffnungszeiten</caption><tbody>{rows}</tbody></table></div>')
+
 def downloads(*keys):
     lis = "".join(f'<li><a href="{PDFS[k][0]}" target="_blank" rel="noopener">{icon("file")}{PDFS[k][1]}<span>{PDFS[k][2]}</span></a></li>' for k in keys)
     return f'<ul class="downloads">{lis}</ul>'
 
 def head(p):
     canonical = BASE + "/" + ("" if p["file"] == "index.html" else p["file"])
-    og_img = BASE + "/assets/" + p.get("og_image", "Untermorteln_Stahltragerplatte.avif")
+    share = p["file"].replace(".html", ".jpg")
+    og_img = f"{BASE}/assets/share/{share}"
+    og_alt = h.escape(p.get("share", (p["title"], ""))[0])
     robots = '\n    <meta name="robots" content="noindex, follow">' if p.get("noindex") else ""
     ld = "".join(f'\n    <script type="application/ld+json">\n{json.dumps(x, ensure_ascii=False, indent=2)}\n    </script>' for x in p.get("ld", []))
     return f'''<!DOCTYPE html>
@@ -62,7 +73,15 @@ def head(p):
     <meta property="og:title" content="{h.escape(p["title"])}">
     <meta property="og:description" content="{h.escape(p["desc"])}">
     <meta property="og:image" content="{og_img}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="{og_alt}">
+    <meta property="og:site_name" content="WPS-Mörtelpumpe · Wilcowa AG">
     <meta property="og:locale" content="de_CH">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{h.escape(p["title"])}">
+    <meta name="twitter:description" content="{h.escape(p["desc"])}">
+    <meta name="twitter:image" content="{og_img}">
     <link rel="icon" href="favicon.ico" sizes="32x32">
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -115,6 +134,8 @@ HOME_CALC = ('<a class="app-calc" href="moertel-bedarf-rechner.html"><strong>Loh
 
 def app_icon(slug):
     return f'<svg class="menu-icon" viewBox="0 0 72 48" aria-hidden="true">{APP_ICONS[slug]}</svg>'
+
+SKIP = '    <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>\n'
 
 def header(active):
     info = {s: (t, txt) for s, n, t, txt, img in APPS}
@@ -176,7 +197,7 @@ def footer():
             </div>
             <div class="cta-contact">
                 <a class="cta-phone" href="{PHONE_HREF}">{icon("phone")}{PHONE}</a>
-                <p class="cta-hours">Mo–Do 07:00–12:00 und 13:00–17:00, Fr bis 16:00</p>
+                {hours_html("hours-dark")}
                 <div class="btn-row">
                     <a class="btn btn-accent" href="kontakt.html">Anfrage senden</a>
                     <a class="btn btn-outline-light" href="mailto:{MAIL}">{MAIL}</a>
@@ -207,7 +228,7 @@ def footer():
             </div>
             <div>
                 <h2>Öffnungszeiten</h2>
-                <p>Mo–Do 07:00–12:00, 13:00–17:00<br>Fr 07:00–12:00, 13:00–16:00</p>
+                {hours_html("hours-dark")}
             </div>
         </div>
         <div class="footer-bottom">
@@ -251,7 +272,7 @@ def side_contact():
     return f'''<section class="side-contact">
                     <h2>Beratung und Miete</h2>
                     <a class="side-contact-phone" href="{PHONE_HREF}">{icon("phone")}{PHONE}</a>
-                    <p class="side-contact-hours">Mo–Do 07–17 Uhr, Fr bis 16 Uhr</p>
+                    <p class="open-status side-contact-hours" data-hours="{HOURS_DATA}">Mo–Do 07–17 Uhr, Fr bis 16 Uhr</p>
                     <a class="btn btn-accent" href="kontakt.html">Anfrage senden</a>
                     <a class="side-contact-mail" href="mailto:{MAIL}">{icon("mail")}{MAIL}</a>
                 </section>'''
@@ -259,6 +280,9 @@ def side_contact():
 def side_apps(current):
     lis = "".join(f'<li><a href="{s}.html"{" aria-current=" + chr(34) + "page" + chr(34) if s == current else ""}>{t}</a></li>' for s, n, t, *_ in APPS)
     return f'<section><h2>Anwendungen</h2><ul class="side-links">{lis}</ul></section>'
+
+WEBSITE_LD = {"@context": "https://schema.org", "@type": "WebSite", "name": "WPS-Mörtelpumpe · Wilcowa AG", "url": BASE + "/", "inLanguage": "de-CH",
+              "publisher": {"@type": "Organization", "name": "Wilcowa AG Baumaschinen", "url": "https://wilcowa.ch/", "logo": BASE + "/assets/wilcowa-logo.png"}}
 
 LOCAL_BUSINESS = {
     "@context": "https://schema.org", "@type": "LocalBusiness",
@@ -598,8 +622,8 @@ DETAILS = {
                     <li>Horizontaler Mörtelmischer, Handrührwerk zum Nachmischen, Schlauchtrommel</li>
                 </ul>
                 <div class="figure-pair">
-                    <figure><img src="assets/Ausfugen_Sandsteingewolbe.avif" alt="Ausfugen eines Sandstein-Kellergewölbes" loading="lazy"><figcaption>Sandstein-Kellergewölbe</figcaption></figure>
-                    <figure><img src="assets/Fugen_Randsteine.avif" alt="Randsteine verfugen" loading="lazy"><figcaption>Randsteine im Strassenbau</figcaption></figure>
+                    <figure><img src="assets/Ausfugen_Sandsteingewolbe.avif" alt="Ausfugen eines Sandstein-Kellergewölbes" loading="lazy" width="912" height="1216"><figcaption>Sandstein-Kellergewölbe</figcaption></figure>
+                    <figure><img src="assets/Fugen_Randsteine.avif" alt="Randsteine verfugen" loading="lazy" width="910" height="682"><figcaption>Randsteine im Strassenbau</figcaption></figure>
                 </div>"""),
 "anwendung-klinker": dict(
     title="Klinker-Verblender verfugen mit der Mörtelpumpe | WPS – Wilcowa",
@@ -769,14 +793,14 @@ def page_anwendungen():
     crumbs = [("Start", "index.html"), ("Anwendungen", "anwendungen.html")]
     rows = "".join(f'''
                 <li>
-                    <img src="assets/{img}.avif" alt="{t}" loading="lazy">
+                    <img src="assets/{img}.avif" alt="{t}" loading="lazy" width="900" height="675">
                     <div>
                         <h2><a href="{s}.html" style="color:inherit;text-decoration:none">{t}</a></h2>
                         <p>{DETAILS[s]["lead"]}</p>
                         <a class="more" href="{s}.html">{t}: Vorgehen und Ausrüstung</a>
                     </div>
                 </li>''' for s, n, t, txt, img in APPS)
-    gal = "".join(f'<figure><img src="assets/{img}.avif" alt="{c}" loading="lazy"><figcaption>{c}</figcaption></figure>' for img, c in GALLERY)
+    gal = "".join(f'<figure><img src="assets/{img}.avif" alt="{c}" loading="lazy" width="900" height="900"><figcaption>{c}</figcaption></figure>' for img, c in GALLERY)
     return page_head(crumbs, "Anwendungen der WPS-Mörtelpumpe", "Untermörteln, Einmörteln, Verfugen und Verpressen im Hoch-, Holz- und Tiefbau.") + f'''
     <main>
         <section class="section">
@@ -862,12 +886,12 @@ def page_rechner():
                         <legend><span class="step-no">3</span>Leistung von Hand und mit der WPS</legend>
                         <div class="compare-grid">
                             <div class="compare-col">
-                                <h3>Von Hand, heute</h3>
+                                <p class="compare-title">Von Hand, heute</p>
                                 {field("hand-rate", "Leistung", "m/h", 6, "0.5", "Annahme", "Bitte Ihren Erfahrungswert eintragen", rng=(1, 30))}
                                 {field("hand-loss", "Materialverlust", "%", 15, "1", "Annahme", rng=(0, 40))}
                             </div>
                             <div class="compare-col compare-wps">
-                                <h3>Mit der WPS</h3>
+                                <p class="compare-title">Mit der WPS</p>
                                 {field("wps-rate", "Leistung", "m/h", 20, "0.5", "Hersteller", "Hersteller: bis 25 m/h", rng=(1, 40))}
                                 {field("wps-loss", "Materialverlust", "%", 5, "1", "Annahme", rng=(0, 40))}
                             </div>
@@ -944,7 +968,7 @@ def page_kontakt():
                 <li>{icon("phone")}<div><strong>Telefon</strong><a href="{PHONE_HREF}">{PHONE}</a></div></li>
                 <li>{icon("mail")}<div><strong>E-Mail</strong><a href="mailto:{MAIL}">{MAIL}</a></div></li>
                 <li>{icon("pin")}<div><strong>Adresse</strong>Wilcowa AG Baumaschinen<br>Riedthofstrasse 172<br>8105 Regensdorf<br><a href="https://www.google.com/maps/search/?api=1&amp;query=Wilcowa+AG+Riedthofstrasse+172+8105+Regensdorf" target="_blank" rel="noopener">Auf Google Maps anzeigen</a></div></li>
-                <li>{icon("clock")}<div><strong>Öffnungszeiten</strong>Mo–Do 07:00–12:00, 13:00–17:00<br>Fr 07:00–12:00, 13:00–16:00</div></li>
+                <li>{icon("clock")}<div><strong>Öffnungszeiten</strong>{hours_html()}</div></li>
             </ul>
             <div>
                 <h2 style="margin-bottom:6px">Anfrage</h2>
@@ -1006,38 +1030,37 @@ PRODUCT_LD = {"@context": "https://schema.org", "@type": "Product", "name": "WPS
               "image": BASE + "/assets/Untermorteln_Holzbau.avif",
               "description": "Druckluftbetriebene Mörtelpumpe für Untermörteln, Fugen, Stahlzargen und Ankerverpressung. Fördermenge 0–15 l/min, Förderdruck max. 2.5 bar, Behälter 60 l.",
               "brand": {"@type": "Brand", "name": "WPS"},
-              "manufacturer": {"@type": "Organization", "name": "Winiger Pump System AG", "url": WPS + "/"},
-              "offers": {"@type": "Offer", "url": BASE + "/kontakt.html", "priceCurrency": "CHF", "availability": "https://schema.org/InStock",
-                         "seller": {"@type": "Organization", "name": "Wilcowa AG Baumaschinen"}}}
+              "manufacturer": {"@type": "Organization", "name": "Winiger Pump System AG", "url": WPS + "/"}}
 
 if RATING["count"]:
     PRODUCT_LD["aggregateRating"] = {"@type": "AggregateRating", "ratingValue": RATING["value"], "bestRating": RATING["best"], "ratingCount": str(RATING["count"])}
 
 PAGES = [
-    dict(file="index.html", active="", body=page_index, ld=[LOCAL_BUSINESS],
+    dict(file="index.html", active="", body=page_index, ld=[WEBSITE_LD, LOCAL_BUSINESS], share=("WPS-Mörtelpumpe", "Untermörteln, Fugen und Stahlzargen", "Untermorteln_Stahltragerplatte"),
          title="Mörtelpumpe mieten und kaufen | WPS-Mörtelpumpe – Wilcowa AG",
          desc="WPS-Mörtelpumpe kaufen oder mieten bei Wilcowa in Regensdorf: druckluftbetrieben, 0–15 l/min, pumpt auch Standardmörtel. Für Untermörteln, Fugen, Stahlzargen und Anker."),
-    dict(file="produkte.html", active="produkt", body=page_produkt, og_type="product", og_image="Untermorteln_Holzbau.avif", ld=[PRODUCT_LD],
+    dict(file="produkte.html", share=("WPS-Mörtelpumpe", "Technische Daten, Düsen und Zubehör", "Untermorteln_Holzbau"), active="produkt", body=page_produkt, og_type="product", og_image="Untermorteln_Holzbau.avif", ld=[PRODUCT_LD],
          title="WPS-Mörtelpumpe: Technische Daten, Düsen und Kompressor | Wilcowa",
          desc="Technische Daten der WPS-Mörtelpumpe: 0–15 l/min, max. 2.5 bar, Förderweite bis 4 m, Behälter 60 l, Luftbedarf 200 l/min. Düsen, Kompressoren und Mörtelmischer."),
-    dict(file="anwendungen.html", active="anwendungen", body=page_anwendungen, og_image="Natursteinwand_Fugen.avif",
+    dict(file="anwendungen.html", share=("Anwendungen", "Untermörteln, Verfugen, Verpressen", "Natursteinwand_Fugen"), active="anwendungen", body=page_anwendungen, og_image="Natursteinwand_Fugen.avif",
          title="Anwendungen der Mörtelpumpe: Untermörteln, Fugen, Stahlzargen | WPS",
          desc="Einsatzgebiete der WPS-Mörtelpumpe: Holzschwellen untermörteln, Stahlzargen einmörteln, Naturstein und Klinker verfugen, Betonfugen, Deckenfugen und Anker verpressen."),
-    dict(file="moertel-bedarf-rechner.html", active="rechner", body=page_rechner,
+    dict(file="moertel-bedarf-rechner.html", share=("Mörtelrechner", "Was spart die WPS gegenüber Handarbeit?", "Ausgiessen_Spannbetonplatten"), active="rechner", body=page_rechner,
          title="Mörtelrechner: Zeit, Kosten und Mörtel mit der WPS sparen | Wilcowa",
          desc="Mörtelrechner mit Vergleich: Arbeitszeit, Kosten und Mörtelbedarf beim Untermörteln, für V-Fugen, Fugen und Stahlzargen, von Hand und mit der WPS-Mörtelpumpe."),
-    dict(file="faq.html", active="faq", body=page_faq,
+    dict(file="faq.html", share=("Häufige Fragen", "Kompressor, Mörtel, Bedienung und Miete", "Mauer-Anker_verpressen"), active="faq", body=page_faq,
          ld=[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in FAQ]}],
          title="Fragen zur WPS-Mörtelpumpe: Kompressor, Mörtel, Miete | Wilcowa",
          desc="Antworten zur WPS-Mörtelpumpe: Welcher Kompressor, welche Mörtel, minimale Fugenhöhe beim Untermörteln, Arbeiten bei Kälte, Reinigung, Gewicht und Miete."),
-    dict(file="kontakt.html", active="kontakt", body=page_kontakt, ld=[LOCAL_BUSINESS],
+    dict(file="kontakt.html", share=("Kontakt", "Beratung, Miete und Verkauf in Regensdorf", "Untermorteln_Stahltragerplatte"), active="kontakt", body=page_kontakt, ld=[LOCAL_BUSINESS],
          title="Kontakt: WPS-Mörtelpumpe anfragen | Wilcowa AG Regensdorf",
          desc="Wilcowa AG Baumaschinen, Riedthofstrasse 172, 8105 Regensdorf. Beratung, Miete und Offerte für die WPS-Mörtelpumpe: +41 43 388 70 60, info@wilcowa.ch."),
-    dict(file="impressum.html", active="", body=page_impressum, noindex=True,
+    dict(file="impressum.html", share=("Impressum", "Wilcowa AG Baumaschinen, Regensdorf", "Untermorteln_Stahltragerplatte"), active="", body=page_impressum, noindex=True,
          title="Impressum | Wilcowa AG", desc="Impressum von moertelpumpe.ch, Wilcowa AG Baumaschinen, Regensdorf."),
 ]
 for slug, d in DETAILS.items():
     PAGES.append(dict(file=f"{slug}.html", active="anwendungen", body=(lambda s=slug: page_detail(s)), og_type="article",
+                      share=(next(t for s_, n, t, *_ in APPS if s_ == slug), MENU_LABELS[slug][1], d["img"][0]),
                       og_image=d["img"][0] + ".avif", title=d["title"], desc=d["desc"]))
 
 CRUMBS = {
@@ -1053,7 +1076,9 @@ for s, n, t, *_ in APPS:
 for p in PAGES:
     if p["file"] in CRUMBS:
         p["ld"] = p.get("ld", []) + [breadcrumb_ld(CRUMBS[p["file"]])]
-    out = head(p) + header(p["active"]) + p["body"]() + footer()
+    body = p["body"]()
+    body = re.sub(r"<main\b([^>]*)>", r"<div\1>", body).replace("</main>", "</div>")
+    out = head(p) + SKIP + header(p["active"]) + '\n    <main id="inhalt">' + body + '    </main>\n' + footer()
     # Icon-Sprite ebenfalls versionieren, sonst zeigen Browser mit alter Kopie neue Symbole nicht an
     out = out.replace("assets/icons.svg#", f"assets/icons.svg?v={ver('assets/icons.svg')}#")
     (OUT / p["file"]).write_text(out.replace("ß", "ss"), encoding="utf-8", newline="\n")
@@ -1076,3 +1101,61 @@ for p in PAGES:
 sm.append("</urlset>")
 (OUT / "sitemap.xml").write_text("\n".join(sm) + "\n", encoding="utf-8", newline="\n")
 print("ok sitemap.xml")
+
+# Teilen-Bilder 1200x630 (Facebook, LinkedIn, WhatsApp akzeptieren kein AVIF). Neu erzeugen mit: python tools/build_site.py --share
+import sys
+CHROME = next((c for c in [r"C:/Program Files/Google/Chrome/Application/chrome.exe", r"C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe",
+                            shutil.which("google-chrome") or "", shutil.which("chromium") or ""] if c and pathlib.Path(c).exists()), None)
+share_dir = OUT / "assets" / "share"
+share_dir.mkdir(exist_ok=True)
+tpl = (pathlib.Path(__file__).resolve().parent / "share.html").as_uri()
+for p in PAGES:
+    target = share_dir / p["file"].replace(".html", ".jpg")
+    if target.exists() and "--share" not in sys.argv:
+        continue
+    if not CHROME:
+        print("Kein Chrome gefunden, Teilen-Bild fehlt:", target.name)
+        continue
+    t, sub, img = p["share"]
+    url = tpl + "?" + urllib.parse.urlencode({"t": t, "s": sub, "i": img})
+    subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--hide-scrollbars", "--allow-file-access-from-files",
+                    "--window-size=1200,630", "--virtual-time-budget=4000", f"--screenshot={target}", url],
+                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    print("Teilen-Bild", target.name)
+
+# llms.txt: kompakte Zusammenfassung für KI-Suchsysteme (llmstxt.org)
+apps_md = "\n".join(f"- [{t}]({BASE}/{s_}.html): {txt}" for s_, n, t, txt, img in APPS)
+specs_md = "\n".join(f"- {a}: {b}" for g, items in SPEC_GROUPS for a, b in items)
+llms = f"""# WPS-Mörtelpumpe – Wilcowa AG
+
+> Verkauf und Vermietung der WPS-Mörtelpumpe in der Schweiz durch die Wilcowa AG Baumaschinen, Regensdorf. Die WPS ist eine druckluftbetriebene Mörtelpumpe der Winiger Pump System AG (Wald ZH) für Untermörteln, Fugen, Stahlzargen und Ankerverpressung.
+
+Kontakt: Wilcowa AG Baumaschinen, Riedthofstrasse 172, 8105 Regensdorf, Telefon {PHONE}, {MAIL}. Öffnungszeiten Mo–Do 07:00–12:00 und 13:00–17:00, Fr 07:00–12:00 und 13:00–16:00.
+
+## Produkt
+
+- [WPS-Mörtelpumpe: Funktionsprinzip, technische Daten, Düsen, Kompressor]({BASE}/produkte.html)
+- [Häufige Fragen]({BASE}/faq.html)
+- [Mörtelrechner: Zeit, Kosten und Mörtel im Vergleich zur Handarbeit]({BASE}/moertel-bedarf-rechner.html)
+
+## Technische Daten (Herstellerangaben)
+
+{specs_md}
+
+## Anwendungen
+
+{apps_md}
+
+## Quellen
+
+- [Hersteller Winiger Pump System AG]({WPS}/)
+- [Testbericht 1, Berner Fachhochschule 2009]({BFH1})
+- [Testbericht 2, Berner Fachhochschule 2009]({BFH2})
+
+## Optional
+
+- [Kontakt und Anfrage]({BASE}/kontakt.html)
+- [Impressum]({BASE}/impressum.html)
+"""
+(OUT / "llms.txt").write_text(llms, encoding="utf-8", newline="\n")
+print("ok llms.txt")

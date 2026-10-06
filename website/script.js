@@ -233,3 +233,42 @@ document.addEventListener('DOMContentLoaded', () => {
         location.href = `mailto:info@wilcowa.ch?subject=${encodeURIComponent(d.get('betreff'))}&body=${encodeURIComponent(body)}`;
     });
 });
+
+// Öffnungszeiten: "Jetzt geöffnet" / "Geschlossen" nach Schweizer Zeit, heutigen Tag hervorheben
+document.addEventListener('DOMContentLoaded', () => {
+    const els = document.querySelectorAll('.open-status[data-hours]');
+    if (!els.length) return;
+    const parts = new Intl.DateTimeFormat('de-CH', { timeZone: 'Europe/Zurich', weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' })
+        .formatToParts(new Date());
+    const wd = { 'Mo': 1, 'Di': 2, 'Mi': 3, 'Do': 4, 'Fr': 5, 'Sa': 6, 'So': 7 }[parts.find(p => p.type === 'weekday').value.slice(0, 2)];
+    const now = parseInt(parts.find(p => p.type === 'hour').value, 10) * 60 + parseInt(parts.find(p => p.type === 'minute').value, 10);
+    const toMin = t => { const [h, m] = t.split(':').map(Number); return h * 60 + m; };
+
+    els.forEach(el => {
+        const days = {};
+        el.dataset.hours.split(';').forEach(rule => {
+            const [range, ...rest] = rule.split(':');
+            const spans = rest.join(':').split(',').map(x => x.split('-').map(toMin));
+            const [a, b] = range.split('-').map(Number);
+            for (let d = a; d <= (b || a); d++) days[d] = spans;
+        });
+        const today = days[wd] || [];
+        const open = today.some(([a, b]) => now >= a && now < b);
+        let text;
+        if (open) {
+            const end = today.find(([a, b]) => now >= a && now < b)[1];
+            text = `Jetzt geöffnet, bis ${String(Math.floor(end / 60)).padStart(2, '0')}:${String(end % 60).padStart(2, '0')} Uhr`;
+        } else {
+            const later = today.find(([a]) => a > now);
+            text = later ? `Geschlossen, öffnet um ${String(Math.floor(later[0] / 60)).padStart(2, '0')}:${String(later[0] % 60).padStart(2, '0')} Uhr` : 'Zurzeit geschlossen';
+        }
+        el.textContent = text;
+        el.classList.toggle('is-open', open);
+        el.hidden = false;
+        const table = el.parentElement.querySelector('.hours-table');
+        if (table) {
+            const row = wd <= 4 ? 0 : wd === 5 ? 1 : 2;
+            table.rows[row].classList.add('today');
+        }
+    });
+});

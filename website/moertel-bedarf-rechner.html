@@ -10,15 +10,23 @@
     <meta property="og:url" content="https://moertelpumpe.ch/moertel-bedarf-rechner.html">
     <meta property="og:title" content="Mörtelrechner: Zeit, Kosten und Mörtel mit der WPS sparen | Wilcowa">
     <meta property="og:description" content="Mörtelrechner mit Vergleich: Arbeitszeit, Kosten und Mörtelbedarf beim Untermörteln, für V-Fugen, Fugen und Stahlzargen, von Hand und mit der WPS-Mörtelpumpe.">
-    <meta property="og:image" content="https://moertelpumpe.ch/assets/Untermorteln_Stahltragerplatte.avif">
+    <meta property="og:image" content="https://moertelpumpe.ch/assets/share/moertel-bedarf-rechner.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Mörtelrechner">
+    <meta property="og:site_name" content="WPS-Mörtelpumpe · Wilcowa AG">
     <meta property="og:locale" content="de_CH">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mörtelrechner: Zeit, Kosten und Mörtel mit der WPS sparen | Wilcowa">
+    <meta name="twitter:description" content="Mörtelrechner mit Vergleich: Arbeitszeit, Kosten und Mörtelbedarf beim Untermörteln, für V-Fugen, Fugen und Stahlzargen, von Hand und mit der WPS-Mörtelpumpe.">
+    <meta name="twitter:image" content="https://moertelpumpe.ch/assets/share/moertel-bedarf-rechner.jpg">
     <link rel="icon" href="favicon.ico" sizes="32x32">
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
     <meta name="theme-color" content="#27446f">
     <link rel="preload" href="assets/fonts/roboto-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/barlow-semi-condensed-600-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="style.css?v=f79c1830">
+    <link rel="stylesheet" href="style.css?v=b0a8a4d4">
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -41,6 +49,7 @@
     </script>
 </head>
 <body>
+    <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
     <header class="site-header">
         <div class="container">
             <a class="logo" href="index.html"><img src="assets/wilcowa-logo.png" alt="Wilcowa AG" width="1600" height="400"></a>
@@ -74,6 +83,7 @@
         </div>
     </header>
 
+    <main id="inhalt">
     <section class="page-head">
         <div class="container">
             <nav class="breadcrumbs" aria-label="Brotkrumen"><ol><li><a href="index.html">Start</a></li><li><span aria-current="page">Mörtelrechner</span></li></ol></nav>
@@ -83,7 +93,7 @@
         </div>
     </section>
 
-    <main class="section">
+    <div class="section">
         <div class="container">
             <form class="calc" id="calc" onsubmit="return false" novalidate>
                 <div class="calc-main">
@@ -104,12 +114,12 @@
                         <legend><span class="step-no">3</span>Leistung von Hand und mit der WPS</legend>
                         <div class="compare-grid">
                             <div class="compare-col">
-                                <h3>Von Hand, heute</h3>
+                                <p class="compare-title">Von Hand, heute</p>
                                 <div class="field" id="hand-rate-field"><label for="hand-rate"><span id="hand-rate-label">Leistung</span> <em class="tag" id="hand-rate-tag">Annahme</em></label><div class="input-unit"><input type="number" id="hand-rate" value="6" min="0" step="0.5" inputmode="decimal"><span id="hand-rate-unit">m/h</span></div><input type="range" class="range" id="hand-rate-range" min="1" max="30" step="0.5" value="6" aria-label="Leistung" tabindex="-1"><small class="field-hint" id="hand-rate-hint">Bitte Ihren Erfahrungswert eintragen</small></div>
                                 <div class="field" id="hand-loss-field"><label for="hand-loss"><span id="hand-loss-label">Materialverlust</span> <em class="tag" id="hand-loss-tag">Annahme</em></label><div class="input-unit"><input type="number" id="hand-loss" value="15" min="0" step="1" inputmode="decimal"><span id="hand-loss-unit">%</span></div><input type="range" class="range" id="hand-loss-range" min="0" max="40" step="1" value="15" aria-label="Materialverlust" tabindex="-1"></div>
                             </div>
                             <div class="compare-col compare-wps">
-                                <h3>Mit der WPS</h3>
+                                <p class="compare-title">Mit der WPS</p>
                                 <div class="field" id="wps-rate-field"><label for="wps-rate"><span id="wps-rate-label">Leistung</span> <em class="tag" id="wps-rate-tag">Hersteller</em></label><div class="input-unit"><input type="number" id="wps-rate" value="20" min="0" step="0.5" inputmode="decimal"><span id="wps-rate-unit">m/h</span></div><input type="range" class="range" id="wps-rate-range" min="1" max="40" step="0.5" value="20" aria-label="Leistung" tabindex="-1"><small class="field-hint" id="wps-rate-hint">Hersteller: bis 25 m/h</small></div>
                                 <div class="field" id="wps-loss-field"><label for="wps-loss"><span id="wps-loss-label">Materialverlust</span> <em class="tag" id="wps-loss-tag">Annahme</em></label><div class="input-unit"><input type="number" id="wps-loss" value="5" min="0" step="1" inputmode="decimal"><span id="wps-loss-unit">%</span></div><input type="range" class="range" id="wps-loss-range" min="0" max="40" step="1" value="5" aria-label="Materialverlust" tabindex="-1"></div>
                             </div>
@@ -155,6 +165,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </main>
 
     <section class="cta">
@@ -165,7 +176,7 @@
             </div>
             <div class="cta-contact">
                 <a class="cta-phone" href="tel:+41433887060"><svg class="i" aria-hidden="true"><use href="assets/icons.svg?v=e6b1f9a0#phone"/></svg>+41 43 388 70 60</a>
-                <p class="cta-hours">Mo–Do 07:00–12:00 und 13:00–17:00, Fr bis 16:00</p>
+                <div class="hours hours-dark"><p class="open-status" data-hours="1-4:07:00-12:00,13:00-17:00;5:07:00-12:00,13:00-16:00" hidden></p><table class="hours-table"><caption class="sr-only">Öffnungszeiten</caption><tbody><tr><th scope="row">Mo–Do</th><td>07:00–12:00</td><td>13:00–17:00</td></tr><tr><th scope="row">Fr</th><td>07:00–12:00</td><td>13:00–16:00</td></tr><tr><th scope="row">Sa–So</th><td>geschlossen</td><td></td></tr></tbody></table></div>
                 <div class="btn-row">
                     <a class="btn btn-accent" href="kontakt.html">Anfrage senden</a>
                     <a class="btn btn-outline-light" href="mailto:info@wilcowa.ch">info@wilcowa.ch</a>
@@ -196,7 +207,7 @@
             </div>
             <div>
                 <h2>Öffnungszeiten</h2>
-                <p>Mo–Do 07:00–12:00, 13:00–17:00<br>Fr 07:00–12:00, 13:00–16:00</p>
+                <div class="hours hours-dark"><p class="open-status" data-hours="1-4:07:00-12:00,13:00-17:00;5:07:00-12:00,13:00-16:00" hidden></p><table class="hours-table"><caption class="sr-only">Öffnungszeiten</caption><tbody><tr><th scope="row">Mo–Do</th><td>07:00–12:00</td><td>13:00–17:00</td></tr><tr><th scope="row">Fr</th><td>07:00–12:00</td><td>13:00–16:00</td></tr><tr><th scope="row">Sa–So</th><td>geschlossen</td><td></td></tr></tbody></table></div>
             </div>
         </div>
         <div class="footer-bottom">
@@ -210,6 +221,6 @@
         </div>
     </footer>
 
-    <script src="script.js?v=98bd0d14"></script>
+    <script src="script.js?v=f41e8b83"></script>
 </body>
 </html>

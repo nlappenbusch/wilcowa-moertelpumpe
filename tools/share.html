@@ -1,0 +1,11 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../website/style.css"><style>
+html,body{margin:0;width:1200px;height:630px;overflow:hidden}
+.card{display:grid;grid-template-columns:560px 640px;width:1200px;height:630px;background:#27446f}
+.l{padding:56px 56px 48px;display:flex;flex-direction:column;color:#d9e2ee}
+.l img{height:40px;width:auto;filter:grayscale(1) invert(1) contrast(4);mix-blend-mode:screen;align-self:flex-start}
+.l h1{font-family:'Barlow Semi Condensed';font-weight:700;font-size:60px;line-height:1.05;color:#fff;margin:auto 0 18px}
+.l p{font-size:24px;line-height:1.35;margin:0}
+.l .u{margin-top:28px;font-size:22px;color:#dd9933;font-weight:500}
+.r{background-size:cover;background-position:center}
+</style></head><body><div class="card"><div class="l"><img src="../website/assets/wilcowa-logo.png" alt=""><h1 id="t"></h1><p id="s"></p><div class="u">moertelpumpe.ch</div></div><div class="r" id="r"></div></div>
+<script>const q=new URLSearchParams(location.search);document.getElementById('t').textContent=q.get('t');document.getElementById('s').textContent=q.get('s');document.getElementById('r').style.backgroundImage=`url(../website/assets/${q.get('i')}.avif)`;</script></body></html>
