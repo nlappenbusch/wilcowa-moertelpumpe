@@ -1,5 +1,16 @@
 /* moertelpumpe.ch – Wilcowa AG */
 
+/* Schriften lokal: Barlow Semi Condensed (Überschriften), Roboto (Text, wie wilcowa.ch) */
+@font-face { font-family: 'Barlow Semi Condensed'; font-style: normal; font-weight: 500; font-display: swap; src: url('assets/fonts/barlow-semi-condensed-500-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Barlow Semi Condensed'; font-style: normal; font-weight: 500; font-display: swap; src: url('assets/fonts/barlow-semi-condensed-500-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Barlow Semi Condensed'; font-style: normal; font-weight: 600; font-display: swap; src: url('assets/fonts/barlow-semi-condensed-600-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Barlow Semi Condensed'; font-style: normal; font-weight: 600; font-display: swap; src: url('assets/fonts/barlow-semi-condensed-600-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Barlow Semi Condensed'; font-style: normal; font-weight: 700; font-display: swap; src: url('assets/fonts/barlow-semi-condensed-700-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Barlow Semi Condensed'; font-style: normal; font-weight: 700; font-display: swap; src: url('assets/fonts/barlow-semi-condensed-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Roboto'; font-style: normal; font-weight: 400 700; font-display: swap; src: url('assets/fonts/roboto-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Roboto'; font-style: normal; font-weight: 400 700; font-display: swap; src: url('assets/fonts/roboto-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+
 :root {
     --navy: #27446f;
     --navy-dark: #1b3152;
@@ -12,7 +23,8 @@
     --amber-dark: #c8861f;
     --night: #1d1e2c;          /* wilcowa.ch, dunkel */
     --navy-tint: #e8eef6;
-    --font: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+    --font: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    --font-head: 'Barlow Semi Condensed', 'Arial Narrow', 'Roboto', sans-serif;
     --container: 1180px;
     --gutter: 24px;
     --header-h: 80px;
@@ -31,10 +43,10 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3 { color: var(--ink); font-weight: 600; line-height: 1.25; }
-h1 { font-size: clamp(1.9rem, 3.2vw, 2.6rem); }
-h2 { font-size: clamp(1.45rem, 2.2vw, 1.85rem); }
-h3 { font-size: 1.1rem; }
+h1, h2, h3 { font-family: var(--font-head); color: var(--ink); font-weight: 600; line-height: 1.15; letter-spacing: 0.002em; }
+h1 { font-size: clamp(2.2rem, 3.8vw, 3.1rem); font-weight: 700; }
+h2 { font-size: clamp(1.7rem, 2.6vw, 2.15rem); }
+h3 { font-size: 1.25rem; }
 p + p { margin-top: 0.9rem; }
 strong { color: var(--ink); font-weight: 600; }
 
@@ -67,7 +79,7 @@ img { display: block; max-width: 100%; height: auto; }
     padding: 12px 22px;
     font: inherit; font-size: 0.95rem; font-weight: 500; line-height: 1.3;
     text-decoration: none;
-    border: 1px solid transparent; border-radius: 3px;
+    border: 1px solid transparent; border-radius: 4px;
     cursor: pointer;
 }
 .btn-primary { background: var(--navy); color: #fff; }
@@ -110,7 +122,7 @@ img { display: block; max-width: 100%; height: auto; }
 
 /* Startseite */
 .hero { background: var(--navy); color: #d9e2ee; }
-.hero h1 { color: #fff; }
+.hero h1 { color: #fff; font-size: clamp(2.1rem, 3.4vw, 2.8rem); }
 .hero .lead { color: #d9e2ee; }
 .hero .container { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; padding-top: 64px; padding-bottom: 64px; }
 .hero h1 { margin-bottom: 18px; }
@@ -162,7 +174,7 @@ img { display: block; max-width: 100%; height: auto; }
 
 .layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 64px; align-items: start; }
 .prose > * + * { margin-top: 1rem; }
-.prose h2 { font-size: 1.45rem; margin-top: 2.6rem; }
+.prose h2 { font-size: 1.7rem; margin-top: 2.6rem; }
 .prose h3 { margin-top: 2rem; }
 .prose > h2:first-child, .prose > figure:first-child { margin-top: 0; }
 .prose p, .prose li { max-width: 70ch; }
@@ -183,8 +195,16 @@ img { display: block; max-width: 100%; height: auto; }
 .side-links a { display: block; padding: 9px 0; color: var(--ink); text-decoration: none; font-size: 0.94rem; }
 .side-links a:hover { color: var(--navy); }
 .side-links a[aria-current] { color: var(--navy); font-weight: 600; }
-.side-contact { background: var(--navy-tint); border-left: 4px solid var(--amber); padding: 20px; }
-.side-contact a.phone { display: block; font-size: 1.15rem; font-weight: 600; color: var(--ink); text-decoration: none; margin: 4px 0 2px; }
+.side-contact { background: var(--navy); color: #c9d5e5; border-radius: 6px; padding: 24px; }
+.sidebar .side-contact h2 { font-size: 1.35rem; color: #fff; margin-bottom: 14px; }
+.side-contact-phone { display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; font-family: var(--font-head); font-size: 1.55rem; font-weight: 600; line-height: 1.2; }
+.side-contact-phone:hover { color: var(--amber); }
+.side-contact-phone .i { color: var(--amber); width: 22px; height: 22px; }
+.side-contact-hours { font-size: 0.88rem; margin: 6px 0 18px; }
+.side-contact .btn { display: block; width: 100%; text-align: center; }
+.side-contact-mail { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 12px; color: #c9d5e5; font-size: 0.9rem; text-decoration: none; }
+.side-contact-mail:hover { color: #fff; }
+.side-contact-mail .i { width: 17px; height: 17px; }
 
 /* Anwendungen-Übersicht */
 .app-list { list-style: none; }
@@ -339,8 +359,8 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; background: var
 
 /* Datenblatt */
 .spec { width: 100%; border-collapse: collapse; font-size: 0.95rem; border: 1px solid var(--navy); background: #fff; }
-.spec .spec-head th { padding: 12px 18px; background: var(--navy); color: #fff; font-weight: 600; border-top: 0; }
-.spec .spec-note { float: right; margin-left: 16px; font-weight: 400; font-size: 0.82rem; line-height: 1.9; color: #c3cfdf; }
+.spec .spec-head th { padding: 12px 18px; background: var(--navy); color: #fff; font-family: var(--font-head); font-size: 1.15rem; font-weight: 600; border-top: 0; }
+.spec .spec-note { font-family: var(--font); float: right; margin-left: 16px; font-weight: 400; font-size: 0.82rem; line-height: 1.9; color: #c3cfdf; }
 .spec th, .spec td { padding: 10px 18px; text-align: left; vertical-align: top; border-top: 1px solid var(--line); }
 .spec tbody th { width: 38%; font-weight: 400; color: var(--muted); }
 .spec td { color: var(--ink); font-weight: 500; }

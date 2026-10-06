@@ -13,9 +13,8 @@
     <meta property="og:image" content="https://moertelpumpe.ch/assets/Natursteinwand_Fugen.avif">
     <meta property="og:locale" content="de_CH">
     <link rel="icon" type="image/png" href="assets/wilcowa-logo.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+    <link rel="preload" href="assets/fonts/roboto-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/barlow-semi-condensed-600-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="style.css">
     <script type="application/ld+json">
 {
@@ -103,9 +102,10 @@
             <aside class="sidebar">
                 <section class="side-contact">
                     <h2>Beratung und Miete</h2>
-                    <p>Wilcowa AG, Regensdorf</p>
-                    <a class="phone" href="tel:+41433887060">+41 43 388 70 60</a>
-                    <p><a href="kontakt.html">Anfrage senden</a></p>
+                    <a class="side-contact-phone" href="tel:+41433887060"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#phone"/></svg>+41 43 388 70 60</a>
+                    <p class="side-contact-hours">Mo–Do 07–17 Uhr, Fr bis 16 Uhr</p>
+                    <a class="btn btn-accent" href="kontakt.html">Anfrage senden</a>
+                    <a class="side-contact-mail" href="mailto:info@wilcowa.ch"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#mail"/></svg>info@wilcowa.ch</a>
                 </section>
                 <section><h2>Unterlagen</h2><ul class="downloads"><li><a href="assets/Anwendung_Fugen.pdf" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#file"/></svg>Anwendungsblatt Fugen mit getesteten Fugenmörteln<span>PDF, 5 Seiten</span></a></li><li><a href="assets/Flyer_Strassen-Hoch-Tiefbau.pdf" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#file"/></svg>Flyer Hochbau, Strassen- und Tiefbau<span>PDF</span></a></li></ul></section>
                 <section><h2>Anwendungen</h2><ul class="side-links"><li><a href="anwendung-untermoerteln.html">Untermörteln von Schwellen und Elementen</a></li><li><a href="anwendung-stahlzargen.html">Stahlzargen einmörteln</a></li><li><a href="anwendung-naturstein.html" aria-current="page">Natur- und Bruchsteinmauern verfugen</a></li><li><a href="anwendung-klinker.html">Klinker-Verblender verfugen</a></li><li><a href="anwendung-betonfugen.html">Fugen von Betonelementen</a></li><li><a href="anwendung-spannbeton.html">Deckenplatten-Fugen ausmörteln</a></li><li><a href="anwendung-maueranker.html">Mauer- und Felsanker verpressen</a></li><li><a href="anwendung-daemmplatten.html">Mörtelkleber auf Dämmplatten</a></li></ul></section>

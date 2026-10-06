@@ -60,9 +60,8 @@ def head(p):
     <meta property="og:image" content="{og_img}">
     <meta property="og:locale" content="de_CH">
     <link rel="icon" type="image/png" href="assets/wilcowa-logo.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+    <link rel="preload" href="assets/fonts/roboto-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/barlow-semi-condensed-600-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="style.css">{ld}
 </head>
 <body>
@@ -180,9 +179,10 @@ def page_head(crumbs, title, lead):
 def side_contact():
     return f'''<section class="side-contact">
                     <h2>Beratung und Miete</h2>
-                    <p>Wilcowa AG, Regensdorf</p>
-                    <a class="phone" href="{PHONE_HREF}">{PHONE}</a>
-                    <p><a href="kontakt.html">Anfrage senden</a></p>
+                    <a class="side-contact-phone" href="{PHONE_HREF}">{icon("phone")}{PHONE}</a>
+                    <p class="side-contact-hours">Mo–Do 07–17 Uhr, Fr bis 16 Uhr</p>
+                    <a class="btn btn-accent" href="kontakt.html">Anfrage senden</a>
+                    <a class="side-contact-mail" href="mailto:{MAIL}">{icon("mail")}{MAIL}</a>
                 </section>'''
 
 def side_apps(current):
