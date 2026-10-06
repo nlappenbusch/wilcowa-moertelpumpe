@@ -26,7 +26,7 @@
     <meta name="theme-color" content="#27446f">
     <link rel="preload" href="assets/fonts/roboto-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/barlow-semi-condensed-600-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="style.css?v=b0a8a4d4">
+    <link rel="stylesheet" href="style.css?v=1d98d8ba">
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -84,109 +84,154 @@
     </header>
 
     <main id="inhalt">
-    <section class="page-head">
+    <section class="page-head page-head-jump">
         <div class="container">
-            <nav class="breadcrumbs" aria-label="Brotkrumen"><ol><li><a href="index.html">Start</a></li><li><span aria-current="page">Anwendungen</span></li></ol></nav>
-            <h1>Anwendungen der WPS-Mörtelpumpe</h1>
-            <p class="lead">Untermörteln, Einmörteln, Verfugen und Verpressen im Hoch-, Holz- und Tiefbau.</p>
-            
+            <div>
+                <nav class="breadcrumbs" aria-label="Brotkrumen"><ol><li><a href="index.html">Start</a></li><li><span aria-current="page">Anwendungen</span></li></ol></nav>
+                <h1>Anwendungen der WPS-Mörtelpumpe</h1>
+                <p class="lead">Untermörteln, Einmörteln, Verfugen und Verpressen im Hoch-, Holz- und Tiefbau. Wählen Sie Ihre Anwendung.</p>
+            </div>
+            <nav class="jump" aria-label="Anwendung wählen"><div class="jump-group"><p>Holz- und Hochbau</p><ul><li><a href="#anwendung-untermoerteln"><svg class="menu-icon" viewBox="0 0 72 48" aria-hidden="true"><rect x="18" y="8" width="36" height="22" class="s-wood"/><rect x="18" y="30" width="36" height="6" class="s-mortar"/><rect x="2" y="36" width="68" height="10" class="s-solid"/></svg><span>Untermörteln</span></a></li><li><a href="#anwendung-stahlzargen"><svg class="menu-icon" viewBox="0 0 72 48" aria-hidden="true"><path d="M8 46V4h56v42h-8V12H16v34z" class="s-solid"/><path d="M16 46V12h40v34h-4V16H20v30z" class="s-mortar"/><path d="M20 46V16h32v30h-3V19H23v27z" class="s-steel"/></svg><span>Stahlzargen einmörteln</span></a></li><li><a href="#anwendung-daemmplatten"><svg class="menu-icon" viewBox="0 0 72 48" aria-hidden="true"><rect x="2" y="6" width="22" height="38" class="s-solid"/><rect x="34" y="6" width="22" height="38" class="s-wood"/><circle cx="29" cy="14" r="3.5" class="s-mortar"/><circle cx="29" cy="25" r="3.5" class="s-mortar"/><circle cx="29" cy="36" r="3.5" class="s-mortar"/></svg><span>Kleber auf Dämmplatten</span></a></li></ul></div><div class="jump-group"><p>Fugen</p><ul><li><a href="#anwendung-naturstein"><svg class="menu-icon" viewBox="0 0 72 48" aria-hidden="true"><rect x="2" y="2" width="68" height="44" class="s-mortar"/><path d="M4 4h22l2 14-4 6H4zM30 4h20l-2 12H31zM53 4h15v18H51zM4 27h18l4 8-2 9H4zM28 27l4-8h16l5 10-3 15H28zM56 25h12v19H54l-2-10z" class="s-solid"/></svg><span>Natur- und Bruchstein</span></a></li><li><a href="#anwendung-klinker"><svg class="menu-icon" viewBox="0 0 72 48" aria-hidden="true"><rect x="2" y="4" width="68" height="40" class="s-mortar"/><path d="M4 6h20v10H4zM27 6h20v10H27zM50 6h18v10H50zM4 19h8v10H4zM15 19h20v10H15zM38 19h20v10H38zM61 19h7v10h-7zM4 32h20v10H4zM27 32h20v10H27zM50 32h18v10H50z" class="s-solid"/></svg><span>Klinker-Verblender</span></a></li><li><a href="#anwendung-betonfugen"><svg class="menu-icon" viewBox="0 0 72 48" aria-hidden="true"><path d="M4 10h20l12 22v12H4z" class="s-solid"/><path d="M68 10H48L36 32v12h32z" class="s-solid"/><path d="M24 10h24L36 32z" class="s-mortar"/></svg><span>Betonfugen</span></a></li><li><a href="#anwendung-spannbeton"><svg class="menu-icon" viewBox="0 0 72 48" aria-hidden="true"><path d="M2 16h31v22H2zM39 16h31v22H39z" class="s-solid"/><path d="M33 16h6v22h-6z" class="s-mortar"/><circle cx="12" cy="27" r="4" class="s-hole"/><circle cx="24" cy="27" r="4" class="s-hole"/><circle cx="48" cy="27" r="4" class="s-hole"/><circle cx="60" cy="27" r="4" class="s-hole"/></svg><span>Deckenplatten-Fugen</span></a></li></ul></div><div class="jump-group"><p>Verankerung</p><ul><li><a href="#anwendung-maueranker"><svg class="menu-icon" viewBox="0 0 72 48" aria-hidden="true"><rect x="22" y="2" width="48" height="44" class="s-solid"/><rect x="22" y="19" width="40" height="10" class="s-mortar"/><path d="M4 24h56" class="s-rod"/><path d="M8 18v12" class="s-rod"/></svg><span>Mauer- und Felsanker</span></a></li></ul></div></nav>
         </div>
     </section>
 
-    <div>
-        <section class="section">
-            <div class="container">
-                <ul class="app-list">
-                <li>
-                    <img src="assets/Beton_Stahl_Konstruktion.avif" alt="Untermörteln von Schwellen und Elementen" loading="lazy" width="900" height="675">
-                    <div>
-                        <h2><a href="anwendung-untermoerteln.html" style="color:inherit;text-decoration:none">Untermörteln von Schwellen und Elementen</a></h2>
-                        <p>Holzschwellen, Betonelemente, Stahlträger, Stahlplatten und Dachpfetten vollflächig und hohlraumfrei unterfüttern.</p>
-                        <a class="more" href="anwendung-untermoerteln.html">Untermörteln von Schwellen und Elementen: Vorgehen und Ausrüstung</a>
-                    </div>
-                </li>
-                <li>
-                    <img src="assets/Stahlschalung_Saeule.avif" alt="Stahlzargen einmörteln" loading="lazy" width="900" height="675">
-                    <div>
-                        <h2><a href="anwendung-stahlzargen.html" style="color:inherit;text-decoration:none">Stahlzargen einmörteln</a></h2>
-                        <p>Auch in Sichtbauweise und bei rauchdichter Ausführung: Der Spalt zwischen Leibung und Zarge wird sauber und vollständig verfüllt.</p>
-                        <a class="more" href="anwendung-stahlzargen.html">Stahlzargen einmörteln: Vorgehen und Ausrüstung</a>
-                    </div>
-                </li>
-                <li>
-                    <img src="assets/Natursteinwand_Fugen.avif" alt="Natur- und Bruchsteinmauern verfugen" loading="lazy" width="900" height="675">
-                    <div>
-                        <h2><a href="anwendung-naturstein.html" style="color:inherit;text-decoration:none">Natur- und Bruchsteinmauern verfugen</a></h2>
-                        <p>Natur- und Bruchsteinmauern, Gewölbe und Strassenrandsteine maschinell ausfugen.</p>
-                        <a class="more" href="anwendung-naturstein.html">Natur- und Bruchsteinmauern verfugen: Vorgehen und Ausrüstung</a>
-                    </div>
-                </li>
-                <li>
-                    <img src="assets/Klinker-Verblender_gefugt.avif" alt="Klinker-Verblender verfugen" loading="lazy" width="900" height="675">
-                    <div>
-                        <h2><a href="anwendung-klinker.html" style="color:inherit;text-decoration:none">Klinker-Verblender verfugen</a></h2>
-                        <p>Schmale Fassadenfugen von 5 bis 10 mm an Klinker-Verblendern und Natursteinplatten.</p>
-                        <a class="more" href="anwendung-klinker.html">Klinker-Verblender verfugen: Vorgehen und Ausrüstung</a>
-                    </div>
-                </li>
-                <li>
-                    <img src="assets/Fugen_Deckenelemente.avif" alt="Fugen von Betonelementen" loading="lazy" width="900" height="675">
-                    <div>
-                        <h2><a href="anwendung-betonfugen.html" style="color:inherit;text-decoration:none">Fugen von Betonelementen</a></h2>
-                        <p>V-Fugen und Stossfugen an Betonfertigteilen maschinell statt mit der Kelle ausmörteln.</p>
-                        <a class="more" href="anwendung-betonfugen.html">Fugen von Betonelementen: Vorgehen und Ausrüstung</a>
-                    </div>
-                </li>
-                <li>
-                    <img src="assets/Ausgiessen_Spannbetonplatten.avif" alt="Deckenplatten-Fugen ausmörteln" loading="lazy" width="900" height="675">
-                    <div>
-                        <h2><a href="anwendung-spannbeton.html" style="color:inherit;text-decoration:none">Deckenplatten-Fugen ausmörteln</a></h2>
-                        <p>Fugen zwischen Deckenelementen und Verankerungen von Spannbetonplatten ausmörteln.</p>
-                        <a class="more" href="anwendung-spannbeton.html">Deckenplatten-Fugen ausmörteln: Vorgehen und Ausrüstung</a>
-                    </div>
-                </li>
-                <li>
-                    <img src="assets/Mauer-Anker_verpressen.avif" alt="Mauer- und Felsanker verpressen" loading="lazy" width="900" height="675">
-                    <div>
-                        <h2><a href="anwendung-maueranker.html" style="color:inherit;text-decoration:none">Mauer- und Felsanker verpressen</a></h2>
-                        <p>Mörtelinjektion für Mauer-, Fels- und Wandanker sowie Zementschlämme für Erdanker.</p>
-                        <a class="more" href="anwendung-maueranker.html">Mauer- und Felsanker verpressen: Vorgehen und Ausrüstung</a>
-                    </div>
-                </li>
-                <li>
-                    <img src="assets/Daemmplatten_Kleber.avif" alt="Mörtelkleber auf Dämmplatten" loading="lazy" width="900" height="675">
-                    <div>
-                        <h2><a href="anwendung-daemmplatten.html" style="color:inherit;text-decoration:none">Mörtelkleber auf Dämmplatten</a></h2>
-                        <p>Mörtelkleber dosiert auf Dämm- und Brandschutzplatten oder auf den Untergrund auftragen.</p>
-                        <a class="more" href="anwendung-daemmplatten.html">Mörtelkleber auf Dämmplatten: Vorgehen und Ausrüstung</a>
-                    </div>
-                </li>
-                </ul>
-            </div>
-        </section>
-        <section class="section bg-alt">
-            <div class="container two-col">
-                <div>
-                    <h2>Weitere Einsätze</h2>
-                    <p>Die WPS wurde ausserdem schon für diese Arbeiten verwendet:</p>
+            <section class="app-section" id="hochbau" aria-labelledby="g-hochbau">
+                <div class="container">
+                    <h2 id="g-hochbau">Holz- und Hochbau</h2>
+                    
+                    <article class="app-item" id="anwendung-untermoerteln">
+                        <a class="app-item-media" href="anwendung-untermoerteln.html" tabindex="-1" aria-hidden="true"><img src="assets/Beton_Stahl_Konstruktion.avif" alt="" loading="lazy" width="900" height="675"></a>
+                        <div class="app-item-body">
+                            <h3><a href="anwendung-untermoerteln.html">Untermörteln von Schwellen und Elementen</a></h3>
+                            <p>Holzschwellen, Betonelemente, Stahlträger, Stahlplatten und Dachpfetten vollflächig und hohlraumfrei unterfüttern.</p>
+                            <dl class="app-facts"><div><dt>Fugenhöhe</dt><dd>ab 11 mm</dd></div><div><dt>Tiefe</dt><dd>bis über 400 mm</dd></div><div><dt>Düse</dt><dd>Breitschlitzdüse, ab 120 mm mit Schnabel</dd></div></dl>
+                            <div class="btn-row">
+                                <a class="btn btn-primary" href="anwendung-untermoerteln.html">Vorgehen und Ausrüstung</a>
+                                <a class="btn btn-secondary" href="moertel-bedarf-rechner.html?mode=unter">Ersparnis berechnen</a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="app-item" id="anwendung-stahlzargen">
+                        <a class="app-item-media" href="anwendung-stahlzargen.html" tabindex="-1" aria-hidden="true"><img src="assets/Stahlschalung_Saeule.avif" alt="" loading="lazy" width="900" height="675"></a>
+                        <div class="app-item-body">
+                            <h3><a href="anwendung-stahlzargen.html">Stahlzargen einmörteln</a></h3>
+                            <p>Auch in Sichtbauweise und bei rauchdichter Ausführung: Der Spalt zwischen Leibung und Zarge wird sauber und vollständig verfüllt.</p>
+                            <dl class="app-facts"><div><dt>Spalt</dt><dd>1–2 cm zur Leibung</dd></div><div><dt>Zeit</dt><dd>ca. 47 min pro Standardzarge</dd></div><div><dt>Mörtel</dt><dd>ca. 22 l pro Zarge</dd></div></dl>
+                            <div class="btn-row">
+                                <a class="btn btn-primary" href="anwendung-stahlzargen.html">Vorgehen und Ausrüstung</a>
+                                <a class="btn btn-secondary" href="moertel-bedarf-rechner.html?mode=zarge">Ersparnis berechnen</a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="app-item" id="anwendung-daemmplatten">
+                        <a class="app-item-media" href="anwendung-daemmplatten.html" tabindex="-1" aria-hidden="true"><img src="assets/Daemmplatten_Kleber.avif" alt="" loading="lazy" width="900" height="675"></a>
+                        <div class="app-item-body">
+                            <h3><a href="anwendung-daemmplatten.html">Mörtelkleber auf Dämmplatten</a></h3>
+                            <p>Mörtelkleber dosiert auf Dämm- und Brandschutzplatten oder auf den Untergrund auftragen.</p>
+                            <dl class="app-facts"><div><dt>Auftrag</dt><dd>Kleberaupe auf Platte oder Wand</dd></div><div><dt>Platten</dt><dd>Dämm- und Brandschutzplatten</dd></div><div><dt>Spritzen</dt><dd>Spezialmörtel bis ca. 1 cm</dd></div></dl>
+                            <div class="btn-row">
+                                <a class="btn btn-primary" href="anwendung-daemmplatten.html">Vorgehen und Ausrüstung</a>
+                                
+                            </div>
+                        </div>
+                    </article>
                 </div>
-                <ul class="bullets">
-                    <li>Ausgiessen einer Kranschiene mit hochfestem Mörtel</li>
-                    <li>Ausgiessen einer Trägerverschalung mit Vergussmörtel</li>
-                    <li>Untermörteln von Dachpfetten für Schallschutz und Statik</li>
-                    <li>Ausmörteln von Ziegelsteinen bei Wanddurchbrüchen</li>
-                    <li>Partielles Ausmörteln paralleler Betonelemente zur Erdbebenertüchtigung</li>
-                    <li>Ausmörteln von Brandschutzklappen und Mauerschlitzen</li>
-                </ul>
+            </section>
+            <section class="app-section" id="fugen" aria-labelledby="g-fugen">
+                <div class="container">
+                    <h2 id="g-fugen">Fugen</h2>
+                    
+                    <article class="app-item" id="anwendung-naturstein">
+                        <a class="app-item-media" href="anwendung-naturstein.html" tabindex="-1" aria-hidden="true"><img src="assets/Natursteinwand_Fugen.avif" alt="" loading="lazy" width="900" height="675"></a>
+                        <div class="app-item-body">
+                            <h3><a href="anwendung-naturstein.html">Natur- und Bruchsteinmauern verfugen</a></h3>
+                            <p>Natur- und Bruchsteinmauern, Gewölbe und Strassenrandsteine maschinell ausfugen.</p>
+                            <dl class="app-facts"><div><dt>Düse</dt><dd>Fugendüse 13 cm, anpassbar</dd></div><div><dt>Mörtel</dt><dd>über 15 getestete Fugenmörtel</dd></div><div><dt>Kompressor</dt><dd>3 kW, 400 V</dd></div></dl>
+                            <div class="btn-row">
+                                <a class="btn btn-primary" href="anwendung-naturstein.html">Vorgehen und Ausrüstung</a>
+                                <a class="btn btn-secondary" href="moertel-bedarf-rechner.html?mode=fuge">Ersparnis berechnen</a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="app-item" id="anwendung-klinker">
+                        <a class="app-item-media" href="anwendung-klinker.html" tabindex="-1" aria-hidden="true"><img src="assets/Klinker-Verblender_gefugt.avif" alt="" loading="lazy" width="900" height="675"></a>
+                        <div class="app-item-body">
+                            <h3><a href="anwendung-klinker.html">Klinker-Verblender verfugen</a></h3>
+                            <p>Schmale Fassadenfugen von 5 bis 10 mm an Klinker-Verblendern und Natursteinplatten.</p>
+                            <dl class="app-facts"><div><dt>Fugenbreite</dt><dd>5–10 mm</dd></div><div><dt>Fugentiefe</dt><dd>10–20 mm</dd></div><div><dt>Düse</dt><dd>auf 4.5 mm zusammengedrückt</dd></div></dl>
+                            <div class="btn-row">
+                                <a class="btn btn-primary" href="anwendung-klinker.html">Vorgehen und Ausrüstung</a>
+                                <a class="btn btn-secondary" href="moertel-bedarf-rechner.html?mode=fuge">Ersparnis berechnen</a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="app-item" id="anwendung-betonfugen">
+                        <a class="app-item-media" href="anwendung-betonfugen.html" tabindex="-1" aria-hidden="true"><img src="assets/Fugen_Deckenelemente.avif" alt="" loading="lazy" width="900" height="675"></a>
+                        <div class="app-item-body">
+                            <h3><a href="anwendung-betonfugen.html">Fugen von Betonelementen</a></h3>
+                            <p>V-Fugen und Stossfugen an Betonfertigteilen maschinell statt mit der Kelle ausmörteln.</p>
+                            <dl class="app-facts"><div><dt>V-Fugen</dt><dd>1–4 cm breit</dd></div><div><dt>Stossfugen</dt><dd>2–4 cm breit</dd></div><div><dt>Mörtel</dt><dd>Kalk-Zementmörtel 0–1 mm</dd></div></dl>
+                            <div class="btn-row">
+                                <a class="btn btn-primary" href="anwendung-betonfugen.html">Vorgehen und Ausrüstung</a>
+                                <a class="btn btn-secondary" href="moertel-bedarf-rechner.html?mode=vfuge">Ersparnis berechnen</a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="app-item" id="anwendung-spannbeton">
+                        <a class="app-item-media" href="anwendung-spannbeton.html" tabindex="-1" aria-hidden="true"><img src="assets/Ausgiessen_Spannbetonplatten.avif" alt="" loading="lazy" width="900" height="675"></a>
+                        <div class="app-item-body">
+                            <h3><a href="anwendung-spannbeton.html">Deckenplatten-Fugen ausmörteln</a></h3>
+                            <p>Fugen zwischen Deckenelementen und Verankerungen von Spannbetonplatten ausmörteln.</p>
+                            <dl class="app-facts"><div><dt>Einsatz</dt><dd>Fugen zwischen Deckenelementen</dd></div><div><dt>Auch für</dt><dd>Verankerungen, Porenbetonplatten</dd></div><div><dt>Arbeitsweise</dt><dd>im Stehen, ohne Eimer</dd></div></dl>
+                            <div class="btn-row">
+                                <a class="btn btn-primary" href="anwendung-spannbeton.html">Vorgehen und Ausrüstung</a>
+                                
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+            <section class="app-section" id="verankerung" aria-labelledby="g-verankerung">
+                <div class="container">
+                    <h2 id="g-verankerung">Verankerung</h2>
+                    
+                    <article class="app-item" id="anwendung-maueranker">
+                        <a class="app-item-media" href="anwendung-maueranker.html" tabindex="-1" aria-hidden="true"><img src="assets/Mauer-Anker_verpressen.avif" alt="" loading="lazy" width="900" height="675"></a>
+                        <div class="app-item-body">
+                            <h3><a href="anwendung-maueranker.html">Mauer- und Felsanker verpressen</a></h3>
+                            <p>Mörtelinjektion für Mauer-, Fels- und Wandanker sowie Zementschlämme für Erdanker.</p>
+                            <dl class="app-facts"><div><dt>Düse</dt><dd>Rohrdüse DN 34</dd></div><div><dt>Anker</dt><dd>Mauer-, Fels- und Wandanker</dd></div><div><dt>Erdanker</dt><dd>mit Zementschlämme</dd></div></dl>
+                            <div class="btn-row">
+                                <a class="btn btn-primary" href="anwendung-maueranker.html">Vorgehen und Ausrüstung</a>
+                                
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+    <section class="section bg-alt">
+        <div class="container two-col">
+            <div>
+                <h2>Weitere Einsätze</h2>
+                <p>Die WPS wurde ausserdem schon für diese Arbeiten verwendet. Fragen Sie uns, wenn Ihre Anwendung nicht dabei ist.</p>
+                <p style="margin-top:18px"><a class="btn btn-primary" href="kontakt.html">Anwendung anfragen</a></p>
             </div>
-        </section>
-        <section class="section">
-            <div class="container">
-                <div class="section-title"><h2>Bilder von Baustellen</h2></div>
-                <div class="gallery"><figure><img src="assets/Untermorteln_Stahltragerplatte.avif" alt="Untermörteln einer Stahlplatte" loading="lazy" width="900" height="900"><figcaption>Untermörteln einer Stahlplatte</figcaption></figure><figure><img src="assets/Beton_Stahl_Konstruktion.avif" alt="Untermörteln an einer Beton-Stahl-Konstruktion" loading="lazy" width="900" height="900"><figcaption>Untermörteln an einer Beton-Stahl-Konstruktion</figcaption></figure><figure><img src="assets/Ausmorteln_Stahltrager.avif" alt="Ausmörteln eines Stahlträgers" loading="lazy" width="900" height="900"><figcaption>Ausmörteln eines Stahlträgers</figcaption></figure><figure><img src="assets/Stahlschalung_Saeule.avif" alt="Ausmörteln einer Stahlschalung" loading="lazy" width="900" height="900"><figcaption>Ausmörteln einer Stahlschalung</figcaption></figure><figure><img src="assets/Natursteinwand_Fugen.avif" alt="Natursteinwand" loading="lazy" width="900" height="900"><figcaption>Natursteinwand</figcaption></figure><figure><img src="assets/Ausfugen_Sandsteingewolbe.avif" alt="Sandstein-Kellergewölbe" loading="lazy" width="900" height="900"><figcaption>Sandstein-Kellergewölbe</figcaption></figure><figure><img src="assets/Fugen_Randsteine.avif" alt="Randsteine" loading="lazy" width="900" height="900"><figcaption>Randsteine</figcaption></figure><figure><img src="assets/Klinker-Verblender_gefugt.avif" alt="Klinker-Verblender" loading="lazy" width="900" height="900"><figcaption>Klinker-Verblender</figcaption></figure><figure><img src="assets/Fugen_Deckenelemente.avif" alt="Fugen von Deckenelementen" loading="lazy" width="900" height="900"><figcaption>Fugen von Deckenelementen</figcaption></figure><figure><img src="assets/Ausgiessen_Spannbetonplatten.avif" alt="Fugen von Spannbetonplatten" loading="lazy" width="900" height="900"><figcaption>Fugen von Spannbetonplatten</figcaption></figure><figure><img src="assets/Mauer-Anker_verpressen.avif" alt="Maueranker verpressen" loading="lazy" width="900" height="900"><figcaption>Maueranker verpressen</figcaption></figure><figure><img src="assets/Daemmplatten_Kleber.avif" alt="Kleber auf Dämmplatten" loading="lazy" width="900" height="900"><figcaption>Kleber auf Dämmplatten</figcaption></figure></div>
-            </div>
-        </section>
-    </div>
+            <ul class="bullets">
+                <li>Ausgiessen einer Kranschiene mit hochfestem Mörtel</li>
+                <li>Ausgiessen einer Trägerverschalung mit Vergussmörtel</li>
+                <li>Untermörteln von Dachpfetten für Schallschutz und Statik</li>
+                <li>Ausmörteln von Ziegelsteinen bei Wanddurchbrüchen</li>
+                <li>Partielles Ausmörteln paralleler Betonelemente zur Erdbebenertüchtigung</li>
+                <li>Ausmörteln von Brandschutzklappen und Mauerschlitzen</li>
+            </ul>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="section-title"><h2>Bilder von Baustellen</h2><p>Zum Vergrössern auf ein Bild klicken.</p></div>
+            <div class="gallery"><figure><img src="assets/Untermorteln_Stahltragerplatte.avif" alt="Untermörteln einer Stahlplatte" loading="lazy" width="900" height="900"><figcaption>Untermörteln einer Stahlplatte</figcaption></figure><figure><img src="assets/Beton_Stahl_Konstruktion.avif" alt="Untermörteln an einer Beton-Stahl-Konstruktion" loading="lazy" width="900" height="900"><figcaption>Untermörteln an einer Beton-Stahl-Konstruktion</figcaption></figure><figure><img src="assets/Ausmorteln_Stahltrager.avif" alt="Ausmörteln eines Stahlträgers" loading="lazy" width="900" height="900"><figcaption>Ausmörteln eines Stahlträgers</figcaption></figure><figure><img src="assets/Stahlschalung_Saeule.avif" alt="Ausmörteln einer Stahlschalung" loading="lazy" width="900" height="900"><figcaption>Ausmörteln einer Stahlschalung</figcaption></figure><figure><img src="assets/Natursteinwand_Fugen.avif" alt="Natursteinwand" loading="lazy" width="900" height="900"><figcaption>Natursteinwand</figcaption></figure><figure><img src="assets/Ausfugen_Sandsteingewolbe.avif" alt="Sandstein-Kellergewölbe" loading="lazy" width="900" height="900"><figcaption>Sandstein-Kellergewölbe</figcaption></figure><figure><img src="assets/Fugen_Randsteine.avif" alt="Randsteine" loading="lazy" width="900" height="900"><figcaption>Randsteine</figcaption></figure><figure><img src="assets/Klinker-Verblender_gefugt.avif" alt="Klinker-Verblender" loading="lazy" width="900" height="900"><figcaption>Klinker-Verblender</figcaption></figure><figure><img src="assets/Fugen_Deckenelemente.avif" alt="Fugen von Deckenelementen" loading="lazy" width="900" height="900"><figcaption>Fugen von Deckenelementen</figcaption></figure><figure><img src="assets/Ausgiessen_Spannbetonplatten.avif" alt="Fugen von Spannbetonplatten" loading="lazy" width="900" height="900"><figcaption>Fugen von Spannbetonplatten</figcaption></figure><figure><img src="assets/Mauer-Anker_verpressen.avif" alt="Maueranker verpressen" loading="lazy" width="900" height="900"><figcaption>Maueranker verpressen</figcaption></figure><figure><img src="assets/Daemmplatten_Kleber.avif" alt="Kleber auf Dämmplatten" loading="lazy" width="900" height="900"><figcaption>Kleber auf Dämmplatten</figcaption></figure></div>
+        </div>
+    </section>
     </main>
 
     <section class="cta">

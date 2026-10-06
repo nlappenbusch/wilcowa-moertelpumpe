@@ -789,49 +789,81 @@ GALLERY = [
     ("Daemmplatten_Kleber", "Kleber auf Dämmplatten"),
 ]
 
+GROUP_IDS = {"Holz- und Hochbau": "hochbau", "Fugen": "fugen", "Verankerung": "verankerung"}
+
 def page_anwendungen():
     crumbs = [("Start", "index.html"), ("Anwendungen", "anwendungen.html")]
-    rows = "".join(f'''
-                <li>
-                    <img src="assets/{img}.avif" alt="{t}" loading="lazy" width="900" height="675">
-                    <div>
-                        <h2><a href="{s}.html" style="color:inherit;text-decoration:none">{t}</a></h2>
-                        <p>{DETAILS[s]["lead"]}</p>
-                        <a class="more" href="{s}.html">{t}: Vorgehen und Ausrüstung</a>
-                    </div>
-                </li>''' for s, n, t, txt, img in APPS)
-    gal = "".join(f'<figure><img src="assets/{img}.avif" alt="{c}" loading="lazy" width="900" height="900"><figcaption>{c}</figcaption></figure>' for img, c in GALLERY)
-    return page_head(crumbs, "Anwendungen der WPS-Mörtelpumpe", "Untermörteln, Einmörteln, Verfugen und Verpressen im Hoch-, Holz- und Tiefbau.") + f'''
-    <main>
-        <section class="section">
-            <div class="container">
-                <ul class="app-list">{rows}
-                </ul>
-            </div>
-        </section>
-        <section class="section bg-alt">
-            <div class="container two-col">
-                <div>
-                    <h2>Weitere Einsätze</h2>
-                    <p>Die WPS wurde ausserdem schon für diese Arbeiten verwendet:</p>
+    info = {s_: (t, txt, img) for s_, n, t, txt, img in APPS}
+
+    # Schnellnavigation im Seitenkopf: Piktogramme wie im Menü, springen zur Anwendung auf dieser Seite
+    jump = "".join(
+        f'<div class="jump-group"><p>{title}</p><ul>'
+        + "".join(f'<li><a href="#{a}">{app_icon(a)}<span>{MENU_LABELS[a][0]}</span></a></li>' for a in slugs)
+        + '</ul></div>' for title, slugs in MENU_GROUPS)
+
+    def row(a):
+        t, txt, img = info[a]
+        mode, fx = FACTS[a]
+        facts = "".join(f'<div><dt>{k}</dt><dd>{v}</dd></div>' for k, v in fx[:3])
+        calc = f'<a class="btn btn-secondary" href="moertel-bedarf-rechner.html?mode={mode}">Ersparnis berechnen</a>' if mode else ""
+        return f'''
+                    <article class="app-item" id="{a}">
+                        <a class="app-item-media" href="{a}.html" tabindex="-1" aria-hidden="true"><img src="assets/{img}.avif" alt="" loading="lazy" width="900" height="675"></a>
+                        <div class="app-item-body">
+                            <h3><a href="{a}.html">{t}</a></h3>
+                            <p>{DETAILS[a]["lead"]}</p>
+                            <dl class="app-facts">{facts}</dl>
+                            <div class="btn-row">
+                                <a class="btn btn-primary" href="{a}.html">Vorgehen und Ausrüstung</a>
+                                {calc}
+                            </div>
+                        </div>
+                    </article>'''
+
+    groups = "".join(f'''
+            <section class="app-section" id="{GROUP_IDS[title]}" aria-labelledby="g-{GROUP_IDS[title]}">
+                <div class="container">
+                    <h2 id="g-{GROUP_IDS[title]}">{title}</h2>
+                    {"".join(row(a) for a in slugs)}
                 </div>
-                <ul class="bullets">
-                    <li>Ausgiessen einer Kranschiene mit hochfestem Mörtel</li>
-                    <li>Ausgiessen einer Trägerverschalung mit Vergussmörtel</li>
-                    <li>Untermörteln von Dachpfetten für Schallschutz und Statik</li>
-                    <li>Ausmörteln von Ziegelsteinen bei Wanddurchbrüchen</li>
-                    <li>Partielles Ausmörteln paralleler Betonelemente zur Erdbebenertüchtigung</li>
-                    <li>Ausmörteln von Brandschutzklappen und Mauerschlitzen</li>
-                </ul>
+            </section>''' for title, slugs in MENU_GROUPS)
+
+    gal = "".join(f'<figure><img src="assets/{img}.avif" alt="{c}" loading="lazy" width="900" height="900"><figcaption>{c}</figcaption></figure>' for img, c in GALLERY)
+    return f'''
+    <section class="page-head page-head-jump">
+        <div class="container">
+            <div>
+                {breadcrumbs(crumbs)}
+                <h1>Anwendungen der WPS-Mörtelpumpe</h1>
+                <p class="lead">Untermörteln, Einmörteln, Verfugen und Verpressen im Hoch-, Holz- und Tiefbau. Wählen Sie Ihre Anwendung.</p>
             </div>
-        </section>
-        <section class="section">
-            <div class="container">
-                <div class="section-title"><h2>Bilder von Baustellen</h2></div>
-                <div class="gallery">{gal}</div>
+            <nav class="jump" aria-label="Anwendung wählen">{jump}</nav>
+        </div>
+    </section>
+{groups}
+    <section class="section bg-alt">
+        <div class="container two-col">
+            <div>
+                <h2>Weitere Einsätze</h2>
+                <p>Die WPS wurde ausserdem schon für diese Arbeiten verwendet. Fragen Sie uns, wenn Ihre Anwendung nicht dabei ist.</p>
+                <p style="margin-top:18px"><a class="btn btn-primary" href="kontakt.html">Anwendung anfragen</a></p>
             </div>
-        </section>
-    </main>
+            <ul class="bullets">
+                <li>Ausgiessen einer Kranschiene mit hochfestem Mörtel</li>
+                <li>Ausgiessen einer Trägerverschalung mit Vergussmörtel</li>
+                <li>Untermörteln von Dachpfetten für Schallschutz und Statik</li>
+                <li>Ausmörteln von Ziegelsteinen bei Wanddurchbrüchen</li>
+                <li>Partielles Ausmörteln paralleler Betonelemente zur Erdbebenertüchtigung</li>
+                <li>Ausmörteln von Brandschutzklappen und Mauerschlitzen</li>
+            </ul>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="section-title"><h2>Bilder von Baustellen</h2><p>Zum Vergrössern auf ein Bild klicken.</p></div>
+            <div class="gallery">{gal}</div>
+        </div>
+    </section>
 '''
 
 # ------------------------------------------------------------------ Rechner
